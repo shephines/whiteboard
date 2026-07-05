@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Chain-Reaction Sandbox — Feed the Pet</title>
+<style>
+  :root{--ink:#22315B;--soft:#5A6685;--orange:#FF6B35;--green:#1FA06B;--amber:#EFA320;--line:#E4E8F2;--bg:#FFFDF9;--panel:#F5F7FC}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--ink);overflow:hidden}
+  #wrap{position:absolute;inset:0;display:flex;flex-direction:column}
+  #top{flex:1;position:relative}
+  canvas{display:block;width:100%;height:100%;touch-action:none}
+  #status{position:absolute;left:50%;top:12px;transform:translateX(-50%);background:var(--ink);color:#fff;font-weight:800;font-size:13px;padding:7px 15px;border-radius:999px;font-family:'Baloo 2','Inter',sans-serif;white-space:nowrap;transition:background .2s}
+  #goal{position:absolute;right:14px;bottom:14px;font-size:11px;font-weight:700;color:var(--soft);text-align:right}
+  #tray{padding:9px 12px;background:#fff;border-top:1.5px solid var(--line);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .chip{font-size:12px;font-weight:700;border:1.5px solid var(--line);border-radius:999px;padding:7px 13px;cursor:pointer;background:var(--panel);color:var(--ink);user-select:none}
+  .chip.on{background:var(--orange);color:#fff;border-color:var(--orange)}
+  .chip.placed{opacity:.45;pointer-events:none}
+  .sp{flex:1}
+  button{font-family:inherit;font-weight:700;font-size:13px;border:0;border-radius:10px;padding:9px 17px;cursor:pointer;background:var(--green);color:#fff}
+  button.sec{background:var(--panel);color:var(--ink);border:1.5px solid var(--line)}
+  button:disabled{opacity:.4;cursor:default}
+  #count{font-size:11px;font-weight:700;color:var(--soft);margin-right:4px}
+</style></head>
+<body>
+<div id="wrap">
+  <div id="top"><canvas id="c"></canvas>
+    <div id="status">Tap a machine, then tap a glowing slot to place it</div>
+    <div id="goal">GOAL: build the chain that<br>presses the feeder button 🐶</div>
+  </div>
+  <div id="tray">
+    <span id="count">0 / 3 placed</span>
+    <span class="chip" data-m="ramp">Inclined plane</span>
+    <span class="chip" data-m="lever">Lever</span>
+    <span class="chip" data-m="wheel">Wheel &amp; axle</span>
+    <span class="sp"></span>
+    <button id="run" disabled>▶ Run chain</button>
+    <button class="sec" id="reset">Reset</button>
+  </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+const C=document.getElementById('c');
+const renderer=new THREE.WebGLRenderer({canvas:C,antialias:true});
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+const scene=new THREE.Scene(); scene.background=new THREE.Color(0xFFFDF9);
+const cam=new THREE.PerspectiveCamera(45,1,.1,100); cam.position.set(0,3.6,12); cam.lookAt(0,1.4,0);
+scene.add(new THREE.AmbientLight(0xffffff,.88));
+const dl=new THREE.DirectionalLight(0xffffff,.55); dl.position.set(4,9,6); scene.add(dl);
+const board=new THREE.Mesh(new THREE.BoxGeometry(13,7.6,.3),new THREE.MeshLambertMaterial({color:0xF5F7FC})); board.position.set(0,2.8,-1.2); scene.add(board);
+for(let i=-5;i<=5;i++)for(let j=0;j<=6;j++){const p=new THREE.Mesh(new THREE.CylinderGeometry(.05,.05,.12,8),new THREE.MeshLambertMaterial({color:0xE4E8F2}));p.rotation.x=Math.PI/2;p.position.set(i,1+j,-1.04);scene.add(p);}
+const ground=new THREE.Mesh(new THREE.BoxGeometry(14,.4,4),new THREE.MeshLambertMaterial({color:0xE4E8F2})); ground.position.y=-.2; scene.add(ground);
+const SLOTS=[
+  {m:'ramp', x:-4.2,y:4.4, filled:false, mesh:null, placedType:null},
+  {m:'lever',x:-0.2,y:2.7, filled:false, mesh:null, placedType:null},
+  {m:'wheel',x:3.6, y:1.4, filled:false, mesh:null, placedType:null},
+];
+const btn=new THREE.Mesh(new THREE.CylinderGeometry(.5,.5,.35,20),new THREE.MeshStandardMaterial({color:0xFF6B35})); btn.position.set(5.4,.9,0); scene.add(btn);
+const bowl=new THREE.Mesh(new THREE.CylinderGeometry(.7,.45,.5,20,1,true),new THREE.MeshStandardMaterial({color:0x22315B,side:THREE.DoubleSide})); bowl.position.set(5.4,.45,0); scene.add(bowl);
+const ghostMat=new THREE.MeshBasicMaterial({color:0xFF6B35,transparent:true,opacity:.0});
+SLOTS.forEach(s=>{const g=new THREE.Mesh(new THREE.BoxGeometry(2.6,1.6,1.4),ghostMat);g.position.set(s.x,s.y,0);s.ghost=g;scene.add(g);});
+const ball=new THREE.Mesh(new THREE.SphereGeometry(.3,20,16),new THREE.MeshStandardMaterial({color:0x1FA06B,roughness:.4})); scene.add(ball); ball.visible=false;
+const status=document.getElementById('status'); const countEl=document.getElementById('count');
+function setStatus(t,c){status.textContent=t;status.style.background=c||'#22315B';}
+let selected=null;
+function makeMachine(m){
+  const grp=new THREE.Group();
+  if(m==='ramp'){const r=new THREE.Mesh(new THREE.BoxGeometry(2.2,.18,.9),new THREE.MeshLambertMaterial({color:0x22315B}));r.rotation.z=-0.32;grp.add(r);}
+  if(m==='lever'){const b=new THREE.Mesh(new THREE.BoxGeometry(2.2,.18,.8),new THREE.MeshLambertMaterial({color:0xFF6B35}));grp.add(b);const f=new THREE.Mesh(new THREE.ConeGeometry(.4,.6,3),new THREE.MeshLambertMaterial({color:0x22315B}));f.position.y=-.45;grp.add(f);}
+  if(m==='wheel'){const w=new THREE.Mesh(new THREE.CylinderGeometry(.7,.7,.4,22),new THREE.MeshStandardMaterial({color:0x1FA06B}));w.rotation.x=Math.PI/2;grp.add(w);const ax=new THREE.Mesh(new THREE.CylinderGeometry(.1,.1,1,12),new THREE.MeshLambertMaterial({color:0x22315B}));ax.rotation.x=Math.PI/2;grp.add(ax);}
+  return grp;
+}
+function chipFor(m){ return [...document.querySelectorAll('.chip')].find(c=>c.dataset.m===m); }
+function placeInSlot(slot,type){
+  if(!slot||slot.filled)return;
+  const mesh=makeMachine(type); mesh.position.set(slot.x,slot.y,0); scene.add(mesh);
+  slot.filled=true; slot.mesh=mesh; slot.placedType=type;
+  const chip=chipFor(type); if(chip){chip.classList.add('placed');chip.classList.remove('on');}
+  const n=SLOTS.filter(s=>s.filled).length; countEl.textContent=n+' / 3 placed';
+  document.getElementById('run').disabled=(n<3);
+}
+function pulse(t){SLOTS.forEach(s=>{s.ghost.material.opacity=(!s.filled&&selected)?(.25+.2*Math.sin(t*4)):0;});}
+document.querySelectorAll('.chip').forEach(ch=>ch.onclick=()=>{
+  if(ch.classList.contains('placed'))return;
+  document.querySelectorAll('.chip').forEach(x=>x.classList.remove('on'));
+  ch.classList.add('on'); selected=ch.dataset.m;
+  setStatus('Now tap the glowing slot for the '+ch.textContent,'#FF6B35');
+});
+const ray=new THREE.Raycaster(), m2=new THREE.Vector2();
+C.addEventListener('pointerdown',e=>{
+  if(!selected)return;
+  const r=C.getBoundingClientRect(); m2.x=((e.clientX-r.left)/r.width)*2-1; m2.y=-((e.clientY-r.top)/r.height)*2+1;
+  ray.setFromCamera(m2,cam);
+  const open=SLOTS.filter(s=>!s.filled);
+  const hit=ray.intersectObjects(open.map(s=>s.ghost));
+  let slot=hit.length?SLOTS.find(s=>s.ghost===hit[0].object):null;
+  if(!slot){ const plane=new THREE.Plane(new THREE.Vector3(0,0,1),0), pt=new THREE.Vector3();
+    ray.ray.intersectPlane(plane,pt);
+    if(pt){let best=1e9; open.forEach(s=>{const d=(s.x-pt.x)**2+(s.y-pt.y)**2; if(d<best){best=d;slot=s;}});} }
+  if(slot){ const type=selected; selected=null; placeInSlot(slot,type);
+    const n=SLOTS.filter(s=>s.filled).length;
+    setStatus(n<3?'Good — keep building the chain':'Chain complete! Press Run','#1FA06B'); }
+});
+let running=false, seg=0, segT=0, path=[];
+function runChain(){
+  if(running||SLOTS.some(s=>!s.filled))return;
+  path=[new THREE.Vector3(-4.2,5.1,0)];
+  SLOTS.forEach(s=>path.push(new THREE.Vector3(s.x+0.8,s.y+0.4,0)));
+  path.push(new THREE.Vector3(5.4,1.3,0));
+  running=true; seg=0; segT=0; ball.position.copy(path[0]); ball.visible=true;
+  setStatus('Energy travels through the chain…','#1FA06B');
+}
+function resetAll(){
+  SLOTS.forEach(s=>{ if(s.mesh){scene.remove(s.mesh);} s.filled=false; s.mesh=null; s.placedType=null; });
+  document.querySelectorAll('.chip').forEach(c=>{c.classList.remove('placed','on');});
+  selected=null; running=false; seg=0; segT=0; ball.visible=false; btn.position.y=0.9;
+  countEl.textContent='0 / 3 placed'; document.getElementById('run').disabled=true;
+  setStatus('Tap a machine, then tap a glowing slot to place it','#22315B');
+}
+document.getElementById('run').onclick=runChain;
+document.getElementById('reset').onclick=resetAll;
+let last=performance.now();
+function loop(now){ const t=now/1000; const dt=Math.min((now-last)/1000,.05); last=now; pulse(t);
+  if(running){ segT+=dt*1.3; const a=path[seg], b=path[seg+1]; const f=Math.min(segT,1);
+    ball.position.lerpVectors(a,b,f); ball.position.y+=Math.sin(f*Math.PI)*0.15;
+    if(SLOTS[seg]&&SLOTS[seg].mesh)SLOTS[seg].mesh.rotation.z+=dt*3;
+    if(f>=1){seg++;segT=0; if(seg>=path.length-1){running=false; btn.position.y=0.7; setStatus('🐶 Button pressed — the pet is fed!','#EFA320');}} }
+  renderer.render(scene,cam); requestAnimationFrame(loop); }
+function resize(){const w=C.clientWidth,h=C.clientHeight;renderer.setSize(w,h,false);cam.aspect=w/h;cam.updateProjectionMatrix();}
+new ResizeObserver(resize).observe(C); resize(); requestAnimationFrame(loop);
+
+/* ===== live-sync contract ===== */
+let _bcast=true;
+function getState(){ return { slots:SLOTS.map(s=>s.placedType||null), running:!!running }; }
+function setState(st){ if(!st)return; _bcast=false;
+  try{ if(Array.isArray(st.slots)){
+      const cur=SLOTS.map(s=>s.placedType||null);
+      const same=cur.length===st.slots.length && cur.every((v,i)=>v===st.slots[i]);
+      if(!same){ resetAll(); st.slots.forEach((type,i)=>{ if(type&&SLOTS[i]&&!SLOTS[i].filled) placeInSlot(SLOTS[i],type); }); }
+    }
+    if(st.running && !running && SLOTS.every(s=>s.filled)) runChain();
+  }finally{ _bcast=true; } }
+window.addEventListener('message',function(e){ var d=e.data||{};
+  if(d.type==='getState'){ try{parent.postMessage({type:'state',data:getState()},'*');}catch(_){} }
+  else if(d.type==='setState'){ setState(d.data); } });
+(function(){ if(window.__liveSyncEmit)return; var _t=0,_p=null;
+  function _send(){ try{ if(typeof getState!=='function')return; parent.postMessage({type:'state',data:getState()},'*'); }catch(_){} }
+  window.__liveSyncEmit=function(){ var n=Date.now(); if(n-_t>110){_t=n;_send();} else {clearTimeout(_p);_p=setTimeout(function(){_t=Date.now();_send();},110);} };
+  ['pointerdown','pointermove','pointerup','click','input','change','wheel','keydown','keyup','touchmove','touchend']
+    .forEach(function(ev){ document.addEventListener(ev,function(){setTimeout(window.__liveSyncEmit,0);},true); });
+})();
+</script></body></html>
