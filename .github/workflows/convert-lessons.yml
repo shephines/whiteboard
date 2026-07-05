@@ -1,1 +1,52 @@
+# .github/workflows/convert-lessons.yml
+# Auto-converts heavy Bhanzu lessons into a slim JSON + per-lesson asset folder.
+#
+# TRIGGER: runs only when a file under lessons/ changes. It does NOT run when it
+# commits its own output (slim JSON -> lessons/slim/, assets -> assets/<code>/),
+# so it cannot loop.
+name: Convert lessons
 
+on:
+  push:
+    paths:
+      - 'lessons/*.json'          # only heavy lessons you drop in; not slim/ or assets/
+
+permissions:
+  contents: write                 # needed to commit the slim JSON + assets back
+
+concurrency:                      # if you push twice fast, cancel the older run
+  group: convert-lessons
+  cancel-in-progress: true
+
+jobs:
+  convert:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Convert every heavy lesson in lessons/
+        id: convert
+        run: |
+          python3 .github/scripts/bhanzu_convert.py \
+            --lessons-dir lessons \
+            --repo . \
+            --base-url "https://shephines.github.io/whiteboard/assets" \
+            --slim-dir lessons/slim
+
+      - name: Commit slim JSON + assets (only if something changed)
+        run: |
+          git config user.name  "bhanzu-bot"
+          git config user.email "bhanzu-bot@users.noreply.github.com"
+          git add assets lessons/slim
+          if git diff --cached --quiet; then
+            echo "No asset changes to commit."
+          else
+            git commit -m "Auto-convert lessons: slim JSON + assets [skip pages]"
+            git push
+          fi
