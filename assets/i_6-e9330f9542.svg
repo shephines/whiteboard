@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFDF9"/><stop offset="1" stop-color="#F5F7FC"/>
+    </linearGradient>
+    <g id="gear"><path d="M0,-46 L7,-46 L9,-38 L9,-38 A46,46 0 0,1 26,-31 L33,-37 L43,-27 L37,-20 A46,46 0 0,1 44,-3 L52,-1 L52,9 L44,11 A46,46 0 0,1 37,28 L43,35 L33,45 L26,39 A46,46 0 0,1 9,46 L7,54 L-7,54 L-9,46 A46,46 0 0,1 -26,39 L-33,45 L-43,35 L-37,28 A46,46 0 0,1 -44,11 L-52,9 L-52,-1 L-44,-3 A46,46 0 0,1 -37,-20 L-43,-27 L-33,-37 L-26,-31 A46,46 0 0,1 -9,-38 L-7,-46 Z"/></g>
+  </defs>
+  <rect width="960" height="540" fill="url(#bg)"/>
+  <g transform="translate(92,150)"><use href="#gear" fill="#FF5470" transform="scale(0.85)"><animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="9s" repeatCount="indefinite"/></use><circle r="14" fill="#FFFDF9"/></g>
+  <g transform="translate(166,206)"><use href="#gear" fill="#FFB200" transform="scale(0.6)"><animateTransform attributeName="transform" type="rotate" from="360" to="0" dur="6.5s" repeatCount="indefinite"/></use><circle r="9" fill="#FFFDF9"/></g>
+  <g transform="translate(872,392)"><use href="#gear" fill="#5B5FEF" transform="scale(0.85)"><animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="8s" repeatCount="indefinite"/></use><circle r="14" fill="#FFFDF9"/></g>
+  <g transform="translate(800,350)"><use href="#gear" fill="#22C1A6" transform="scale(0.52)"><animateTransform attributeName="transform" type="rotate" from="360" to="0" dur="5.5s" repeatCount="indefinite"/></use><circle r="7" fill="#FFFDF9"/></g>
+  <circle cx="300" cy="0" r="17" fill="#FF5470"><animate attributeName="cy" values="80;150;80" keyTimes="0;0.5;1" dur="1.6s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1; 0 0.3 0.4 1"/></circle>
+  <circle cx="660" cy="0" r="14" fill="#22C1A6"><animate attributeName="cy" values="70;145;70" keyTimes="0;0.5;1" dur="2s" begin="0.4s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1; 0 0.3 0.4 1"/></circle>
+  <circle cx="540" cy="0" r="11" fill="#FFB200"><animate attributeName="cy" values="95;155;95" keyTimes="0;0.5;1" dur="1.9s" begin="0.9s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1; 0 0.3 0.4 1"/></circle>
+  <circle cx="400" cy="0" r="9" fill="#5B5FEF"><animate attributeName="cy" values="100;150;100" keyTimes="0;0.5;1" dur="2.2s" begin="0.2s" repeatCount="indefinite" calcMode="spline" keySplines="0.3 0 0.7 1; 0 0.3 0.4 1"/></circle>
+  <g text-anchor="middle">
+    <g><animateTransform attributeName="transform" type="translate" values="0 0; 0 -9; 0 0" dur="3s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1"/>
+      <text x="480" y="320" font-size="104" font-weight="800" fill="#3A2C5A" letter-spacing="-1">Fun Machines</text></g>
+  </g>
+</svg>
