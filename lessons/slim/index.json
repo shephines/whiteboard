@@ -1,0 +1,10 @@
+{
+  "slimBase": "https://shephines.github.io/whiteboard/lessons/slim",
+  "lessons": [
+    {
+      "code": "RG-1_ Rube Goldberg Machines",
+      "title": "Rube Goldberg Machines — Simple Machines & Energy",
+      "slim": "RG-1_ Rube Goldberg Machines_slim.json"
+    }
+  ]
+}
