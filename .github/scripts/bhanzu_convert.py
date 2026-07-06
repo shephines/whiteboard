@@ -24,7 +24,10 @@ def is_model_html(s):
     if not isinstance(s, str): return False
     head = s[:200].lower()
     return head.strip().startswith("<!doctype") or "<html" in head
-def code_to_folder(code): return str(code or "lesson").replace("/","_").replace(".","_").strip()
+def code_to_folder(code):
+    # URL-safe slug: any run of non [A-Za-z0-9-] becomes a single "_", trim edges.
+    s = re.sub(r"[^A-Za-z0-9-]+", "_", str(code or "lesson"))
+    return s.strip("_") or "lesson"
 
 def convert_one(path, repo, base_url, slim_dir):
     d = json.load(open(path, encoding="utf-8"))
@@ -62,6 +65,37 @@ def convert_one(path, repo, base_url, slim_dir):
     print(f"[{d.get('code')}] imgs={n_img} models={n_model} slim={size/1024:.1f}KB -> {slim_path}")
     if orphans:
         print(f"  ⚠ orphaned in assets/{code}/ (edit/delete left these unused):")
+        for o in orphans: print(f"      {o}")
+    return code, (d.get("title") or d.get("code") or code), slim_name
+
+def main():
+    ap=argparse.ArgumentParser()
+    ap.add_argument("--lessons-dir",required=True)
+    ap.add_argument("--repo",required=True)
+    ap.add_argument("--base-url",required=True)
+    ap.add_argument("--slim-dir",required=True)
+    ap.add_argument("--slim-url",default=None,
+                    help="Public URL prefix where slim JSONs are served (for the manifest). "
+                         "Defaults to base-url's parent + /lessons/slim")
+    a=ap.parse_args()
+    files=[f for f in glob.glob(os.path.join(a.lessons_dir,"*.json"))]
+    if not files:
+        print("No lessons found in", a.lessons_dir); return
+    print(f"Converting {len(files)} lesson(s)...")
+    manifest=[]
+    for f in sorted(files):
+        code, title, slim_name = convert_one(f, a.repo, a.base_url, a.slim_dir)
+        manifest.append({"code":code, "title":title, "slim":slim_name})
+    # write the manifest the Studio picker reads
+    manifest.sort(key=lambda m: m["code"])
+    slim_url = a.slim_url or (a.base_url.rstrip("/").rsplit("/assets",1)[0] + "/lessons/slim")
+    out = {"slimBase": slim_url.rstrip("/"), "lessons": manifest}
+    manifest_path = os.path.join(a.slim_dir, "index.json")
+    json.dump(out, open(manifest_path,"w",encoding="utf-8"), ensure_ascii=False, indent=2)
+    print(f"manifest: {len(manifest)} lesson(s) -> {manifest_path}")
+    print("Done.")
+
+if __name__=="__main__": main()        print(f"  ⚠ orphaned in assets/{code}/ (edit/delete left these unused):")
         for o in orphans: print(f"      {o}")
     return code, (d.get("title") or d.get("code") or code), slim_name
 
