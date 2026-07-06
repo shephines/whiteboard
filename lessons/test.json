@@ -1,0 +1,1073 @@
+{
+ "code": "RG-1. Rube Goldberg Machines",
+ "title": "Rube Goldberg Machines \u2014 Simple Machines & Energy",
+ "sections": [
+  {
+   "id": "s_1",
+   "name": "Getting Started",
+   "mins": 8,
+   "qOnly": false
+  },
+  {
+   "id": "s_2",
+   "name": "Brainstorming",
+   "mins": 6,
+   "qOnly": false
+  },
+  {
+   "id": "s_3",
+   "name": "Concept Learning \u00b7 Science Bootcamp",
+   "mins": 22,
+   "qOnly": false
+  },
+  {
+   "id": "s_4",
+   "name": "Practice \u00b7 EDP Build Challenge",
+   "mins": 12,
+   "qOnly": false
+  },
+  {
+   "id": "s_5",
+   "name": "Cliffhanger",
+   "mins": 2,
+   "qOnly": false
+  }
+ ],
+ "chunks": [
+  {
+   "id": "c_7",
+   "sec": "s_1",
+   "name": "Welcome to the Project!",
+   "type": "learning",
+   "items": [
+    {
+     "id": "i_6",
+     "type": "image",
+     "src": "data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20640%20400%22%3E%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23FFFDF9%22/%3E%3Crect%20x%3D%2240%22%20y%3D%2260%22%20width%3D%22560%22%20height%3D%22280%22%20rx%3D%2226%22%20fill%3D%22%23fff%22%20stroke%3D%22%23E4E8F2%22%20stroke-width%3D%222%22/%3E%3Ctext%20x%3D%22320%22%20y%3D%22150%22%20font-family%3D%22%27Baloo%202%27%2C%20Inter%2C%20sans-serif%22%20font-size%3D%2234%22%20font-weight%3D%22800%22%20fill%3D%22%2322315B%22%20text-anchor%3D%22middle%22%20%3ERube%20Goldberg%20Machines%3C/text%3E%3Ctext%20x%3D%22320%22%20y%3D%22196%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22600%22%20fill%3D%22%235A6685%22%20text-anchor%3D%22middle%22%20%3EBuild%20a%20wacky%20chain%20reaction%20to%20do%20one%20simple%20job%3C/text%3E%3Crect%20x%3D%22150%22%20y%3D%22250%22%20width%3D%22150%22%20height%3D%2234%22%20rx%3D%2217%22%20fill%3D%22%23FF6B35%22/%3E%3Ctext%20x%3D%22225.0%22%20y%3D%22273%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2215%22%20font-weight%3D%22800%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%20%3E6%20simple%20machines%3C/text%3E%3Crect%20x%3D%22330%22%20y%3D%22250%22%20width%3D%22160%22%20height%3D%2234%22%20rx%3D%2217%22%20fill%3D%22%231FA06B%22/%3E%3Ctext%20x%3D%22410.0%22%20y%3D%22273%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2215%22%20font-weight%3D%22800%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%20%3Eenergy%20transfers%3C/text%3E%3Ctext%20x%3D%22320%22%20y%3D%22318%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2216%22%20font-weight%3D%22700%22%20fill%3D%22%235A6685%22%20text-anchor%3D%22middle%22%20letter-spacing%3D%220.18em%22%3Ewith%20bhanzu%3C/text%3E%3C/svg%3E",
+     "caption": "",
+     "visible": true,
+     "x": 12.2,
+     "y": 4,
+     "w": 75.6
+    }
+   ],
+   "script": [
+    {
+     "t": "do",
+     "x": "Greet students warmly as they join. Ask how their week has been.",
+     "a": "Keep it light \u2014 names, a smile, one quick share each. Sets the participation norm before any content."
+    }
+   ],
+   "locked": true
+  },
+  {
+   "id": "c_10",
+   "sec": "s_1",
+   "name": "Can you trace this crazy machine?",
+   "type": "learning",
+   "items": [
+    {
+     "id": "i_8",
+     "type": "image",
+     "src": "data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20640%20400%22%3E%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23FFFDF9%22/%3E%3Cdefs%3E%3Cmarker%20id%3D%22ar%22%20markerWidth%3D%229%22%20markerHeight%3D%229%22%20refX%3D%227%22%20refY%3D%224.5%22%20orient%3D%22auto%22%3E%3Cpath%20d%3D%22M0%200%20L9%204.5%20L0%209%20z%22%20fill%3D%22%235A6685%22/%3E%3C/marker%3E%3C/defs%3E%3Crect%20x%3D%2220%22%20y%3D%2240%22%20width%3D%22600%22%20height%3D%22320%22%20rx%3D%2220%22%20fill%3D%22%23fff%22%20stroke%3D%22%23E4E8F2%22%20stroke-width%3D%222%22/%3E%3Ctext%20x%3D%22320%22%20y%3D%2280%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22700%22%20fill%3D%22%2322315B%22%20text-anchor%3D%22middle%22%20%3EA%20chain%20reaction%3A%20each%20step%20triggers%20the%20next%3C/text%3E%3Ccircle%20cx%3D%2280%22%20cy%3D%22200%22%20r%3D%2230%22%20fill%3D%22%23FF6B35%22/%3E%3Ctext%20x%3D%2280%22%20y%3D%22208%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2220%22%20font-weight%3D%22800%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%20%3EA%3C/text%3E%3Cpath%20d%3D%22M114%20200%20L136%20200%22%20stroke%3D%22%235A6685%22%20stroke-width%3D%223%22%20marker-end%3D%22url%28%23ar%29%22/%3E%3Ccircle%20cx%3D%22170%22%20cy%3D%22200%22%20r%3D%2230%22%20fill%3D%22%23EFA320%22/%3E%3Ctext%20x%3D%22170%22%20y%3D%22208%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2220%22%20font-weight%3D%22800%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%20%3EB%3C/text%3E%3Cpath%20d%3D%22M204%20200%20L226%20200%22%20stroke%3D%22%235A6685%22%20stroke-width%3D%223%22%20marker-end%3D%22url%28%23ar%29%22/%3E%3Ccircle%20cx%3D%22260%22%20cy%3D%22200%22%20r%3D%2230%22%20fill%3D%22%231FA06B%22/%3E%3Ctext%20x%3D%22260%22%20y%3D%22208%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2220%22%20font-weight%3D%22800%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%20%3EC%3C/text%3E%3Cpath%20d%3D%22M294%20200%20L316%20200%22%20stroke%3D%22%235A6685%22%20stroke-width%3D%223%22%20marker-end%3D%22url%28%23ar%29%22/%3E%3Ccircle%20cx%3D%22350%22%20cy%3D%22200%22%20r%3D%2230%22%20fill%3D%22%23FF6B35%22/%3E%3Ctext%20x%3D%22350%22%20y%3D%22208%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2220%22%20font-weight%3D%22800%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%20%3ED%3C/text%3E%3Cpath%20d%3D%22M384%20200%20L406%20200%22%20stroke%3D%22%235A6685%22%20stroke-width%3D%223%22%20marker-end%3D%22url%28%23ar%29%22/%3E%3Ccircle%20cx%3D%22440%22%20cy%3D%22200%22%20r%3D%2230%22%20fill%3D%22%23EFA320%22/%3E%3Ctext%20x%3D%22440%22%20y%3D%22208%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2220%22%20font-weight%3D%22800%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%20%3EE%3C/text%3E%3Cpath%20d%3D%22M474%20200%20L496%20200%22%20stroke%3D%22%235A6685%22%20stroke-width%3D%223%22%20marker-end%3D%22url%28%23ar%29%22/%3E%3Ccircle%20cx%3D%22530%22%20cy%3D%22200%22%20r%3D%2230%22%20fill%3D%22%2322315B%22/%3E%3Ctext%20x%3D%22530%22%20y%3D%22208%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2220%22%20font-weight%3D%22800%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%20%3E%F0%9F%90%B6%3C/text%3E%3Ctext%20x%3D%22320%22%20y%3D%22300%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2215%22%20font-weight%3D%22600%22%20fill%3D%22%235A6685%22%20text-anchor%3D%22middle%22%20%3EOne%20push%20at%20A%20%E2%86%92%20the%20food%20bowl%20fills%20at%20the%20end%3C/text%3E%3C/svg%3E",
+     "caption": "",
+     "visible": true,
+     "x": 21.2,
+     "y": 4,
+     "w": 57.6
+    },
+    {
+     "id": "i_9",
+     "type": "keypoint",
+     "title": "What does it finally DO? \ud83e\udd14",
+     "content": "Each lettered step makes the next one happen.\nWhere does the chain end up?",
+     "img": "",
+     "visible": true,
+     "x": 8,
+     "y": 74
+    }
+   ],
+   "script": [
+    {
+     "t": "do",
+     "x": "Point to each step A\u2192E and let students call out what happens next. Build suspense toward the bowl at the end.",
+     "a": ""
+    },
+    {
+     "t": "ask",
+     "x": "So what is the ONE simple job this whole contraption does?",
+     "a": "It feeds a pet / fills a bowl \u2014 a tiny job done in a wonderfully complicated way."
+    },
+    {
+     "t": "do",
+     "x": "Name it: this is a **Rube Goldberg Machine** \u2014 a silly invention that does a simple job through a chain reaction.",
+     "a": ""
+    }
+   ],
+   "locked": true
+  },
+  {
+   "id": "c_13",
+   "sec": "s_2",
+   "name": "The two secrets",
+   "type": "learning",
+   "items": [
+    {
+     "id": "i_11",
+     "type": "keypoint",
+     "title": "Before we build, two secrets \ud83d\udd11",
+     "content": "Every Rube Goldberg machine is built from just **two** ideas:\n\n**1.** Energy transfer \u2014 each step passes energy to the next.\n**2.** Simple machines \u2014 the 6 tools that make wacky steps.",
+     "img": "",
+     "visible": true,
+     "x": 5,
+     "y": 12
+    },
+    {
+     "id": "i_12",
+     "type": "descriptor",
+     "text": "Hold the two secrets here as the spine of the whole lesson. Everything after this fills them in.",
+     "img": "",
+     "x": 58,
+     "y": 68
+    }
+   ],
+   "script": [
+    {
+     "t": "ask",
+     "x": "How does step A make step B happen \u2014 what is actually being passed along?",
+     "a": "Energy! The motion/force of one object moves the next. That's secret #1."
+    },
+    {
+     "t": "do",
+     "x": "Preview secret #2: the wacky steps are built from 6 simple machines. We'll master them one by one.",
+     "a": ""
+    }
+   ],
+   "locked": false
+  },
+  {
+   "id": "c_16",
+   "sec": "s_2",
+   "name": "Meet your toolbox",
+   "type": "learning",
+   "items": [
+    {
+     "id": "i_14",
+     "type": "image",
+     "src": "data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20640%20380%22%3E%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23FFFDF9%22/%3E%3Ctext%20x%3D%22320%22%20y%3D%2246%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2219%22%20font-weight%3D%22800%22%20fill%3D%22%2322315B%22%20text-anchor%3D%22middle%22%20%3EYour%20toolbox%3A%20the%206%20simple%20machines%3C/text%3E%3Crect%20x%3D%2270%22%20y%3D%2280%22%20width%3D%22160%22%20height%3D%22118%22%20rx%3D%2216%22%20fill%3D%22%23fff%22%20stroke%3D%22%23E4E8F2%22%20stroke-width%3D%222%22/%3E%3Crect%20x%3D%2270%22%20y%3D%2280%22%20width%3D%22160%22%20height%3D%226%22%20rx%3D%223%22%20fill%3D%22%23FF6B35%22/%3E%3Ctext%20x%3D%22150%22%20y%3D%22132%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2216%22%20font-weight%3D%22800%22%20fill%3D%22%2322315B%22%20text-anchor%3D%22middle%22%20%3EInclined%20plane%3C/text%3E%3Crect%20x%3D%2290%22%20y%3D%22152%22%20width%3D%22120%22%20height%3D%2234%22%20rx%3D%2217%22%20fill%3D%22%23FF6B35%22/%3E%3Ctext%20x%3D%22150.0%22%20y%3D%22175%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2215%22%20font-weight%3D%22800%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%20%3Eup%20/%20down%3C/text%3E%3Crect%20x%3D%22250%22%20y%3D%2280%22%20width%3D%22160%22%20height%3D%22118%22%20rx%3D%2216%22%20fill%3D%22%23fff%22%20stroke%3D%22%23E4E8F2%22%20stroke-width%3D%222%22/%3E%3Crect%20x%3D%22250%22%20y%3D%2280%22%20width%3D%22160%22%20height%3D%226%22%20rx%3D%223%22%20fill%3D%22%231FA06B%22/%3E%3Ctext%20x%3D%22330%22%20y%3D%22132%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2216%22%20font-weight%3D%22800%22%20fill%3D%22%2322315B%22%20text-anchor%3D%22middle%22%20%3EWheel%20%26amp%3B%20axle%3C/text%3E%3Crect%20x%3D%22270%22%20y%3D%22152%22%20width%3D%22120%22%20height%3D%2234%22%20rx%3D%2217%22%20fill%3D%22%231FA06B%22/%3E%3Ctext%20x%3D%22330.0%22%20y%3D%22175%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2215%22%20font-weight%3D%22800%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%20%3Eroll%20/%20bump%3C/text%3E%3Crect%20x%3D%22430%22%20y%3D%2280%22%20width%3D%22160%22%20height%3D%22118%22%20rx%3D%2216%22%20fill%3D%22%23fff%22%20stroke%3D%22%23E4E8F2%22%20stroke-width%3D%222%22/%3E%3Crect%20x%3D%22430%22%20y%3D%2280%22%20width%3D%22160%22%20height%3D%226%22%20rx%3D%223%22%20fill%3D%22%23EFA320%22/%3E%3Ctext%20x%3D%22510%22%20y%3D%22132%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2216%22%20font-weight%3D%22800%22%20fill%3D%22%2322315B%22%20text-anchor%3D%22middle%22%20%3ELever%3C/text%3E%3Crect%20x%3D%22450%22%20y%3D%22152%22%20width%3D%22120%22%20height%3D%2234%22%20rx%3D%2217%22%20fill%3D%22%23EFA320%22/%3E%3Ctext%20x%3D%22510.0%22%20y%3D%22175%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2215%22%20font-weight%3D%22800%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%20%3Elift%20/%20launch%3C/text%3E%3Crect%20x%3D%2270%22%20y%3D%22220%22%20width%3D%22160%22%20height%3D%22118%22%20rx%3D%2216%22%20fill%3D%22%23fff%22%20stroke%3D%22%23E4E8F2%22%20stroke-width%3D%222%22/%3E%3Crect%20x%3D%2270%22%20y%3D%22220%22%20width%3D%22160%22%20height%3D%226%22%20rx%3D%223%22%20fill%3D%22%23FF6B35%22/%3E%3Ctext%20x%3D%22150%22%20y%3D%22272%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2216%22%20font-weight%3D%22800%22%20fill%3D%22%2322315B%22%20text-anchor%3D%22middle%22%20%3EPulley%3C/text%3E%3Crect%20x%3D%2290%22%20y%3D%22292%22%20width%3D%22120%22%20height%3D%2234%22%20rx%3D%2217%22%20fill%3D%22%23FF6B35%22/%3E%3Ctext%20x%3D%22150.0%22%20y%3D%22315%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2215%22%20font-weight%3D%22800%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%20%3Eredirect%3C/text%3E%3Crect%20x%3D%22250%22%20y%3D%22220%22%20width%3D%22160%22%20height%3D%22118%22%20rx%3D%2216%22%20fill%3D%22%23fff%22%20stroke%3D%22%23E4E8F2%22%20stroke-width%3D%222%22/%3E%3Crect%20x%3D%22250%22%20y%3D%22220%22%20width%3D%22160%22%20height%3D%226%22%20rx%3D%223%22%20fill%3D%22%231FA06B%22/%3E%3Ctext%20x%3D%22330%22%20y%3D%22272%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2216%22%20font-weight%3D%22800%22%20fill%3D%22%2322315B%22%20text-anchor%3D%22middle%22%20%3EScrew%3C/text%3E%3Crect%20x%3D%22270%22%20y%3D%22292%22%20width%3D%22120%22%20height%3D%2234%22%20rx%3D%2217%22%20fill%3D%22%231FA06B%22/%3E%3Ctext%20x%3D%22330.0%22%20y%3D%22315%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2215%22%20font-weight%3D%22800%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%20%3Egently%20lower%3C/text%3E%3Crect%20x%3D%22430%22%20y%3D%22220%22%20width%3D%22160%22%20height%3D%22118%22%20rx%3D%2216%22%20fill%3D%22%23fff%22%20stroke%3D%22%23E4E8F2%22%20stroke-width%3D%222%22/%3E%3Crect%20x%3D%22430%22%20y%3D%22220%22%20width%3D%22160%22%20height%3D%226%22%20rx%3D%223%22%20fill%3D%22%23EFA320%22/%3E%3Ctext%20x%3D%22510%22%20y%3D%22272%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2216%22%20font-weight%3D%22800%22%20fill%3D%22%2322315B%22%20text-anchor%3D%22middle%22%20%3EWedge%3C/text%3E%3Crect%20x%3D%22450%22%20y%3D%22292%22%20width%3D%22120%22%20height%3D%2234%22%20rx%3D%2217%22%20fill%3D%22%23EFA320%22/%3E%3Ctext%20x%3D%22510.0%22%20y%3D%22315%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2215%22%20font-weight%3D%22800%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%20%3Epush%20apart%3C/text%3E%3C/svg%3E",
+     "caption": "",
+     "visible": true,
+     "x": 10.2,
+     "y": 4,
+     "w": 79.6
+    },
+    {
+     "id": "i_15",
+     "type": "descriptor",
+     "text": "Don't define them yet \u2014 just name them and build anticipation. Each gets its own hands-on round.",
+     "img": "",
+     "x": 4,
+     "y": 86
+    }
+   ],
+   "script": [
+    {
+     "t": "do",
+     "x": "Read out the 6 simple machines. Tell students each one unlocks a new kind of wacky step.",
+     "a": ""
+    },
+    {
+     "t": "ask",
+     "x": "Which of these have you already seen today \u2014 in a playground, a kitchen, a bike?",
+     "a": "Take a few \u2014 ramps, see-saws, wheels, bottle-cap openers. Primes recognition before the science."
+    }
+   ],
+   "locked": false
+  },
+  {
+   "id": "c_21",
+   "sec": "s_3",
+   "name": "Inclined plane: explore it",
+   "type": "learning",
+   "items": [
+    {
+     "id": "i_17",
+     "type": "model3d",
+     "name": "Inclined Plane \u2014 Energy Explorer",
+     "html": "<!DOCTYPE html>\n<html lang=\"en\"><head><meta charset=\"UTF-8\">\n<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">\n<title>Inclined Plane \u2014 Energy Explorer</title>\n<style>\n  :root{--ink:#22315B;--soft:#5A6685;--orange:#FF6B35;--green:#1FA06B;--line:#E4E8F2;--bg:#FFFDF9;--panel:#F5F7FC}\n  *{box-sizing:border-box;margin:0;padding:0}\n  html,body{height:100%;font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--ink);overflow:hidden}\n  #wrap{position:absolute;inset:0;display:flex;flex-direction:column}\n  #stage{flex:1;position:relative}\n  canvas{display:block;width:100%;height:100%;cursor:grab;touch-action:none}\n  canvas.drag{cursor:grabbing}\n  #hud{position:absolute;left:12px;top:12px;background:rgba(255,253,249,.92);border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;min-width:176px}\n  #hud h3{font-family:'Baloo 2','Inter',sans-serif;font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--soft);margin-bottom:8px}\n  .bar{height:14px;border-radius:7px;background:var(--panel);overflow:hidden;margin:3px 0 9px}\n  .fill{height:100%;width:0;transition:width .08s linear}\n  .pe{background:var(--orange)} .ke{background:var(--green)}\n  .lab{font-size:11px;font-weight:700;display:flex;justify-content:space-between}\n  #drophint{position:absolute;right:12px;top:12px;background:rgba(34,49,91,.92);color:#fff;font-size:11px;font-weight:700;border-radius:10px;padding:7px 11px;max-width:150px;line-height:1.4}\n  #ctrl{padding:10px 14px;background:#fff;border-top:1.5px solid var(--line);display:flex;align-items:center;gap:12px;flex-wrap:wrap}\n  #ctrl label{font-size:12px;font-weight:700;color:var(--soft)}\n  input[type=range]{accent-color:var(--orange);flex:1;min-width:110px}\n  button{font-family:inherit;font-weight:700;font-size:13px;border:0;border-radius:10px;padding:9px 16px;cursor:pointer;background:var(--ink);color:#fff}\n  button.sec{background:var(--panel);color:var(--ink);border:1.5px solid var(--line)}\n  #angTag{font-weight:800;color:var(--orange);font-size:14px;min-width:46px;text-align:right}\n</style></head>\n<body>\n<div id=\"wrap\">\n  <div id=\"stage\"><canvas id=\"c\"></canvas>\n    <div id=\"hud\">\n      <h3>Energy of the ball</h3>\n      <div class=\"lab\"><span>Potential</span><span id=\"pev\">100%</span></div><div class=\"bar\"><div class=\"fill pe\" id=\"peb\"></div></div>\n      <div class=\"lab\"><span>Kinetic</span><span id=\"kev\">0%</span></div><div class=\"bar\"><div class=\"fill ke\" id=\"keb\"></div></div>\n    </div>\n    <div id=\"drophint\">Drag up / down to tilt the ramp</div>\n  </div>\n  <div id=\"ctrl\">\n    <label>Ramp angle</label>\n    <input type=\"range\" id=\"ang\" min=\"12\" max=\"42\" value=\"26\">\n    <span id=\"angTag\">26\u00b0</span>\n    <button id=\"run\">\u25b6 Release ball</button>\n    <button class=\"sec\" id=\"reset\">Reset</button>\n  </div>\n</div>\n<script src=\"https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js\"></script>\n<script>\nconst C=document.getElementById('c');\nconst renderer=new THREE.WebGLRenderer({canvas:C,antialias:true});\nrenderer.setPixelRatio(Math.min(devicePixelRatio,2));\nconst scene=new THREE.Scene(); scene.background=new THREE.Color(0xFFFDF9);\nconst cam=new THREE.PerspectiveCamera(42,1,0.1,100); cam.position.set(0,3.4,9.2); cam.lookAt(0,1.2,0);\nscene.add(new THREE.AmbientLight(0xffffff,.85));\nconst dl=new THREE.DirectionalLight(0xffffff,.65); dl.position.set(4,8,6); scene.add(dl);\nconst ground=new THREE.Mesh(new THREE.BoxGeometry(14,.4,6),new THREE.MeshLambertMaterial({color:0xE4E8F2}));\nground.position.y=-.2; scene.add(ground);\nconst rampLen=7, rampW=2.4;\nconst ramp=new THREE.Mesh(new THREE.BoxGeometry(rampLen,.3,rampW),new THREE.MeshLambertMaterial({color:0x22315B}));\nconst pivot=new THREE.Group(); pivot.position.set(-3.4,0,0); scene.add(pivot);\nramp.position.x=rampLen/2; pivot.add(ramp);\nconst ball=new THREE.Mesh(new THREE.SphereGeometry(.42,24,18),new THREE.MeshStandardMaterial({color:0xFF6B35,roughness:.4}));\nscene.add(ball);\nlet angleDeg=26, t=0, running=false;\nfunction setAngle(d){ angleDeg=Math.max(12,Math.min(42,d)); pivot.rotation.z=angleDeg*Math.PI/180; placeBallTop();\n  document.getElementById('ang').value=Math.round(angleDeg); document.getElementById('angTag').textContent=Math.round(angleDeg)+'\u00b0'; }\nfunction placeBallTop(){ const a=angleDeg*Math.PI/180;\n  ball.position.set(-3.4+Math.cos(a)*(rampLen-.6), Math.sin(a)*(rampLen-.6)+.42, 0); }\nconst peb=document.getElementById('peb'),keb=document.getElementById('keb'),pev=document.getElementById('pev'),kev=document.getElementById('kev');\nfunction energy(frac){ const pe=Math.round((1-frac)*100), ke=Math.round(frac*100);\n  peb.style.width=pe+'%'; keb.style.width=ke+'%'; pev.textContent=pe+'%'; kev.textContent=ke+'%'; }\nsetAngle(26); energy(0);\nlet startTop=null,endBot=null,dur=0;\nfunction release(){ if(running)return; const a=angleDeg*Math.PI/180;\n  startTop=new THREE.Vector3(-3.4+Math.cos(a)*(rampLen-.6),Math.sin(a)*(rampLen-.6)+.42,0);\n  endBot=new THREE.Vector3(-3.4+Math.cos(a)*.6,Math.sin(a)*.6+.42,0);\n  dur=1.05+(42-angleDeg)/30; t=0; running=true; }\nfunction resetAll(){ running=false; t=0; placeBallTop(); energy(0); }\ndocument.getElementById('run').onclick=release;\ndocument.getElementById('reset').onclick=resetAll;\ndocument.getElementById('ang').oninput=e=>{ if(!running)setAngle(+e.target.value); };\n// DRAG to tilt the ramp\nlet dragging=false,dy0=0,a0=0;\nC.addEventListener('pointerdown',e=>{ if(running)return; dragging=true; dy0=e.clientY; a0=angleDeg; C.classList.add('drag'); try{C.setPointerCapture(e.pointerId);}catch(_){}});\nC.addEventListener('pointermove',e=>{ if(!dragging)return; setAngle(a0+(dy0-e.clientY)*0.2); });\nfunction endDrag(){ dragging=false; C.classList.remove('drag'); }\nC.addEventListener('pointerup',endDrag); C.addEventListener('pointercancel',endDrag); C.addEventListener('pointerleave',endDrag);\nlet last=performance.now();\nfunction loop(now){ const dt=(now-last)/1000; last=now;\n  if(running){ t+=dt/dur; let e=Math.min(t,1); e=e*e; if(e>=1){e=1;running=false;}\n    ball.position.lerpVectors(startTop,endBot,e); energy(e); }\n  renderer.render(scene,cam); requestAnimationFrame(loop); }\nfunction resize(){const w=C.clientWidth,h=C.clientHeight;renderer.setSize(w,h,false);cam.aspect=w/h;cam.updateProjectionMatrix();}\nnew ResizeObserver(resize).observe(C); resize(); requestAnimationFrame(loop);\n\n/* ===== live-sync contract (Bhanzu Lesson Studio classroom) ===== */\nlet _bcast=true;\nfunction getState(){ var a=+angleDeg; if(!isFinite(a))a=26;\n  return { angle:Math.round(a), phase: running?'rolling':(t>0?'done':'idle') }; }\nfunction setState(s){ if(!s)return; _bcast=false;\n  try{ if(s.phase==='idle' && (running||t>0)) resetAll();\n    if(typeof s.angle==='number'&&isFinite(s.angle)&&!running) setAngle(s.angle);\n    if(s.phase==='rolling' && !running && t===0) release();\n  }finally{ _bcast=true; } }\nwindow.addEventListener('message',function(e){ var d=e.data||{};\n  if(d.type==='getState'){ try{parent.postMessage({type:'state',data:getState()},'*');}catch(_){} }\n  else if(d.type==='setState'){ setState(d.data); } });\n(function(){ if(window.__liveSyncEmit)return; var _t=0,_p=null;\n  function _send(){ try{ if(typeof getState!=='function')return; parent.postMessage({type:'state',data:getState()},'*'); }catch(_){} }\n  window.__liveSyncEmit=function(){ var n=Date.now(); if(n-_t>110){_t=n;_send();} else {clearTimeout(_p);_p=setTimeout(function(){_t=Date.now();_send();},110);} };\n  ['pointerdown','pointermove','pointerup','click','input','change','wheel','keydown','keyup','touchmove','touchend']\n    .forEach(function(ev){ document.addEventListener(ev,function(){setTimeout(window.__liveSyncEmit,0);},true); });\n})();\n</script></body></html>\n",
+     "visible": true,
+     "initialState": null,
+     "fit": 1.0,
+     "x": 44,
+     "y": 8,
+     "w": 520
+    },
+    {
+     "id": "i_18",
+     "type": "keypoint",
+     "title": "Roll it down \ud83c\udfa2",
+     "content": "Drag the angle, then release the ball.\nWatch the energy bars flip as it rolls.",
+     "img": "",
+     "visible": true,
+     "x": 4,
+     "y": 10
+    },
+    {
+     "id": "i_19",
+     "type": "descriptor",
+     "text": "Let a student drive: change the ramp angle and release. Ask them to narrate the energy bars.",
+     "img": "",
+     "x": 4,
+     "y": 62
+    }
+   ],
+   "script": [
+    {
+     "t": "do",
+     "x": "Open the model. Show how a student takes control to change the angle and release the ball.",
+     "a": ""
+    },
+    {
+     "t": "ask",
+     "x": "Make the ramp gentler, then steeper. When is the climb up easier \u2014 and what happens to the roll down?",
+     "a": "Gentler = easier to move up, slower roll down. Same height, same energy, different effort."
+    }
+   ],
+   "locked": false
+  },
+  {
+   "id": "c_23",
+   "sec": "s_3",
+   "name": "Inclined plane: the trick",
+   "type": "learning",
+   "items": [
+    {
+     "id": "i_22",
+     "type": "image",
+     "src": "data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20640%20400%22%3E%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23FFFDF9%22/%3E%3Ctext%20x%3D%22320%22%20y%3D%2242%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22800%22%20fill%3D%22%2322315B%22%20text-anchor%3D%22middle%22%20%3EThe%20inclined%20plane%20%28ramp%29%3C/text%3E%3Cpolygon%20points%3D%2290%2C300%20540%2C300%2090%2C150%22%20fill%3D%22%23F5F7FC%22%20stroke%3D%22%2322315B%22%20stroke-width%3D%223%22/%3E%3Cline%20x1%3D%2290%22%20y1%3D%22300%22%20x2%3D%22540%22%20y2%3D%22300%22%20stroke%3D%22%2322315B%22%20stroke-width%3D%223%22/%3E%3Ccircle%20cx%3D%22160%22%20cy%3D%22218%22%20r%3D%2220%22%20fill%3D%22%23FF6B35%22/%3E%3Cpath%20d%3D%22M180%20226%20L300%20280%22%20stroke%3D%22%231FA06B%22%20stroke-width%3D%224%22%20marker-end%3D%22url%28%23a2%29%22/%3E%3Cdefs%3E%3Cmarker%20id%3D%22a2%22%20markerWidth%3D%229%22%20markerHeight%3D%229%22%20refX%3D%227%22%20refY%3D%224.5%22%20orient%3D%22auto%22%3E%3Cpath%20d%3D%22M0%200%20L9%204.5%20L0%209%20z%22%20fill%3D%22%231FA06B%22/%3E%3C/marker%3E%3C/defs%3E%3Ctext%20x%3D%22120%22%20y%3D%22150%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2214%22%20font-weight%3D%22700%22%20fill%3D%22%235A6685%22%20text-anchor%3D%22middle%22%20%3Etop%3C/text%3E%3Ctext%20x%3D%22360%22%20y%3D%22200%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2214%22%20font-weight%3D%22600%22%20fill%3D%22%235A6685%22%20text-anchor%3D%22middle%22%20%3Ea%20gentle%20slope%20%3D%20an%20easier%20climb%3C/text%3E%3Crect%20x%3D%22150%22%20y%3D%22330%22%20width%3D%22160%22%20height%3D%2234%22%20rx%3D%2217%22%20fill%3D%22%23FF6B35%22/%3E%3Ctext%20x%3D%22230.0%22%20y%3D%22353%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2215%22%20font-weight%3D%22800%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%20%3Emoves%20things%20up%20or%20down%3C/text%3E%3C/svg%3E",
+     "caption": "",
+     "visible": true,
+     "x": 21.2,
+     "y": 4,
+     "w": 57.6
+    },
+    {
+     "id": "i_20",
+     "type": "keypoint",
+     "title": "The inclined plane",
+     "content": "A ramp moves objects between two levels without lifting them straight up.\nA gentler slope = an easier climb.",
+     "img": "",
+     "visible": true,
+     "x": 8,
+     "y": 74
+    }
+   ],
+   "script": [
+    {
+     "t": "do",
+     "x": "Recap the trick: inclined planes move things up or down. In a chain, a ramp is a great way to start a ball moving.",
+     "a": ""
+    }
+   ],
+   "locked": false
+  },
+  {
+   "id": "c_25",
+   "sec": "s_3",
+   "name": "Q1 \u00b7 Inclined plane",
+   "type": "question",
+   "items": [
+    {
+     "id": "i_24",
+     "type": "mcq",
+     "prompt": "A ball sits at the top of a ramp, not moving. What energy does it mostly have?",
+     "options": [
+      "Kinetic energy",
+      "Gravitational potential energy",
+      "No energy at all",
+      "Elastic energy"
+     ],
+     "correct": 1
+    }
+   ],
+   "script": [
+    {
+     "t": "ask",
+     "x": "Ball at the top, still \u2014 what energy?",
+     "a": "**Gravitational PE.** It's high up and not moving yet."
+    }
+   ],
+   "locked": false
+  },
+  {
+   "id": "c_27",
+   "sec": "s_3",
+   "name": "Q2 \u00b7 Inclined plane",
+   "type": "question",
+   "items": [
+    {
+     "id": "i_26",
+     "type": "mcq",
+     "prompt": "As the ball rolls down the ramp, its energy mainly transforms into\u2026",
+     "options": [
+      "More potential energy",
+      "Kinetic energy",
+      "Light energy",
+      "It disappears"
+     ],
+     "correct": 1
+    }
+   ],
+   "script": [
+    {
+     "t": "ask",
+     "x": "Rolling down \u2014 PE turns into what?",
+     "a": "**Kinetic energy.** Height converts to motion; energy changes form, never vanishes."
+    }
+   ],
+   "locked": false
+  },
+  {
+   "id": "c_32",
+   "sec": "s_3",
+   "name": "Wheel & axle: explore it",
+   "type": "learning",
+   "items": [
+    {
+     "id": "i_28",
+     "type": "model3d",
+     "name": "Energy Transfer Visualizer",
+     "html": "<!DOCTYPE html>\n<html lang=\"en\"><head><meta charset=\"UTF-8\">\n<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">\n<title>Energy Transfer Visualizer</title>\n<style>\n  :root{--ink:#22315B;--soft:#5A6685;--orange:#FF6B35;--green:#1FA06B;--amber:#EFA320;--line:#E4E8F2;--bg:#FFFDF9;--panel:#F5F7FC}\n  *{box-sizing:border-box;margin:0;padding:0}\n  html,body{height:100%;font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--ink);overflow:hidden}\n  #wrap{position:absolute;inset:0;display:flex;flex-direction:column}\n  #stage{flex:1;position:relative}\n  canvas{display:block;width:100%;height:100%;cursor:grab;touch-action:none}\n  canvas.drag{cursor:grabbing}\n  #tag{position:absolute;left:50%;top:14px;transform:translateX(-50%);background:var(--ink);color:#fff;font-weight:800;font-size:14px;padding:8px 16px;border-radius:999px;font-family:'Baloo 2','Inter',sans-serif;white-space:nowrap;transition:background .25s}\n  #ctrl{padding:10px 14px;background:#fff;border-top:1.5px solid var(--line);display:flex;align-items:center;gap:12px;justify-content:center;flex-wrap:wrap}\n  #ctrl label{font-size:12px;font-weight:700;color:var(--soft)}\n  input[type=range]{accent-color:var(--orange);width:130px}\n  button{font-family:inherit;font-weight:700;font-size:13px;border:0;border-radius:10px;padding:9px 18px;cursor:pointer;background:var(--ink);color:#fff}\n  button.sec{background:var(--panel);color:var(--ink);border:1.5px solid var(--line)}\n  #leg{position:absolute;right:12px;top:12px;font-size:11px;font-weight:700;line-height:1.7}\n  #leg span{display:inline-block;width:11px;height:11px;border-radius:3px;vertical-align:-1px;margin-right:5px}\n  #drophint{position:absolute;left:12px;top:12px;background:rgba(34,49,91,.92);color:#fff;font-size:11px;font-weight:700;border-radius:10px;padding:7px 11px;max-width:150px;line-height:1.4}\n</style></head>\n<body>\n<div id=\"wrap\">\n  <div id=\"stage\"><canvas id=\"c\"></canvas>\n    <div id=\"tag\">Drag the ball up, then press Play</div>\n    <div id=\"drophint\">Drag up / down to set the drop height</div>\n    <div id=\"leg\">\n      <div><span style=\"background:#FF6B35\"></span>Gravitational PE</div>\n      <div><span style=\"background:#1FA06B\"></span>Kinetic energy</div>\n      <div><span style=\"background:#EFA320\"></span>Transferred to cart</div>\n    </div>\n  </div>\n  <div id=\"ctrl\">\n    <label>Drop height</label>\n    <input type=\"range\" id=\"ht\" min=\"3.2\" max=\"6\" step=\"0.1\" value=\"5\">\n    <button id=\"run\">\u25b6 Play</button>\n    <button class=\"sec\" id=\"reset\">Reset</button>\n  </div>\n</div>\n<script src=\"https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js\"></script>\n<script>\nconst C=document.getElementById('c');\nconst renderer=new THREE.WebGLRenderer({canvas:C,antialias:true});\nrenderer.setPixelRatio(Math.min(devicePixelRatio,2));\nconst scene=new THREE.Scene(); scene.background=new THREE.Color(0xFFFDF9);\nconst cam=new THREE.PerspectiveCamera(43,1,0.1,100); cam.position.set(1.5,3.2,10); cam.lookAt(0.5,1.3,0);\nscene.add(new THREE.AmbientLight(0xffffff,.85));\nconst dl=new THREE.DirectionalLight(0xffffff,.6); dl.position.set(3,9,5); scene.add(dl);\nconst ground=new THREE.Mesh(new THREE.BoxGeometry(18,.4,6),new THREE.MeshLambertMaterial({color:0xE4E8F2})); ground.position.set(2,-.2,0); scene.add(ground);\nconst post=new THREE.Mesh(new THREE.BoxGeometry(.3,6,.3),new THREE.MeshLambertMaterial({color:0x5A6685})); post.position.set(-3.4,3,0); scene.add(post);\nconst ball=new THREE.Mesh(new THREE.SphereGeometry(.45,24,18),new THREE.MeshStandardMaterial({color:0xFF6B35,roughness:.4})); scene.add(ball);\nconst cart=new THREE.Group();\nconst body=new THREE.Mesh(new THREE.BoxGeometry(1.6,.7,1.2),new THREE.MeshStandardMaterial({color:0x22315B})); body.position.y=.75; cart.add(body);\nconst wheelGeo=new THREE.CylinderGeometry(.34,.34,.18,20); const wheelMat=new THREE.MeshStandardMaterial({color:0x1FA06B});\n[[-.55,-.45],[.55,-.45],[-.55,.45],[.55,.45]].forEach(([x,z])=>{const w=new THREE.Mesh(wheelGeo,wheelMat);w.rotation.x=Math.PI/2;w.position.set(x,.34,z);cart.add(w);});\ncart.position.set(-2.9,0,0); scene.add(cart);\nconst tag=document.getElementById('tag');\nfunction setTag(txt,col){tag.textContent=txt;tag.style.background=col;}\nlet dropH=5, phase='idle', t=0, cartV=0;\nfunction placeBall(){ ball.position.set(-3.4, Math.max(1.05,dropH), 0); }\nfunction setHeight(h){ dropH=Math.max(3.2,Math.min(6,h)); if(phase==='idle')placeBall();\n  document.getElementById('ht').value=dropH.toFixed(1); }\nsetHeight(5);\nfunction play(){ if(phase!=='idle')return; phase='fall'; t=0; ball.material.color.set(0xFF6B35); setTag('At the top: stored Gravitational PE','#FF6B35'); }\nfunction resetAll(){ phase='idle'; t=0; cartV=0; placeBall(); ball.material.color.set(0xFF6B35); cart.position.x=-2.9; setTag('Drag the ball up, then press Play','#22315B'); }\ndocument.getElementById('run').onclick=play;\ndocument.getElementById('reset').onclick=resetAll;\ndocument.getElementById('ht').oninput=e=>{ if(phase==='idle')setHeight(+e.target.value); };\n// DRAG to set drop height\nlet dragging=false,dy0=0,h0=0;\nC.addEventListener('pointerdown',e=>{ if(phase!=='idle')return; dragging=true; dy0=e.clientY; h0=dropH; C.classList.add('drag'); try{C.setPointerCapture(e.pointerId);}catch(_){}});\nC.addEventListener('pointermove',e=>{ if(!dragging)return; setHeight(h0+(dy0-e.clientY)*0.02); });\nfunction endDrag(){ dragging=false; C.classList.remove('drag'); }\nC.addEventListener('pointerup',endDrag); C.addEventListener('pointercancel',endDrag); C.addEventListener('pointerleave',endDrag);\nconst HITY=1.05;\nlet last=performance.now();\nfunction loop(now){ const dt=Math.min((now-last)/1000,.05); last=now;\n  if(phase==='fall'){ t+=dt; const span=dropH-HITY; const f=Math.min(t*t*3.2/Math.max(span,0.3),1);\n    ball.position.y=dropH-(dropH-HITY)*f; ball.position.x=-3.4;\n    ball.material.color.setRGB(1-f*0.88,0.42+f*0.2,0.2);\n    if(f>0.05)setTag('Falling: PE \u2192 Kinetic energy','#1FA06B');\n    if(f>=1){phase='transfer';t=0;cartV=2.6+span*0.9;ball.material.color.set(0x1FA06B);setTag('Impact! KE transfers to the cart','#EFA320');}\n  } else if(phase==='transfer'){ t+=dt; cart.position.x+=cartV*dt; cartV*=0.985;\n    ball.position.x=cart.position.x-1.0; ball.position.y=1.05;\n    cart.children.forEach(ch=>{if(ch.geometry&&ch.geometry.type==='CylinderGeometry')ch.rotation.y-=cartV*dt*2;});\n    if(cart.position.x>6||cartV<0.4){phase='done';setTag('Cart rolls away \u2014 energy moved object to object','#EFA320');}\n  }\n  renderer.render(scene,cam); requestAnimationFrame(loop); }\nfunction resize(){const w=C.clientWidth,h=C.clientHeight;renderer.setSize(w,h,false);cam.aspect=w/h;cam.updateProjectionMatrix();}\nnew ResizeObserver(resize).observe(C); resize(); requestAnimationFrame(loop);\n\n/* ===== live-sync contract ===== */\nlet _bcast=true;\nfunction getState(){ var h=+dropH; if(!isFinite(h))h=5;\n  return { h:Math.round(h*10)/10, phase:(phase==='idle')?'idle':(phase==='done'?'done':'play') }; }\nfunction setState(s){ if(!s)return; _bcast=false;\n  try{ if(s.phase==='idle' && phase!=='idle') resetAll();\n    if(typeof s.h==='number'&&isFinite(s.h)&&phase==='idle') setHeight(s.h);\n    if((s.phase==='play'||s.phase==='done') && phase==='idle') play();\n  }finally{ _bcast=true; } }\nwindow.addEventListener('message',function(e){ var d=e.data||{};\n  if(d.type==='getState'){ try{parent.postMessage({type:'state',data:getState()},'*');}catch(_){} }\n  else if(d.type==='setState'){ setState(d.data); } });\n(function(){ if(window.__liveSyncEmit)return; var _t=0,_p=null;\n  function _send(){ try{ if(typeof getState!=='function')return; parent.postMessage({type:'state',data:getState()},'*'); }catch(_){} }\n  window.__liveSyncEmit=function(){ var n=Date.now(); if(n-_t>110){_t=n;_send();} else {clearTimeout(_p);_p=setTimeout(function(){_t=Date.now();_send();},110);} };\n  ['pointerdown','pointermove','pointerup','click','input','change','wheel','keydown','keyup','touchmove','touchend']\n    .forEach(function(ev){ document.addEventListener(ev,function(){setTimeout(window.__liveSyncEmit,0);},true); });\n})();\n</script></body></html>\n",
+     "visible": true,
+     "initialState": null,
+     "fit": 1.0,
+     "x": 44,
+     "y": 8,
+     "w": 520
+    },
+    {
+     "id": "i_29",
+     "type": "keypoint",
+     "title": "Drop & transfer \u2699\ufe0f",
+     "content": "Press Play: a falling ball hits a cart on wheels.\nFollow the energy from object to object.",
+     "img": "",
+     "visible": true,
+     "x": 4,
+     "y": 10
+    },
+    {
+     "id": "i_30",
+     "type": "descriptor",
+     "text": "Press Play. Pause on impact \u2014 this is the moment energy moves from the ball to the wheeled cart.",
+     "img": "",
+     "x": 4,
+     "y": 62
+    }
+   ],
+   "script": [
+    {
+     "t": "do",
+     "x": "Open the Energy Transfer model. Play it once all the way through.",
+     "a": ""
+    },
+    {
+     "t": "ask",
+     "x": "Name the energy at three moments: ball up high, ball falling, ball hitting the cart.",
+     "a": "High = PE; falling = KE; impact = KE transferred into the cart. One clean chain of transformations."
+    }
+   ],
+   "locked": false
+  },
+  {
+   "id": "c_34",
+   "sec": "s_3",
+   "name": "Wheel & axle: the trick",
+   "type": "learning",
+   "items": [
+    {
+     "id": "i_33",
+     "type": "image",
+     "src": "data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20640%20400%22%3E%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23FFFDF9%22/%3E%3Cdefs%3E%3Cmarker%20id%3D%22ar%22%20markerWidth%3D%229%22%20markerHeight%3D%229%22%20refX%3D%227%22%20refY%3D%224.5%22%20orient%3D%22auto%22%3E%3Cpath%20d%3D%22M0%200%20L9%204.5%20L0%209%20z%22%20fill%3D%22%235A6685%22/%3E%3C/marker%3E%3C/defs%3E%3Crect%20x%3D%2220%22%20y%3D%2240%22%20width%3D%22600%22%20height%3D%22320%22%20rx%3D%2220%22%20fill%3D%22%23fff%22%20stroke%3D%22%23E4E8F2%22%20stroke-width%3D%222%22/%3E%3Ctext%20x%3D%22320%22%20y%3D%2280%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22700%22%20fill%3D%22%2322315B%22%20text-anchor%3D%22middle%22%20%3EA%20chain%20reaction%3A%20each%20step%20triggers%20the%20next%3C/text%3E%3Ccircle%20cx%3D%2280%22%20cy%3D%22200%22%20r%3D%2230%22%20fill%3D%22%23FF6B35%22/%3E%3Ctext%20x%3D%2280%22%20y%3D%22208%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2220%22%20font-weight%3D%22800%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%20%3EA%3C/text%3E%3Cpath%20d%3D%22M114%20200%20L136%20200%22%20stroke%3D%22%235A6685%22%20stroke-width%3D%223%22%20marker-end%3D%22url%28%23ar%29%22/%3E%3Ccircle%20cx%3D%22170%22%20cy%3D%22200%22%20r%3D%2230%22%20fill%3D%22%23EFA320%22/%3E%3Ctext%20x%3D%22170%22%20y%3D%22208%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2220%22%20font-weight%3D%22800%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%20%3EB%3C/text%3E%3Cpath%20d%3D%22M204%20200%20L226%20200%22%20stroke%3D%22%235A6685%22%20stroke-width%3D%223%22%20marker-end%3D%22url%28%23ar%29%22/%3E%3Ccircle%20cx%3D%22260%22%20cy%3D%22200%22%20r%3D%2230%22%20fill%3D%22%231FA06B%22/%3E%3Ctext%20x%3D%22260%22%20y%3D%22208%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2220%22%20font-weight%3D%22800%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%20%3EC%3C/text%3E%3Cpath%20d%3D%22M294%20200%20L316%20200%22%20stroke%3D%22%235A6685%22%20stroke-width%3D%223%22%20marker-end%3D%22url%28%23ar%29%22/%3E%3Ccircle%20cx%3D%22350%22%20cy%3D%22200%22%20r%3D%2230%22%20fill%3D%22%23FF6B35%22/%3E%3Ctext%20x%3D%22350%22%20y%3D%22208%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2220%22%20font-weight%3D%22800%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%20%3ED%3C/text%3E%3Cpath%20d%3D%22M384%20200%20L406%20200%22%20stroke%3D%22%235A6685%22%20stroke-width%3D%223%22%20marker-end%3D%22url%28%23ar%29%22/%3E%3Ccircle%20cx%3D%22440%22%20cy%3D%22200%22%20r%3D%2230%22%20fill%3D%22%23EFA320%22/%3E%3Ctext%20x%3D%22440%22%20y%3D%22208%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2220%22%20font-weight%3D%22800%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%20%3EE%3C/text%3E%3Cpath%20d%3D%22M474%20200%20L496%20200%22%20stroke%3D%22%235A6685%22%20stroke-width%3D%223%22%20marker-end%3D%22url%28%23ar%29%22/%3E%3Ccircle%20cx%3D%22530%22%20cy%3D%22200%22%20r%3D%2230%22%20fill%3D%22%2322315B%22/%3E%3Ctext%20x%3D%22530%22%20y%3D%22208%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2220%22%20font-weight%3D%22800%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%20%3E%F0%9F%90%B6%3C/text%3E%3Ctext%20x%3D%22320%22%20y%3D%22300%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2215%22%20font-weight%3D%22600%22%20fill%3D%22%235A6685%22%20text-anchor%3D%22middle%22%20%3EOne%20push%20at%20A%20%E2%86%92%20the%20food%20bowl%20fills%20at%20the%20end%3C/text%3E%3C/svg%3E",
+     "caption": "",
+     "visible": true,
+     "x": 21.2,
+     "y": 4,
+     "w": 57.6
+    },
+    {
+     "id": "i_31",
+     "type": "keypoint",
+     "title": "The wheel & axle",
+     "content": "A wheel turns around a rod (the axle), letting heavy things roll instead of drag.",
+     "img": "",
+     "visible": true,
+     "x": 8,
+     "y": 74
+    }
+   ],
+   "script": [
+    {
+     "t": "do",
+     "x": "Recap: the wheel & axle turns a hard drag into an easy roll \u2014 perfect for moving a load across your machine.",
+     "a": ""
+    }
+   ],
+   "locked": false
+  },
+  {
+   "id": "c_36",
+   "sec": "s_3",
+   "name": "Q1 \u00b7 Wheel & axle",
+   "type": "question",
+   "items": [
+    {
+     "id": "i_35",
+     "type": "mcq",
+     "prompt": "A heavy ball falls and strikes a cart, which rolls away. What happened to the ball's energy?",
+     "options": [
+      "It was destroyed on impact",
+      "It transferred to the cart as kinetic energy",
+      "It turned into potential energy",
+      "Nothing \u2014 the cart pushed itself"
+     ],
+     "correct": 1
+    }
+   ],
+   "script": [
+    {
+     "t": "ask",
+     "x": "Ball hits cart, cart rolls \u2014 where did the energy go?",
+     "a": "**Transferred** to the cart as kinetic energy. Energy moved from one object to the next \u2014 secret #1 in action."
+    }
+   ],
+   "locked": false
+  },
+  {
+   "id": "c_38",
+   "sec": "s_3",
+   "name": "Q2 \u00b7 Wheel & axle",
+   "type": "question",
+   "items": [
+    {
+     "id": "i_37",
+     "type": "mcq",
+     "prompt": "Why does a wheel & axle make a heavy load easier to move?",
+     "options": [
+      "It removes the load's weight",
+      "It lets the load roll instead of drag",
+      "It makes the load lighter",
+      "It stores energy"
+     ],
+     "correct": 1
+    }
+   ],
+   "script": [
+    {
+     "t": "ask",
+     "x": "Why is rolling easier than dragging?",
+     "a": "The wheel turns on the axle, so the load **rolls** with far less resistance."
+    }
+   ],
+   "locked": false
+  },
+  {
+   "id": "c_43",
+   "sec": "s_3",
+   "name": "Lever: explore it",
+   "type": "learning",
+   "items": [
+    {
+     "id": "i_39",
+     "type": "model3d",
+     "name": "Lever \u2014 Fulcrum Lab",
+     "html": "<!DOCTYPE html>\n<html lang=\"en\"><head><meta charset=\"UTF-8\">\n<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">\n<title>Lever \u2014 Fulcrum Lab</title>\n<style>\n  :root{--ink:#22315B;--soft:#5A6685;--orange:#FF6B35;--green:#1FA06B;--line:#E4E8F2;--bg:#FFFDF9;--panel:#F5F7FC}\n  *{box-sizing:border-box;margin:0;padding:0}\n  html,body{height:100%;font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--ink);overflow:hidden}\n  #wrap{position:absolute;inset:0;display:flex;flex-direction:column}\n  #stage{flex:1;position:relative}\n  canvas{display:block;width:100%;height:100%;cursor:ew-resize;touch-action:none}\n  #hint{position:absolute;left:12px;top:12px;background:rgba(255,253,249,.92);border:1.5px solid var(--line);border-radius:12px;padding:9px 12px;font-size:12px;font-weight:600;color:var(--soft);max-width:230px}\n  #hint b{color:var(--ink)}\n  #ctrl{padding:10px 14px;background:#fff;border-top:1.5px solid var(--line);display:flex;align-items:center;gap:12px;flex-wrap:wrap}\n  #ctrl label{font-size:12px;font-weight:700;color:var(--soft)}\n  input[type=range]{accent-color:var(--green);flex:1;min-width:120px}\n  button{font-family:inherit;font-weight:700;font-size:13px;border:0;border-radius:10px;padding:9px 16px;cursor:pointer;background:var(--ink);color:#fff}\n  button.sec{background:var(--panel);color:var(--ink);border:1.5px solid var(--line)}\n  #fTag{font-weight:800;color:var(--green);min-width:130px;text-align:right;font-size:12px}\n</style></head>\n<body>\n<div id=\"wrap\">\n  <div id=\"stage\"><canvas id=\"c\"></canvas>\n    <div id=\"hint\">Drag left \u2194 right (or use the slider) to move the <b>fulcrum</b>, then drop the weight to <b>launch</b> the ball. Fulcrum closer to the rock = easier lift.</div>\n  </div>\n  <div id=\"ctrl\">\n    <label>Fulcrum position</label>\n    <input type=\"range\" id=\"ful\" min=\"20\" max=\"80\" value=\"50\">\n    <span id=\"fTag\">centred</span>\n    <button id=\"drop\">\u25b6 Drop weight</button>\n    <button class=\"sec\" id=\"reset\">Reset</button>\n  </div>\n</div>\n<script src=\"https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js\"></script>\n<script>\nconst C=document.getElementById('c');\nconst renderer=new THREE.WebGLRenderer({canvas:C,antialias:true});\nrenderer.setPixelRatio(Math.min(devicePixelRatio,2));\nconst scene=new THREE.Scene(); scene.background=new THREE.Color(0xFFFDF9);\nconst cam=new THREE.PerspectiveCamera(44,1,0.1,100); cam.position.set(0,3.2,9.5); cam.lookAt(0,1.1,0);\nscene.add(new THREE.AmbientLight(0xffffff,.85));\nconst dl=new THREE.DirectionalLight(0xffffff,.6); dl.position.set(3,8,5); scene.add(dl);\nconst ground=new THREE.Mesh(new THREE.BoxGeometry(16,.4,6),new THREE.MeshLambertMaterial({color:0xE4E8F2})); ground.position.y=-.2; scene.add(ground);\nconst fulMat=new THREE.MeshLambertMaterial({color:0x22315B});\nconst fulcrum=new THREE.Mesh(new THREE.ConeGeometry(.85,1.3,3),fulMat); fulcrum.position.set(0,.55,0); fulcrum.rotation.y=Math.PI/2; scene.add(fulcrum);\nconst beamLen=8, beam=new THREE.Mesh(new THREE.BoxGeometry(beamLen,.28,1.1),new THREE.MeshLambertMaterial({color:0xFF6B35}));\nconst beamGrp=new THREE.Group(); beamGrp.position.set(0,1.2,0); beam.position.x=0; beamGrp.add(beam); scene.add(beamGrp);\nconst rock=new THREE.Mesh(new THREE.DodecahedronGeometry(.62),new THREE.MeshStandardMaterial({color:0x5A6685,roughness:.9}));\nconst ball=new THREE.Mesh(new THREE.SphereGeometry(.42,24,18),new THREE.MeshStandardMaterial({color:0x1FA06B,roughness:.4}));\nscene.add(rock,ball);\nconst weight=new THREE.Mesh(new THREE.BoxGeometry(.8,.8,.8),new THREE.MeshStandardMaterial({color:0x22315B}));\nscene.add(weight);\nlet fval=50, fpos=0, tilt=0, launching=false, flyT=0, ballFly=null;\nfunction endWorld(localX){ const v=new THREE.Vector3(localX-fpos,0,0);\n  v.applyAxisAngle(new THREE.Vector3(0,0,1),tilt); v.add(new THREE.Vector3(fpos,1.2,0)); return v; }\nfunction placeEnds(){ const L=endWorld(-beamLen/2), R=endWorld(beamLen/2);\n  rock.position.set(L.x,L.y+.5,0); if(!launching){ball.position.set(R.x,R.y+.45,0);} weight.position.set(R.x,R.y+3.2,0); }\nfunction layout(){ fulcrum.position.x=fpos; beamGrp.position.x=fpos; beam.position.x=-fpos; beamGrp.rotation.z=tilt; placeEnds(); }\nfunction setFul(v){ fval=Math.max(20,Math.min(80,v)); fpos=(fval-50)/30*2.6;\n  document.getElementById('fTag').textContent = fval<42?'near the rock (easy lift)':fval>58?'far from rock (hard lift)':'centred';\n  document.getElementById('ful').value=Math.round(fval); layout(); }\nsetFul(50);\nfunction dropWeight(){ if(launching)return; launching=true; flyT=0;\n  const adv=THREE.MathUtils.clamp((-fpos+2.6)/5.2,0,1); ballFly={v:4+adv*7,x0:0,y0:0}; }\nfunction resetAll(){ launching=false; tilt=0; flyT=0; ballFly=null; layout(); }\ndocument.getElementById('ful').oninput=e=>{ if(!launching)setFul(+e.target.value); };\ndocument.getElementById('reset').onclick=resetAll;\ndocument.getElementById('drop').onclick=dropWeight;\n// DRAG horizontally to move the fulcrum\nlet dragging=false,dx0=0,f0=0;\nC.addEventListener('pointerdown',e=>{ if(launching)return; dragging=true; dx0=e.clientX; f0=fval; try{C.setPointerCapture(e.pointerId);}catch(_){}});\nC.addEventListener('pointermove',e=>{ if(!dragging)return; setFul(f0+(e.clientX-dx0)*0.12); });\nfunction endDrag(){ dragging=false; }\nC.addEventListener('pointerup',endDrag); C.addEventListener('pointercancel',endDrag); C.addEventListener('pointerleave',endDrag);\nlet last=performance.now();\nfunction loop(now){ const dt=(now-last)/1000; last=now;\n  if(launching){ flyT+=dt; tilt=Math.max(-.32,-flyT*0.9); layout();\n    if(flyT>0.35 && ballFly){ if(ballFly.x0===0){const R=endWorld(beamLen/2);ballFly.x0=R.x;ballFly.y0=R.y+.45;ballFly.tt=0;}\n      ballFly.tt+=dt; const vx=ballFly.v*0.45, vy=ballFly.v*0.9;\n      ball.position.x=ballFly.x0+vx*ballFly.tt; ball.position.y=ballFly.y0+vy*ballFly.tt-4.9*ballFly.tt*ballFly.tt;\n      if(ball.position.y<-.2){launching=false;} } }\n  renderer.render(scene,cam); requestAnimationFrame(loop); }\nfunction resize(){const w=C.clientWidth,h=C.clientHeight;renderer.setSize(w,h,false);cam.aspect=w/h;cam.updateProjectionMatrix();}\nnew ResizeObserver(resize).observe(C); resize(); requestAnimationFrame(loop);\n\n/* ===== live-sync contract ===== */\nlet _bcast=true;\nfunction getState(){ var f=+fval; if(!isFinite(f))f=50;\n  return { ful:Math.round(f), phase:launching?'launch':(flyT>0?'done':'idle') }; }\nfunction setState(s){ if(!s)return; _bcast=false;\n  try{ if(s.phase==='idle' && (launching||flyT>0)) resetAll();\n    if(typeof s.ful==='number'&&isFinite(s.ful)&&!launching) setFul(s.ful);\n    if(s.phase==='launch' && !launching && flyT===0) dropWeight();\n  }finally{ _bcast=true; } }\nwindow.addEventListener('message',function(e){ var d=e.data||{};\n  if(d.type==='getState'){ try{parent.postMessage({type:'state',data:getState()},'*');}catch(_){} }\n  else if(d.type==='setState'){ setState(d.data); } });\n(function(){ if(window.__liveSyncEmit)return; var _t=0,_p=null;\n  function _send(){ try{ if(typeof getState!=='function')return; parent.postMessage({type:'state',data:getState()},'*'); }catch(_){} }\n  window.__liveSyncEmit=function(){ var n=Date.now(); if(n-_t>110){_t=n;_send();} else {clearTimeout(_p);_p=setTimeout(function(){_t=Date.now();_send();},110);} };\n  ['pointerdown','pointermove','pointerup','click','input','change','wheel','keydown','keyup','touchmove','touchend']\n    .forEach(function(ev){ document.addEventListener(ev,function(){setTimeout(window.__liveSyncEmit,0);},true); });\n})();\n</script></body></html>\n",
+     "visible": true,
+     "initialState": null,
+     "fit": 1.0,
+     "x": 44,
+     "y": 8,
+     "w": 520
+    },
+    {
+     "id": "i_40",
+     "type": "keypoint",
+     "title": "Find the sweet spot \u2696\ufe0f",
+     "content": "Slide the fulcrum, then drop the weight to launch the ball.\nWhere is lifting easiest?",
+     "img": "",
+     "visible": true,
+     "x": 4,
+     "y": 10
+    },
+    {
+     "id": "i_41",
+     "type": "descriptor",
+     "text": "Let students try several fulcrum positions before dropping the weight. They should FEEL the trade-off.",
+     "img": "",
+     "x": 4,
+     "y": 62
+    }
+   ],
+   "script": [
+    {
+     "t": "do",
+     "x": "Open the Lever model. Demonstrate one fulcrum position, then hand control to a student.",
+     "a": ""
+    },
+    {
+     "t": "ask",
+     "x": "Predict before you drop: which fulcrum position will fling the ball the FARTHEST?",
+     "a": "Fulcrum near the load/heavy side gives the long arm a big swing \u2014 biggest launch. Take predictions, then test."
+    }
+   ],
+   "locked": false
+  },
+  {
+   "id": "c_45",
+   "sec": "s_3",
+   "name": "Lever: the trick",
+   "type": "learning",
+   "items": [
+    {
+     "id": "i_44",
+     "type": "image",
+     "src": "data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20640%20400%22%3E%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23FFFDF9%22/%3E%3Ctext%20x%3D%22320%22%20y%3D%2242%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22800%22%20fill%3D%22%2322315B%22%20text-anchor%3D%22middle%22%20%3EThe%20parts%20of%20a%20lever%3C/text%3E%3Cpolygon%20points%3D%22300%2C250%20270%2C310%20330%2C310%22%20fill%3D%22%2322315B%22/%3E%3Crect%20x%3D%22100%22%20y%3D%22240%22%20width%3D%22400%22%20height%3D%2216%22%20rx%3D%228%22%20fill%3D%22%23FF6B35%22%20transform%3D%22rotate%28-6%20300%20248%29%22/%3E%3Crect%20x%3D%22120%22%20y%3D%22190%22%20width%3D%2244%22%20height%3D%2244%22%20rx%3D%226%22%20fill%3D%22%235A6685%22/%3E%3Cpath%20d%3D%22M470%20210%20l0%2050%22%20stroke%3D%22%231FA06B%22%20stroke-width%3D%225%22%20marker-end%3D%22url%28%23a4%29%22/%3E%3Cdefs%3E%3Cmarker%20id%3D%22a4%22%20markerWidth%3D%229%22%20markerHeight%3D%229%22%20refX%3D%227%22%20refY%3D%224.5%22%20orient%3D%22auto%22%3E%3Cpath%20d%3D%22M0%200%20L9%204.5%20L0%209%20z%22%20fill%3D%22%231FA06B%22/%3E%3C/marker%3E%3C/defs%3E%3Ctext%20x%3D%22142%22%20y%3D%22180%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2213%22%20font-weight%3D%22800%22%20fill%3D%22%2322315B%22%20text-anchor%3D%22middle%22%20%3Eload%3C/text%3E%3Ctext%20x%3D%22300%22%20y%3D%22335%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2213%22%20font-weight%3D%22800%22%20fill%3D%22%2322315B%22%20text-anchor%3D%22middle%22%20%3Efulcrum%3C/text%3E%3Ctext%20x%3D%22480%22%20y%3D%22200%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2213%22%20font-weight%3D%22800%22%20fill%3D%22%231FA06B%22%20text-anchor%3D%22start%22%20%3Eeffort%3C/text%3E%3Crect%20x%3D%22150%22%20y%3D%22355%22%20width%3D%22150%22%20height%3D%2234%22%20rx%3D%2217%22%20fill%3D%22%23EFA320%22/%3E%3Ctext%20x%3D%22225.0%22%20y%3D%22378%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2215%22%20font-weight%3D%22800%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%20%3Ecloser%20fulcrum%20%3D%20easier%20lift%3C/text%3E%3C/svg%3E",
+     "caption": "",
+     "visible": true,
+     "x": 21.2,
+     "y": 4,
+     "w": 57.6
+    },
+    {
+     "id": "i_42",
+     "type": "keypoint",
+     "title": "The lever",
+     "content": "A beam that turns on a fulcrum. A load on one side, effort on the other.\nFulcrum closer to the load = easier lift (and a bigger launch).",
+     "img": "",
+     "visible": true,
+     "x": 8,
+     "y": 74
+    }
+   ],
+   "script": [
+    {
+     "t": "do",
+     "x": "Recap: levers lift heavy loads and launch light ones. A catapult step is just a lever used for launching.",
+     "a": ""
+    }
+   ],
+   "locked": false
+  },
+  {
+   "id": "c_47",
+   "sec": "s_3",
+   "name": "Q1 \u00b7 Lever",
+   "type": "question",
+   "items": [
+    {
+     "id": "i_46",
+     "type": "mcq",
+     "prompt": "On a lever, moving the fulcrum closer to the heavy load makes lifting it\u2026",
+     "options": [
+      "Harder",
+      "Easier",
+      "Impossible",
+      "Exactly the same"
+     ],
+     "correct": 1
+    }
+   ],
+   "script": [
+    {
+     "t": "ask",
+     "x": "Fulcrum closer to the load \u2014 easier or harder to lift?",
+     "a": "**Easier.** Less effort is needed when the fulcrum sits near the load."
+    }
+   ],
+   "locked": false
+  },
+  {
+   "id": "c_49",
+   "sec": "s_3",
+   "name": "Q2 \u00b7 Lever",
+   "type": "question",
+   "items": [
+    {
+     "id": "i_48",
+     "type": "mcq",
+     "prompt": "In the launch model, the falling weight gives the ball its push. That push is a transfer of\u2026",
+     "options": [
+      "Potential to the ground",
+      "Kinetic energy to the ball",
+      "Light to the ball",
+      "No energy"
+     ],
+     "correct": 1
+    }
+   ],
+   "script": [
+    {
+     "t": "ask",
+     "x": "The dropping weight launches the ball \u2014 what's transferred?",
+     "a": "**Kinetic energy** \u2014 the weight's motion becomes the ball's motion and it flies."
+    }
+   ],
+   "locked": false
+  },
+  {
+   "id": "c_53",
+   "sec": "s_3",
+   "name": "Pulley: the redirect",
+   "type": "learning",
+   "items": [
+    {
+     "id": "i_50",
+     "type": "image",
+     "src": "data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20640%20400%22%3E%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23FFFDF9%22/%3E%3Ctext%20x%3D%22320%22%20y%3D%2242%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22800%22%20fill%3D%22%2322315B%22%20text-anchor%3D%22middle%22%20%3EThe%20pulley%3C/text%3E%3Ccircle%20cx%3D%22320%22%20cy%3D%22120%22%20r%3D%2234%22%20fill%3D%22none%22%20stroke%3D%22%2322315B%22%20stroke-width%3D%226%22/%3E%3Ccircle%20cx%3D%22320%22%20cy%3D%22120%22%20r%3D%226%22%20fill%3D%22%2322315B%22/%3E%3Cpath%20d%3D%22M290%20130%20L290%20280%22%20stroke%3D%22%231FA06B%22%20stroke-width%3D%224%22/%3E%3Cpath%20d%3D%22M350%20130%20L350%20250%22%20stroke%3D%22%23FF6B35%22%20stroke-width%3D%224%22/%3E%3Crect%20x%3D%22270%22%20y%3D%22280%22%20width%3D%2240%22%20height%3D%2240%22%20rx%3D%226%22%20fill%3D%22%235A6685%22/%3E%3Ctext%20x%3D%22330%22%20y%3D%22300%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2213%22%20font-weight%3D%22700%22%20fill%3D%22%235A6685%22%20text-anchor%3D%22start%22%20%3Epull%20down%20%E2%86%92%20load%20goes%20up%3C/text%3E%3Crect%20x%3D%22170%22%20y%3D%22350%22%20width%3D%22300%22%20height%3D%2234%22%20rx%3D%2217%22%20fill%3D%22%23FF6B35%22/%3E%3Ctext%20x%3D%22320.0%22%20y%3D%22373%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2215%22%20font-weight%3D%22800%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%20%3Echanges%20the%20direction%20of%20your%20force%3C/text%3E%3C/svg%3E",
+     "caption": "",
+     "visible": true,
+     "x": 21.2,
+     "y": 4,
+     "w": 57.6
+    },
+    {
+     "id": "i_51",
+     "type": "keypoint",
+     "title": "Pull down, lift up \ud83e\ude9d",
+     "content": "A grooved wheel and a rope. Pulling **down** on one side lifts the load **up** on the other.",
+     "img": "",
+     "visible": true,
+     "x": 8,
+     "y": 74
+    },
+    {
+     "id": "i_52",
+     "type": "descriptor",
+     "text": "Show how the direction of the force flips: you pull down, the load rises. That's the whole trick.",
+     "img": "",
+     "x": 66,
+     "y": 84
+    }
+   ],
+   "script": [
+    {
+     "t": "do",
+     "x": "Walk through the pulley diagram: rope over a wheel, load on one end.",
+     "a": ""
+    },
+    {
+     "t": "ask",
+     "x": "If you pull the rope DOWN, which way does the load go \u2014 and why is that handy?",
+     "a": "It goes UP. Pulling down is easier (you can use your weight), so a pulley redirects force to your advantage."
+    }
+   ],
+   "locked": false
+  },
+  {
+   "id": "c_55",
+   "sec": "s_3",
+   "name": "Q1 \u00b7 Pulley",
+   "type": "question",
+   "items": [
+    {
+     "id": "i_54",
+     "type": "mcq",
+     "prompt": "What does a pulley mainly do to the force you apply?",
+     "options": [
+      "Removes the force entirely",
+      "Changes its direction",
+      "Doubles the load's weight",
+      "Stores it as heat"
+     ],
+     "correct": 1
+    }
+   ],
+   "script": [
+    {
+     "t": "ask",
+     "x": "What does a pulley do to your force?",
+     "a": "**Changes its direction** \u2014 pull down, load goes up."
+    }
+   ],
+   "locked": false
+  },
+  {
+   "id": "c_59",
+   "sec": "s_3",
+   "name": "Screw: the hidden ramp",
+   "type": "learning",
+   "items": [
+    {
+     "id": "i_56",
+     "type": "image",
+     "src": "data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20640%20400%22%3E%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23FFFDF9%22/%3E%3Ctext%20x%3D%22320%22%20y%3D%2242%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2216%22%20font-weight%3D%22800%22%20fill%3D%22%2322315B%22%20text-anchor%3D%22middle%22%20%3EThe%20screw%20%3D%20an%20inclined%20plane%20wrapped%20around%20a%20cylinder%3C/text%3E%3Crect%20x%3D%22290%22%20y%3D%2290%22%20width%3D%2260%22%20height%3D%22220%22%20rx%3D%228%22%20fill%3D%22%23F5F7FC%22%20stroke%3D%22%2322315B%22%20stroke-width%3D%222%22/%3E%3Cpath%20d%3D%22M290%20110%20Q320%20128%20350%20110%22%20stroke%3D%22%23FF6B35%22%20stroke-width%3D%225%22%20fill%3D%22none%22/%3E%3Cpath%20d%3D%22M290%20138%20Q320%20156%20350%20138%22%20stroke%3D%22%23FF6B35%22%20stroke-width%3D%225%22%20fill%3D%22none%22/%3E%3Cpath%20d%3D%22M290%20166%20Q320%20184%20350%20166%22%20stroke%3D%22%23FF6B35%22%20stroke-width%3D%225%22%20fill%3D%22none%22/%3E%3Cpath%20d%3D%22M290%20194%20Q320%20212%20350%20194%22%20stroke%3D%22%23FF6B35%22%20stroke-width%3D%225%22%20fill%3D%22none%22/%3E%3Cpath%20d%3D%22M290%20222%20Q320%20240%20350%20222%22%20stroke%3D%22%23FF6B35%22%20stroke-width%3D%225%22%20fill%3D%22none%22/%3E%3Cpath%20d%3D%22M290%20250%20Q320%20268%20350%20250%22%20stroke%3D%22%23FF6B35%22%20stroke-width%3D%225%22%20fill%3D%22none%22/%3E%3Cpath%20d%3D%22M290%20278%20Q320%20296%20350%20278%22%20stroke%3D%22%23FF6B35%22%20stroke-width%3D%225%22%20fill%3D%22none%22/%3E%3Crect%20x%3D%22150%22%20y%3D%22340%22%20width%3D%22340%22%20height%3D%2234%22%20rx%3D%2217%22%20fill%3D%22%231FA06B%22/%3E%3Ctext%20x%3D%22320.0%22%20y%3D%22363%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2215%22%20font-weight%3D%22800%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%20%3Ea%20long%20gentle%20ramp%20in%20a%20small%20space%3C/text%3E%3C/svg%3E",
+     "caption": "",
+     "visible": true,
+     "x": 21.2,
+     "y": 4,
+     "w": 57.6
+    },
+    {
+     "id": "i_57",
+     "type": "keypoint",
+     "title": "A ramp in disguise \ud83c\udf00",
+     "content": "A screw is an **inclined plane wrapped around a cylinder** \u2014 a long gentle ramp packed into a small space.",
+     "img": "",
+     "visible": true,
+     "x": 8,
+     "y": 74
+    },
+    {
+     "id": "i_58",
+     "type": "descriptor",
+     "text": "Connect back to the inclined plane: the screw is the SAME idea, just coiled. Lowers things gently.",
+     "img": "",
+     "x": 66,
+     "y": 84
+    }
+   ],
+   "script": [
+    {
+     "t": "do",
+     "x": "Trace the spiral on the screw diagram with your finger \u2014 show it's one long ramp wound up.",
+     "a": ""
+    },
+    {
+     "t": "ask",
+     "x": "Which earlier machine is hiding inside a screw?",
+     "a": "The **inclined plane**. A screw is a ramp wrapped around a cylinder \u2014 great for lowering something gently."
+    }
+   ],
+   "locked": false
+  },
+  {
+   "id": "c_61",
+   "sec": "s_3",
+   "name": "Q1 \u00b7 Screw",
+   "type": "question",
+   "items": [
+    {
+     "id": "i_60",
+     "type": "mcq",
+     "prompt": "A screw is best described as\u2026",
+     "options": [
+      "A wheel on an axle",
+      "An inclined plane wrapped around a cylinder",
+      "Two levers joined together",
+      "A rope and a pulley"
+     ],
+     "correct": 1
+    }
+   ],
+   "script": [
+    {
+     "t": "ask",
+     "x": "What simple machine is a screw built from?",
+     "a": "An **inclined plane** wrapped around a cylinder."
+    }
+   ],
+   "locked": false
+  },
+  {
+   "id": "c_65",
+   "sec": "s_3",
+   "name": "Wedge: split the force",
+   "type": "learning",
+   "items": [
+    {
+     "id": "i_62",
+     "type": "image",
+     "src": "data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20640%20400%22%3E%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23FFFDF9%22/%3E%3Ctext%20x%3D%22320%22%20y%3D%2242%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22800%22%20fill%3D%22%2322315B%22%20text-anchor%3D%22middle%22%20%3EThe%20wedge%3C/text%3E%3Cpolygon%20points%3D%22320%2C90%20360%2C300%20280%2C300%22%20fill%3D%22%2322315B%22/%3E%3Cpath%20d%3D%22M250%20110%20L300%20150%22%20stroke%3D%22%231FA06B%22%20stroke-width%3D%225%22%20marker-end%3D%22url%28%23a5%29%22/%3E%3Cdefs%3E%3Cmarker%20id%3D%22a5%22%20markerWidth%3D%229%22%20markerHeight%3D%229%22%20refX%3D%227%22%20refY%3D%224.5%22%20orient%3D%22auto%22%3E%3Cpath%20d%3D%22M0%200%20L9%204.5%20L0%209%20z%22%20fill%3D%22%231FA06B%22/%3E%3C/marker%3E%3C/defs%3E%3Cpath%20d%3D%22M300%20300%20L240%20330%22%20stroke%3D%22%23FF6B35%22%20stroke-width%3D%224%22%20marker-end%3D%22url%28%23a6%29%22/%3E%3Cpath%20d%3D%22M340%20300%20L400%20330%22%20stroke%3D%22%23FF6B35%22%20stroke-width%3D%224%22%20marker-end%3D%22url%28%23a6%29%22/%3E%3Cdefs%3E%3Cmarker%20id%3D%22a6%22%20markerWidth%3D%229%22%20markerHeight%3D%229%22%20refX%3D%227%22%20refY%3D%224.5%22%20orient%3D%22auto%22%3E%3Cpath%20d%3D%22M0%200%20L9%204.5%20L0%209%20z%22%20fill%3D%22%23FF6B35%22/%3E%3C/marker%3E%3C/defs%3E%3Ctext%20x%3D%22320%22%20y%3D%22360%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2215%22%20font-weight%3D%22600%22%20fill%3D%22%235A6685%22%20text-anchor%3D%22middle%22%20%3Eone%20push%20in%20%E2%86%92%20force%20splits%20sideways%3C/text%3E%3C/svg%3E",
+     "caption": "",
+     "visible": true,
+     "x": 21.2,
+     "y": 4,
+     "w": 57.6
+    },
+    {
+     "id": "i_63",
+     "type": "keypoint",
+     "title": "Push in, force splits \ud83d\udd2a",
+     "content": "A wedge takes one push and **redirects** it sideways to split or push things apart.",
+     "img": "",
+     "visible": true,
+     "x": 8,
+     "y": 74
+    },
+    {
+     "id": "i_64",
+     "type": "descriptor",
+     "text": "Show the single downward push becoming two sideways forces. Door stops and axe-heads are wedges.",
+     "img": "",
+     "x": 66,
+     "y": 84
+    }
+   ],
+   "script": [
+    {
+     "t": "do",
+     "x": "Use the wedge diagram: one arrow in at the top, two arrows out at the sides.",
+     "a": ""
+    },
+    {
+     "t": "ask",
+     "x": "Where have you seen a wedge doing real work?",
+     "a": "Knife, axe, door stop, the front of a boat. One push in \u2192 force pushes outward to split or hold."
+    }
+   ],
+   "locked": false
+  },
+  {
+   "id": "c_67",
+   "sec": "s_3",
+   "name": "Q1 \u00b7 Wedge",
+   "type": "question",
+   "items": [
+    {
+     "id": "i_66",
+     "type": "mcq",
+     "prompt": "What does a wedge do to the force you push with?",
+     "options": [
+      "Stores it for later",
+      "Redirects it sideways to split things",
+      "Cancels it out",
+      "Turns it into light"
+     ],
+     "correct": 1
+    }
+   ],
+   "script": [
+    {
+     "t": "ask",
+     "x": "What does a wedge do with your push?",
+     "a": "**Redirects it sideways** to split or push things apart."
+    }
+   ],
+   "locked": false
+  },
+  {
+   "id": "c_70",
+   "sec": "s_3",
+   "name": "You're an Energy Master! \ud83c\udfc6",
+   "type": "learning",
+   "items": [
+    {
+     "id": "i_68",
+     "type": "image",
+     "src": "data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20640%20380%22%3E%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23FFFDF9%22/%3E%3Ctext%20x%3D%22320%22%20y%3D%2242%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2219%22%20font-weight%3D%22800%22%20fill%3D%22%2322315B%22%20text-anchor%3D%22middle%22%20%3EYour%20trick%20sheet%3C/text%3E%3Crect%20x%3D%2280%22%20y%3D%2278%22%20width%3D%22480%22%20height%3D%2240%22%20rx%3D%2212%22%20fill%3D%22%23fff%22%20stroke%3D%22%23E4E8F2%22%20stroke-width%3D%222%22/%3E%3Crect%20x%3D%2280%22%20y%3D%2278%22%20width%3D%228%22%20height%3D%2240%22%20rx%3D%224%22%20fill%3D%22%23FF6B35%22/%3E%3Ctext%20x%3D%22105%22%20y%3D%22104%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2215%22%20font-weight%3D%22800%22%20fill%3D%22%2322315B%22%20text-anchor%3D%22start%22%20%3EInclined%20plane%3C/text%3E%3Crect%20x%3D%22380%22%20y%3D%2281%22%20width%3D%22160%22%20height%3D%2234%22%20rx%3D%2217%22%20fill%3D%22%23FF6B35%22/%3E%3Ctext%20x%3D%22460.0%22%20y%3D%22104%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2215%22%20font-weight%3D%22800%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%20%3Eup%20/%20down%3C/text%3E%3Crect%20x%3D%2280%22%20y%3D%22126%22%20width%3D%22480%22%20height%3D%2240%22%20rx%3D%2212%22%20fill%3D%22%23fff%22%20stroke%3D%22%23E4E8F2%22%20stroke-width%3D%222%22/%3E%3Crect%20x%3D%2280%22%20y%3D%22126%22%20width%3D%228%22%20height%3D%2240%22%20rx%3D%224%22%20fill%3D%22%231FA06B%22/%3E%3Ctext%20x%3D%22105%22%20y%3D%22152%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2215%22%20font-weight%3D%22800%22%20fill%3D%22%2322315B%22%20text-anchor%3D%22start%22%20%3EWheel%20%26amp%3B%20axle%3C/text%3E%3Crect%20x%3D%22380%22%20y%3D%22129%22%20width%3D%22160%22%20height%3D%2234%22%20rx%3D%2217%22%20fill%3D%22%231FA06B%22/%3E%3Ctext%20x%3D%22460.0%22%20y%3D%22152%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2215%22%20font-weight%3D%22800%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%20%3Eroll%20/%20bump%3C/text%3E%3Crect%20x%3D%2280%22%20y%3D%22174%22%20width%3D%22480%22%20height%3D%2240%22%20rx%3D%2212%22%20fill%3D%22%23fff%22%20stroke%3D%22%23E4E8F2%22%20stroke-width%3D%222%22/%3E%3Crect%20x%3D%2280%22%20y%3D%22174%22%20width%3D%228%22%20height%3D%2240%22%20rx%3D%224%22%20fill%3D%22%23EFA320%22/%3E%3Ctext%20x%3D%22105%22%20y%3D%22200%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2215%22%20font-weight%3D%22800%22%20fill%3D%22%2322315B%22%20text-anchor%3D%22start%22%20%3ELever%3C/text%3E%3Crect%20x%3D%22380%22%20y%3D%22177%22%20width%3D%22160%22%20height%3D%2234%22%20rx%3D%2217%22%20fill%3D%22%23EFA320%22/%3E%3Ctext%20x%3D%22460.0%22%20y%3D%22200%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2215%22%20font-weight%3D%22800%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%20%3Elift%20/%20launch%3C/text%3E%3Crect%20x%3D%2280%22%20y%3D%22222%22%20width%3D%22480%22%20height%3D%2240%22%20rx%3D%2212%22%20fill%3D%22%23fff%22%20stroke%3D%22%23E4E8F2%22%20stroke-width%3D%222%22/%3E%3Crect%20x%3D%2280%22%20y%3D%22222%22%20width%3D%228%22%20height%3D%2240%22%20rx%3D%224%22%20fill%3D%22%23FF6B35%22/%3E%3Ctext%20x%3D%22105%22%20y%3D%22248%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2215%22%20font-weight%3D%22800%22%20fill%3D%22%2322315B%22%20text-anchor%3D%22start%22%20%3EPulley%3C/text%3E%3Crect%20x%3D%22380%22%20y%3D%22225%22%20width%3D%22160%22%20height%3D%2234%22%20rx%3D%2217%22%20fill%3D%22%23FF6B35%22/%3E%3Ctext%20x%3D%22460.0%22%20y%3D%22248%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2215%22%20font-weight%3D%22800%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%20%3Eredirect%20force%3C/text%3E%3Crect%20x%3D%2280%22%20y%3D%22270%22%20width%3D%22480%22%20height%3D%2240%22%20rx%3D%2212%22%20fill%3D%22%23fff%22%20stroke%3D%22%23E4E8F2%22%20stroke-width%3D%222%22/%3E%3Crect%20x%3D%2280%22%20y%3D%22270%22%20width%3D%228%22%20height%3D%2240%22%20rx%3D%224%22%20fill%3D%22%231FA06B%22/%3E%3Ctext%20x%3D%22105%22%20y%3D%22296%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2215%22%20font-weight%3D%22800%22%20fill%3D%22%2322315B%22%20text-anchor%3D%22start%22%20%3EScrew%3C/text%3E%3Crect%20x%3D%22380%22%20y%3D%22273%22%20width%3D%22160%22%20height%3D%2234%22%20rx%3D%2217%22%20fill%3D%22%231FA06B%22/%3E%3Ctext%20x%3D%22460.0%22%20y%3D%22296%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2215%22%20font-weight%3D%22800%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%20%3Egently%20lower%3C/text%3E%3Crect%20x%3D%2280%22%20y%3D%22318%22%20width%3D%22480%22%20height%3D%2240%22%20rx%3D%2212%22%20fill%3D%22%23fff%22%20stroke%3D%22%23E4E8F2%22%20stroke-width%3D%222%22/%3E%3Crect%20x%3D%2280%22%20y%3D%22318%22%20width%3D%228%22%20height%3D%2240%22%20rx%3D%224%22%20fill%3D%22%23EFA320%22/%3E%3Ctext%20x%3D%22105%22%20y%3D%22344%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2215%22%20font-weight%3D%22800%22%20fill%3D%22%2322315B%22%20text-anchor%3D%22start%22%20%3EWedge%3C/text%3E%3Crect%20x%3D%22380%22%20y%3D%22321%22%20width%3D%22160%22%20height%3D%2234%22%20rx%3D%2217%22%20fill%3D%22%23EFA320%22/%3E%3Ctext%20x%3D%22460.0%22%20y%3D%22344%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2215%22%20font-weight%3D%22800%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%20%3Epush%20apart%3C/text%3E%3C/svg%3E",
+     "caption": "",
+     "visible": true,
+     "x": 19.7,
+     "y": 4,
+     "w": 60.6
+    },
+    {
+     "id": "i_69",
+     "type": "keypoint",
+     "title": "Two secrets, six tools \u2705",
+     "content": "You now know all **6 simple machines** and how each one transfers energy into a wacky step.\nThis is your trick sheet for building.",
+     "img": "",
+     "visible": true,
+     "x": 8,
+     "y": 74
+    }
+   ],
+   "script": [
+    {
+     "t": "do",
+     "x": "Celebrate: bootcamp complete. Run through the trick sheet \u2014 what each machine lets you do in a chain.",
+     "a": ""
+    },
+    {
+     "t": "note",
+     "x": "Keep this slide handy during the build; students will pick steps straight off this toolbox.",
+     "a": ""
+    }
+   ],
+   "locked": false
+  },
+  {
+   "id": "c_73",
+   "sec": "s_4",
+   "name": "How do engineers build?",
+   "type": "learning",
+   "items": [
+    {
+     "id": "i_71",
+     "type": "image",
+     "src": "data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20640%20380%22%3E%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23FFFDF9%22/%3E%3Ctext%20x%3D%22320%22%20y%3D%2242%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22800%22%20fill%3D%22%2322315B%22%20text-anchor%3D%22middle%22%20%3EThe%20Engineering%20Design%20Process%3C/text%3E%3Ccircle%20cx%3D%22320%22%20cy%3D%2295%22%20r%3D%2240%22%20fill%3D%22%23FF6B35%22/%3E%3Ctext%20x%3D%22320.0%22%20y%3D%22100.0%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2214%22%20font-weight%3D%22800%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%20%3EAsk%3C/text%3E%3Ccircle%20cx%3D%22434%22%20cy%3D%22178%22%20r%3D%2240%22%20fill%3D%22%23EFA320%22/%3E%3Ctext%20x%3D%22434.12678195541844%22%20y%3D%22182.91796067500633%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2214%22%20font-weight%3D%22800%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%20%3EImagine%3C/text%3E%3Ccircle%20cx%3D%22391%22%20cy%3D%22312%22%20r%3D%2240%22%20fill%3D%22%231FA06B%22/%3E%3Ctext%20x%3D%22390.5342302750968%22%20y%3D%22317.08203932499373%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2214%22%20font-weight%3D%22800%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%20%3EPlan%3C/text%3E%3Ccircle%20cx%3D%22249%22%20cy%3D%22312%22%20r%3D%2240%22%20fill%3D%22%23FF6B35%22/%3E%3Ctext%20x%3D%22249.46576972490323%22%20y%3D%22317.08203932499373%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2214%22%20font-weight%3D%22800%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%20%3ECreate%3C/text%3E%3Ccircle%20cx%3D%22206%22%20cy%3D%22178%22%20r%3D%2240%22%20fill%3D%22%23EFA320%22/%3E%3Ctext%20x%3D%22205.87321804458156%22%20y%3D%22182.91796067500633%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2214%22%20font-weight%3D%22800%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%20%3EImprove%3C/text%3E%3Cpath%20d%3D%22M320%2095%20L434%20178%22%20stroke%3D%22%23E4E8F2%22%20stroke-width%3D%223%22/%3E%3Cpath%20d%3D%22M434%20178%20L391%20312%22%20stroke%3D%22%23E4E8F2%22%20stroke-width%3D%223%22/%3E%3Cpath%20d%3D%22M391%20312%20L249%20312%22%20stroke%3D%22%23E4E8F2%22%20stroke-width%3D%223%22/%3E%3Cpath%20d%3D%22M249%20312%20L206%20178%22%20stroke%3D%22%23E4E8F2%22%20stroke-width%3D%223%22/%3E%3Cpath%20d%3D%22M206%20178%20L320%2095%22%20stroke%3D%22%23E4E8F2%22%20stroke-width%3D%223%22/%3E%3Ctext%20x%3D%22320%22%20y%3D%22360%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2215%22%20font-weight%3D%22600%22%20fill%3D%22%235A6685%22%20text-anchor%3D%22middle%22%20%3Eengineers%20loop%3A%20test%2C%20learn%2C%20improve%3C/text%3E%3C/svg%3E",
+     "caption": "",
+     "visible": true,
+     "x": 19.7,
+     "y": 4,
+     "w": 60.6
+    },
+    {
+     "id": "i_72",
+     "type": "keypoint",
+     "title": "The Engineering Design Process",
+     "content": "Engineers don't guess \u2014 they loop:\n**Ask \u2192 Imagine \u2192 Plan \u2192 Create \u2192 Improve.**\nYou'll use the same five steps.",
+     "img": "",
+     "visible": true,
+     "x": 8,
+     "y": 74
+    }
+   ],
+   "script": [
+    {
+     "t": "ask",
+     "x": "When engineers face a brand-new machine, do they just try random ideas?",
+     "a": "No \u2014 they follow a process: Ask, Imagine, Plan, Create, Improve. Test, learn, improve."
+    },
+    {
+     "t": "do",
+     "x": "Introduce the EDP cycle. Stress that engineers rarely get it right the first time \u2014 improving is the point.",
+     "a": ""
+    }
+   ],
+   "locked": false
+  },
+  {
+   "id": "c_76",
+   "sec": "s_4",
+   "name": "Your mission: feed the pet",
+   "type": "learning",
+   "items": [
+    {
+     "id": "i_74",
+     "type": "image",
+     "src": "data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20640%20400%22%3E%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23FFFDF9%22/%3E%3Ctext%20x%3D%22320%22%20y%3D%2242%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2219%22%20font-weight%3D%22800%22%20fill%3D%22%2322315B%22%20text-anchor%3D%22middle%22%20%3EYour%20mission%3A%20feed%20the%20pet%20%F0%9F%90%B6%3C/text%3E%3Crect%20x%3D%2280%22%20y%3D%2270%22%20width%3D%22480%22%20height%3D%22240%22%20rx%3D%2214%22%20fill%3D%22%23F5F7FC%22%20stroke%3D%22%23E4E8F2%22%20stroke-width%3D%222%22/%3E%3Ccircle%20cx%3D%22120%22%20cy%3D%22100%22%20r%3D%223%22%20fill%3D%22%23E4E8F2%22/%3E%3Ccircle%20cx%3D%22120%22%20cy%3D%22145%22%20r%3D%223%22%20fill%3D%22%23E4E8F2%22/%3E%3Ccircle%20cx%3D%22120%22%20cy%3D%22190%22%20r%3D%223%22%20fill%3D%22%23E4E8F2%22/%3E%3Ccircle%20cx%3D%22120%22%20cy%3D%22235%22%20r%3D%223%22%20fill%3D%22%23E4E8F2%22/%3E%3Ccircle%20cx%3D%22120%22%20cy%3D%22280%22%20r%3D%223%22%20fill%3D%22%23E4E8F2%22/%3E%3Ccircle%20cx%3D%22170%22%20cy%3D%22100%22%20r%3D%223%22%20fill%3D%22%23E4E8F2%22/%3E%3Ccircle%20cx%3D%22170%22%20cy%3D%22145%22%20r%3D%223%22%20fill%3D%22%23E4E8F2%22/%3E%3Ccircle%20cx%3D%22170%22%20cy%3D%22190%22%20r%3D%223%22%20fill%3D%22%23E4E8F2%22/%3E%3Ccircle%20cx%3D%22170%22%20cy%3D%22235%22%20r%3D%223%22%20fill%3D%22%23E4E8F2%22/%3E%3Ccircle%20cx%3D%22170%22%20cy%3D%22280%22%20r%3D%223%22%20fill%3D%22%23E4E8F2%22/%3E%3Ccircle%20cx%3D%22220%22%20cy%3D%22100%22%20r%3D%223%22%20fill%3D%22%23E4E8F2%22/%3E%3Ccircle%20cx%3D%22220%22%20cy%3D%22145%22%20r%3D%223%22%20fill%3D%22%23E4E8F2%22/%3E%3Ccircle%20cx%3D%22220%22%20cy%3D%22190%22%20r%3D%223%22%20fill%3D%22%23E4E8F2%22/%3E%3Ccircle%20cx%3D%22220%22%20cy%3D%22235%22%20r%3D%223%22%20fill%3D%22%23E4E8F2%22/%3E%3Ccircle%20cx%3D%22220%22%20cy%3D%22280%22%20r%3D%223%22%20fill%3D%22%23E4E8F2%22/%3E%3Ccircle%20cx%3D%22270%22%20cy%3D%22100%22%20r%3D%223%22%20fill%3D%22%23E4E8F2%22/%3E%3Ccircle%20cx%3D%22270%22%20cy%3D%22145%22%20r%3D%223%22%20fill%3D%22%23E4E8F2%22/%3E%3Ccircle%20cx%3D%22270%22%20cy%3D%22190%22%20r%3D%223%22%20fill%3D%22%23E4E8F2%22/%3E%3Ccircle%20cx%3D%22270%22%20cy%3D%22235%22%20r%3D%223%22%20fill%3D%22%23E4E8F2%22/%3E%3Ccircle%20cx%3D%22270%22%20cy%3D%22280%22%20r%3D%223%22%20fill%3D%22%23E4E8F2%22/%3E%3Ccircle%20cx%3D%22320%22%20cy%3D%22100%22%20r%3D%223%22%20fill%3D%22%23E4E8F2%22/%3E%3Ccircle%20cx%3D%22320%22%20cy%3D%22145%22%20r%3D%223%22%20fill%3D%22%23E4E8F2%22/%3E%3Ccircle%20cx%3D%22320%22%20cy%3D%22190%22%20r%3D%223%22%20fill%3D%22%23E4E8F2%22/%3E%3Ccircle%20cx%3D%22320%22%20cy%3D%22235%22%20r%3D%223%22%20fill%3D%22%23E4E8F2%22/%3E%3Ccircle%20cx%3D%22320%22%20cy%3D%22280%22%20r%3D%223%22%20fill%3D%22%23E4E8F2%22/%3E%3Ccircle%20cx%3D%22370%22%20cy%3D%22100%22%20r%3D%223%22%20fill%3D%22%23E4E8F2%22/%3E%3Ccircle%20cx%3D%22370%22%20cy%3D%22145%22%20r%3D%223%22%20fill%3D%22%23E4E8F2%22/%3E%3Ccircle%20cx%3D%22370%22%20cy%3D%22190%22%20r%3D%223%22%20fill%3D%22%23E4E8F2%22/%3E%3Ccircle%20cx%3D%22370%22%20cy%3D%22235%22%20r%3D%223%22%20fill%3D%22%23E4E8F2%22/%3E%3Ccircle%20cx%3D%22370%22%20cy%3D%22280%22%20r%3D%223%22%20fill%3D%22%23E4E8F2%22/%3E%3Ccircle%20cx%3D%22420%22%20cy%3D%22100%22%20r%3D%223%22%20fill%3D%22%23E4E8F2%22/%3E%3Ccircle%20cx%3D%22420%22%20cy%3D%22145%22%20r%3D%223%22%20fill%3D%22%23E4E8F2%22/%3E%3Ccircle%20cx%3D%22420%22%20cy%3D%22190%22%20r%3D%223%22%20fill%3D%22%23E4E8F2%22/%3E%3Ccircle%20cx%3D%22420%22%20cy%3D%22235%22%20r%3D%223%22%20fill%3D%22%23E4E8F2%22/%3E%3Ccircle%20cx%3D%22420%22%20cy%3D%22280%22%20r%3D%223%22%20fill%3D%22%23E4E8F2%22/%3E%3Ccircle%20cx%3D%22470%22%20cy%3D%22100%22%20r%3D%223%22%20fill%3D%22%23E4E8F2%22/%3E%3Ccircle%20cx%3D%22470%22%20cy%3D%22145%22%20r%3D%223%22%20fill%3D%22%23E4E8F2%22/%3E%3Ccircle%20cx%3D%22470%22%20cy%3D%22190%22%20r%3D%223%22%20fill%3D%22%23E4E8F2%22/%3E%3Ccircle%20cx%3D%22470%22%20cy%3D%22235%22%20r%3D%223%22%20fill%3D%22%23E4E8F2%22/%3E%3Ccircle%20cx%3D%22470%22%20cy%3D%22280%22%20r%3D%223%22%20fill%3D%22%23E4E8F2%22/%3E%3Ccircle%20cx%3D%22520%22%20cy%3D%22100%22%20r%3D%223%22%20fill%3D%22%23E4E8F2%22/%3E%3Ccircle%20cx%3D%22520%22%20cy%3D%22145%22%20r%3D%223%22%20fill%3D%22%23E4E8F2%22/%3E%3Ccircle%20cx%3D%22520%22%20cy%3D%22190%22%20r%3D%223%22%20fill%3D%22%23E4E8F2%22/%3E%3Ccircle%20cx%3D%22520%22%20cy%3D%22235%22%20r%3D%223%22%20fill%3D%22%23E4E8F2%22/%3E%3Ccircle%20cx%3D%22520%22%20cy%3D%22280%22%20r%3D%223%22%20fill%3D%22%23E4E8F2%22/%3E%3Crect%20x%3D%22470%22%20y%3D%22250%22%20width%3D%2260%22%20height%3D%2234%22%20rx%3D%228%22%20fill%3D%22%23FF6B35%22/%3E%3Ctext%20x%3D%22500%22%20y%3D%22272%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2212%22%20font-weight%3D%22800%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%20%3Efeed%3C/text%3E%3Crect%20x%3D%22120%22%20y%3D%22330%22%20width%3D%22180%22%20height%3D%2234%22%20rx%3D%2217%22%20fill%3D%22%231FA06B%22/%3E%3Ctext%20x%3D%22210.0%22%20y%3D%22353%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2215%22%20font-weight%3D%22800%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%20%3Euse%20at%20least%204%20machines%3C/text%3E%3Crect%20x%3D%22320%22%20y%3D%22330%22%20width%3D%22200%22%20height%3D%2234%22%20rx%3D%2217%22%20fill%3D%22%23FF6B35%22/%3E%3Ctext%20x%3D%22420.0%22%20y%3D%22353%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2215%22%20font-weight%3D%22800%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%20%3E3%2B%20energy%20transformations%3C/text%3E%3C/svg%3E",
+     "caption": "",
+     "visible": true,
+     "x": 21.2,
+     "y": 4,
+     "w": 57.6
+    },
+    {
+     "id": "i_75",
+     "type": "keypoint",
+     "title": "The challenge \ud83d\udc36",
+     "content": "Build a chain reaction that presses the feeder button.\n\n**\u2022 Use at least 4 simple machines\n\u2022 Create 3+ energy transformations\n\u2022 Run with no human help once started**",
+     "img": "",
+     "visible": true,
+     "x": 8,
+     "y": 74
+    }
+   ],
+   "script": [
+    {
+     "t": "do",
+     "x": "Read the mission and the design criteria. This is the **Ask** step \u2014 define the problem clearly.",
+     "a": ""
+    },
+    {
+     "t": "ask",
+     "x": "In your own words: what exactly does your machine have to make happen at the very end?",
+     "a": "Press the feeder button so the pet is fed \u2014 using a chain of at least 4 machines."
+    }
+   ],
+   "locked": false
+  },
+  {
+   "id": "c_80",
+   "sec": "s_4",
+   "name": "Build & run your chain",
+   "type": "learning",
+   "items": [
+    {
+     "id": "i_77",
+     "type": "model3d",
+     "name": "Chain-Reaction Sandbox \u2014 Feed the Pet",
+     "html": "<!DOCTYPE html>\n<html lang=\"en\"><head><meta charset=\"UTF-8\">\n<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">\n<title>Chain-Reaction Sandbox \u2014 Feed the Pet</title>\n<style>\n  :root{--ink:#22315B;--soft:#5A6685;--orange:#FF6B35;--green:#1FA06B;--amber:#EFA320;--line:#E4E8F2;--bg:#FFFDF9;--panel:#F5F7FC}\n  *{box-sizing:border-box;margin:0;padding:0}\n  html,body{height:100%;font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--ink);overflow:hidden}\n  #wrap{position:absolute;inset:0;display:flex;flex-direction:column}\n  #top{flex:1;position:relative}\n  canvas{display:block;width:100%;height:100%;touch-action:none}\n  #status{position:absolute;left:50%;top:12px;transform:translateX(-50%);background:var(--ink);color:#fff;font-weight:800;font-size:13px;padding:7px 15px;border-radius:999px;font-family:'Baloo 2','Inter',sans-serif;white-space:nowrap;transition:background .2s}\n  #goal{position:absolute;right:14px;bottom:14px;font-size:11px;font-weight:700;color:var(--soft);text-align:right}\n  #tray{padding:9px 12px;background:#fff;border-top:1.5px solid var(--line);display:flex;align-items:center;gap:8px;flex-wrap:wrap}\n  .chip{font-size:12px;font-weight:700;border:1.5px solid var(--line);border-radius:999px;padding:7px 13px;cursor:pointer;background:var(--panel);color:var(--ink);user-select:none}\n  .chip.on{background:var(--orange);color:#fff;border-color:var(--orange)}\n  .chip.placed{opacity:.45;pointer-events:none}\n  .sp{flex:1}\n  button{font-family:inherit;font-weight:700;font-size:13px;border:0;border-radius:10px;padding:9px 17px;cursor:pointer;background:var(--green);color:#fff}\n  button.sec{background:var(--panel);color:var(--ink);border:1.5px solid var(--line)}\n  button:disabled{opacity:.4;cursor:default}\n  #count{font-size:11px;font-weight:700;color:var(--soft);margin-right:4px}\n</style></head>\n<body>\n<div id=\"wrap\">\n  <div id=\"top\"><canvas id=\"c\"></canvas>\n    <div id=\"status\">Tap a machine, then tap a glowing slot to place it</div>\n    <div id=\"goal\">GOAL: build the chain that<br>presses the feeder button \ud83d\udc36</div>\n  </div>\n  <div id=\"tray\">\n    <span id=\"count\">0 / 3 placed</span>\n    <span class=\"chip\" data-m=\"ramp\">Inclined plane</span>\n    <span class=\"chip\" data-m=\"lever\">Lever</span>\n    <span class=\"chip\" data-m=\"wheel\">Wheel &amp; axle</span>\n    <span class=\"sp\"></span>\n    <button id=\"run\" disabled>\u25b6 Run chain</button>\n    <button class=\"sec\" id=\"reset\">Reset</button>\n  </div>\n</div>\n<script src=\"https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js\"></script>\n<script>\nconst C=document.getElementById('c');\nconst renderer=new THREE.WebGLRenderer({canvas:C,antialias:true});\nrenderer.setPixelRatio(Math.min(devicePixelRatio,2));\nconst scene=new THREE.Scene(); scene.background=new THREE.Color(0xFFFDF9);\nconst cam=new THREE.PerspectiveCamera(45,1,.1,100); cam.position.set(0,3.6,12); cam.lookAt(0,1.4,0);\nscene.add(new THREE.AmbientLight(0xffffff,.88));\nconst dl=new THREE.DirectionalLight(0xffffff,.55); dl.position.set(4,9,6); scene.add(dl);\nconst board=new THREE.Mesh(new THREE.BoxGeometry(13,7.6,.3),new THREE.MeshLambertMaterial({color:0xF5F7FC})); board.position.set(0,2.8,-1.2); scene.add(board);\nfor(let i=-5;i<=5;i++)for(let j=0;j<=6;j++){const p=new THREE.Mesh(new THREE.CylinderGeometry(.05,.05,.12,8),new THREE.MeshLambertMaterial({color:0xE4E8F2}));p.rotation.x=Math.PI/2;p.position.set(i,1+j,-1.04);scene.add(p);}\nconst ground=new THREE.Mesh(new THREE.BoxGeometry(14,.4,4),new THREE.MeshLambertMaterial({color:0xE4E8F2})); ground.position.y=-.2; scene.add(ground);\nconst SLOTS=[\n  {m:'ramp', x:-4.2,y:4.4, filled:false, mesh:null, placedType:null},\n  {m:'lever',x:-0.2,y:2.7, filled:false, mesh:null, placedType:null},\n  {m:'wheel',x:3.6, y:1.4, filled:false, mesh:null, placedType:null},\n];\nconst btn=new THREE.Mesh(new THREE.CylinderGeometry(.5,.5,.35,20),new THREE.MeshStandardMaterial({color:0xFF6B35})); btn.position.set(5.4,.9,0); scene.add(btn);\nconst bowl=new THREE.Mesh(new THREE.CylinderGeometry(.7,.45,.5,20,1,true),new THREE.MeshStandardMaterial({color:0x22315B,side:THREE.DoubleSide})); bowl.position.set(5.4,.45,0); scene.add(bowl);\nconst ghostMat=new THREE.MeshBasicMaterial({color:0xFF6B35,transparent:true,opacity:.0});\nSLOTS.forEach(s=>{const g=new THREE.Mesh(new THREE.BoxGeometry(2.6,1.6,1.4),ghostMat);g.position.set(s.x,s.y,0);s.ghost=g;scene.add(g);});\nconst ball=new THREE.Mesh(new THREE.SphereGeometry(.3,20,16),new THREE.MeshStandardMaterial({color:0x1FA06B,roughness:.4})); scene.add(ball); ball.visible=false;\nconst status=document.getElementById('status'); const countEl=document.getElementById('count');\nfunction setStatus(t,c){status.textContent=t;status.style.background=c||'#22315B';}\nlet selected=null;\nfunction makeMachine(m){\n  const grp=new THREE.Group();\n  if(m==='ramp'){const r=new THREE.Mesh(new THREE.BoxGeometry(2.2,.18,.9),new THREE.MeshLambertMaterial({color:0x22315B}));r.rotation.z=-0.32;grp.add(r);}\n  if(m==='lever'){const b=new THREE.Mesh(new THREE.BoxGeometry(2.2,.18,.8),new THREE.MeshLambertMaterial({color:0xFF6B35}));grp.add(b);const f=new THREE.Mesh(new THREE.ConeGeometry(.4,.6,3),new THREE.MeshLambertMaterial({color:0x22315B}));f.position.y=-.45;grp.add(f);}\n  if(m==='wheel'){const w=new THREE.Mesh(new THREE.CylinderGeometry(.7,.7,.4,22),new THREE.MeshStandardMaterial({color:0x1FA06B}));w.rotation.x=Math.PI/2;grp.add(w);const ax=new THREE.Mesh(new THREE.CylinderGeometry(.1,.1,1,12),new THREE.MeshLambertMaterial({color:0x22315B}));ax.rotation.x=Math.PI/2;grp.add(ax);}\n  return grp;\n}\nfunction chipFor(m){ return [...document.querySelectorAll('.chip')].find(c=>c.dataset.m===m); }\nfunction placeInSlot(slot,type){\n  if(!slot||slot.filled)return;\n  const mesh=makeMachine(type); mesh.position.set(slot.x,slot.y,0); scene.add(mesh);\n  slot.filled=true; slot.mesh=mesh; slot.placedType=type;\n  const chip=chipFor(type); if(chip){chip.classList.add('placed');chip.classList.remove('on');}\n  const n=SLOTS.filter(s=>s.filled).length; countEl.textContent=n+' / 3 placed';\n  document.getElementById('run').disabled=(n<3);\n}\nfunction pulse(t){SLOTS.forEach(s=>{s.ghost.material.opacity=(!s.filled&&selected)?(.25+.2*Math.sin(t*4)):0;});}\ndocument.querySelectorAll('.chip').forEach(ch=>ch.onclick=()=>{\n  if(ch.classList.contains('placed'))return;\n  document.querySelectorAll('.chip').forEach(x=>x.classList.remove('on'));\n  ch.classList.add('on'); selected=ch.dataset.m;\n  setStatus('Now tap the glowing slot for the '+ch.textContent,'#FF6B35');\n});\nconst ray=new THREE.Raycaster(), m2=new THREE.Vector2();\nC.addEventListener('pointerdown',e=>{\n  if(!selected)return;\n  const r=C.getBoundingClientRect(); m2.x=((e.clientX-r.left)/r.width)*2-1; m2.y=-((e.clientY-r.top)/r.height)*2+1;\n  ray.setFromCamera(m2,cam);\n  const open=SLOTS.filter(s=>!s.filled);\n  const hit=ray.intersectObjects(open.map(s=>s.ghost));\n  let slot=hit.length?SLOTS.find(s=>s.ghost===hit[0].object):null;\n  if(!slot){ const plane=new THREE.Plane(new THREE.Vector3(0,0,1),0), pt=new THREE.Vector3();\n    ray.ray.intersectPlane(plane,pt);\n    if(pt){let best=1e9; open.forEach(s=>{const d=(s.x-pt.x)**2+(s.y-pt.y)**2; if(d<best){best=d;slot=s;}});} }\n  if(slot){ const type=selected; selected=null; placeInSlot(slot,type);\n    const n=SLOTS.filter(s=>s.filled).length;\n    setStatus(n<3?'Good \u2014 keep building the chain':'Chain complete! Press Run','#1FA06B'); }\n});\nlet running=false, seg=0, segT=0, path=[];\nfunction runChain(){\n  if(running||SLOTS.some(s=>!s.filled))return;\n  path=[new THREE.Vector3(-4.2,5.1,0)];\n  SLOTS.forEach(s=>path.push(new THREE.Vector3(s.x+0.8,s.y+0.4,0)));\n  path.push(new THREE.Vector3(5.4,1.3,0));\n  running=true; seg=0; segT=0; ball.position.copy(path[0]); ball.visible=true;\n  setStatus('Energy travels through the chain\u2026','#1FA06B');\n}\nfunction resetAll(){\n  SLOTS.forEach(s=>{ if(s.mesh){scene.remove(s.mesh);} s.filled=false; s.mesh=null; s.placedType=null; });\n  document.querySelectorAll('.chip').forEach(c=>{c.classList.remove('placed','on');});\n  selected=null; running=false; seg=0; segT=0; ball.visible=false; btn.position.y=0.9;\n  countEl.textContent='0 / 3 placed'; document.getElementById('run').disabled=true;\n  setStatus('Tap a machine, then tap a glowing slot to place it','#22315B');\n}\ndocument.getElementById('run').onclick=runChain;\ndocument.getElementById('reset').onclick=resetAll;\nlet last=performance.now();\nfunction loop(now){ const t=now/1000; const dt=Math.min((now-last)/1000,.05); last=now; pulse(t);\n  if(running){ segT+=dt*1.3; const a=path[seg], b=path[seg+1]; const f=Math.min(segT,1);\n    ball.position.lerpVectors(a,b,f); ball.position.y+=Math.sin(f*Math.PI)*0.15;\n    if(SLOTS[seg]&&SLOTS[seg].mesh)SLOTS[seg].mesh.rotation.z+=dt*3;\n    if(f>=1){seg++;segT=0; if(seg>=path.length-1){running=false; btn.position.y=0.7; setStatus('\ud83d\udc36 Button pressed \u2014 the pet is fed!','#EFA320');}} }\n  renderer.render(scene,cam); requestAnimationFrame(loop); }\nfunction resize(){const w=C.clientWidth,h=C.clientHeight;renderer.setSize(w,h,false);cam.aspect=w/h;cam.updateProjectionMatrix();}\nnew ResizeObserver(resize).observe(C); resize(); requestAnimationFrame(loop);\n\n/* ===== live-sync contract ===== */\nlet _bcast=true;\nfunction getState(){ return { slots:SLOTS.map(s=>s.placedType||null), running:!!running }; }\nfunction setState(st){ if(!st)return; _bcast=false;\n  try{ if(Array.isArray(st.slots)){\n      const cur=SLOTS.map(s=>s.placedType||null);\n      const same=cur.length===st.slots.length && cur.every((v,i)=>v===st.slots[i]);\n      if(!same){ resetAll(); st.slots.forEach((type,i)=>{ if(type&&SLOTS[i]&&!SLOTS[i].filled) placeInSlot(SLOTS[i],type); }); }\n    }\n    if(st.running && !running && SLOTS.every(s=>s.filled)) runChain();\n  }finally{ _bcast=true; } }\nwindow.addEventListener('message',function(e){ var d=e.data||{};\n  if(d.type==='getState'){ try{parent.postMessage({type:'state',data:getState()},'*');}catch(_){} }\n  else if(d.type==='setState'){ setState(d.data); } });\n(function(){ if(window.__liveSyncEmit)return; var _t=0,_p=null;\n  function _send(){ try{ if(typeof getState!=='function')return; parent.postMessage({type:'state',data:getState()},'*'); }catch(_){} }\n  window.__liveSyncEmit=function(){ var n=Date.now(); if(n-_t>110){_t=n;_send();} else {clearTimeout(_p);_p=setTimeout(function(){_t=Date.now();_send();},110);} };\n  ['pointerdown','pointermove','pointerup','click','input','change','wheel','keydown','keyup','touchmove','touchend']\n    .forEach(function(ev){ document.addEventListener(ev,function(){setTimeout(window.__liveSyncEmit,0);},true); });\n})();\n</script></body></html>\n",
+     "visible": true,
+     "initialState": null,
+     "fit": 1.0,
+     "x": 44,
+     "y": 8,
+     "w": 520
+    },
+    {
+     "id": "i_78",
+     "type": "keypoint",
+     "title": "Imagine \u2192 Plan \u2192 Create \ud83d\udee0\ufe0f",
+     "content": "Tap a machine, drop it into a glowing slot, then press **Run** to test your chain.\nDidn't reach the bowl? **Improve** and run again.",
+     "img": "",
+     "visible": true,
+     "x": 4,
+     "y": 10
+    },
+    {
+     "id": "i_79",
+     "type": "descriptor",
+     "text": "Hand a student control via Interact. Let the class plan the order before placing. Encourage a retry after the first run \u2014 that's the Improve step.",
+     "img": "",
+     "x": 4,
+     "y": 62
+    }
+   ],
+   "script": [
+    {
+     "t": "do",
+     "x": "Open the sandbox. Model placing one machine, then give students control to build and run their own chain.",
+     "a": ""
+    },
+    {
+     "t": "ask",
+     "x": "Your chain didn't reach the bowl \u2014 what's your ONE change before the next run?",
+     "a": "Any reasoned tweak: reorder steps, swap a machine, adjust placement. Reward iterating over guessing \u2014 that's Improve."
+    },
+    {
+     "t": "note",
+     "x": "The model tracks placement and a successful run; for the full criteria (4+ machines, 3+ transformations) have students tally on paper.",
+     "a": ""
+    }
+   ],
+   "locked": false
+  },
+  {
+   "id": "c_83",
+   "sec": "s_5",
+   "name": "Show & Tell \u2014 you're a Mechanical Engineer!",
+   "type": "learning",
+   "items": [
+    {
+     "id": "i_81",
+     "type": "keypoint",
+     "title": "Share your machine \ud83c\udfac",
+     "content": "Record a short show-and-tell: what your machine does, which simple machines you used, and the trickiest step you solved.",
+     "img": "",
+     "visible": true,
+     "x": 5,
+     "y": 12
+    },
+    {
+     "id": "i_82",
+     "type": "keypoint",
+     "title": "What's next",
+     "content": "You designed, built, tested, and improved a real chain reaction \u2014 exactly how mechanical engineers work.",
+     "img": "",
+     "visible": true,
+     "x": 5,
+     "y": 54
+    }
+   ],
+   "script": [
+    {
+     "t": "do",
+     "x": "Have students present their machine in one minute: the job, the machines used, the hardest fix.",
+     "a": ""
+    },
+    {
+     "t": "note",
+     "x": "STEM spotlight: mechanical engineers design machines we use every day \u2014 bikes, cars, even toys.",
+     "a": ""
+    },
+    {
+     "t": "ask",
+     "x": "Tell me one thing you can do now that you couldn't before this project.",
+     "a": "Anything from 'name the 6 machines' to 'plan a chain reaction' to 'spot energy transfers'. End on their growth."
+    }
+   ],
+   "locked": false
+  }
+ ]
+}
