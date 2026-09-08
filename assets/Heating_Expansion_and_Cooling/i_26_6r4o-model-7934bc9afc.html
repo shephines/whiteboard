@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>The Jammed Jar — with the hot jug and the instrument</title>
+<style>
+  :root{
+    --glass:rgba(255,255,255,.87);
+    --glass-line:rgba(255,255,255,.6);
+    --ink:#1F282C;
+    --palm:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 24 24'%3E%3Cg fill='none' stroke='%23fff' stroke-width='4.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 11V6a2 2 0 0 0-4 0v5'/%3E%3Cpath d='M14 10V4a2 2 0 0 0-4 0v6'/%3E%3Cpath d='M10 10.5V6a2 2 0 0 0-4 0v8'/%3E%3Cpath d='M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-6-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15'/%3E%3C/g%3E%3Cg fill='none' stroke='%231b1f24' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 11V6a2 2 0 0 0-4 0v5'/%3E%3Cpath d='M14 10V4a2 2 0 0 0-4 0v6'/%3E%3Cpath d='M10 10.5V6a2 2 0 0 0-4 0v8'/%3E%3Cpath d='M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-6-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15'/%3E%3C/g%3E%3C/svg%3E") 14 12, grab;
+    --fist:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 24 24'%3E%3Cg fill='none' stroke='%23fff' stroke-width='4.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 11.5V9a2 2 0 0 0-4 0v1.4'/%3E%3Cpath d='M14 10V8a2 2 0 0 0-4 0v2'/%3E%3Cpath d='M10 9.9V9a2 2 0 0 0-4 0v5'/%3E%3Cpath d='M6 14a2 2 0 0 0-4 0'/%3E%3Cpath d='M18 11a2 2 0 1 1 4 0v3a8 8 0 0 1-8 8h-4a8 8 0 0 1-8-8 2 2 0 1 1 4 0'/%3E%3C/g%3E%3Cg fill='none' stroke='%231b1f24' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 11.5V9a2 2 0 0 0-4 0v1.4'/%3E%3Cpath d='M14 10V8a2 2 0 0 0-4 0v2'/%3E%3Cpath d='M10 9.9V9a2 2 0 0 0-4 0v5'/%3E%3Cpath d='M6 14a2 2 0 0 0-4 0'/%3E%3Cpath d='M18 11a2 2 0 1 1 4 0v3a8 8 0 0 1-8 8h-4a8 8 0 0 1-8-8 2 2 0 1 1 4 0'/%3E%3C/g%3E%3C/svg%3E") 14 13, grabbing;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;border:0}
+  html,body{height:100%;width:100%;overflow:hidden}
+  body{
+    background:#83959D;
+    font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    -webkit-user-select:none;-moz-user-select:none;user-select:none;-webkit-touch-callout:none
+  }
+  #scene{position:fixed;inset:0;cursor:default}
+  #scene.grab{cursor:var(--palm)}
+  #scene.grabbing{cursor:var(--fist)}
+  #stage{width:100%;height:100%;display:block;touch-action:none}
+
+  #gauge{
+    position:fixed;z-index:10;left:26px;top:50%;
+    width:clamp(78px, 6.6vw, 104px);
+    transform:translateY(-50%) translateX(-26px);
+    opacity:0;pointer-events:none;
+    transition:opacity .34s ease, transform .38s cubic-bezier(.2,.9,.3,1)
+  }
+  #gauge.on{opacity:1;transform:translateY(-50%)}
+  #gauge svg{width:100%;height:auto;display:block;overflow:visible}
+  .gLabel{
+    font-family:ui-sans-serif,system-ui,Arial,sans-serif;
+    font-size:23px;font-weight:750;letter-spacing:.05em;fill:#F5F8F9;
+    paint-order:stroke;stroke:rgba(10,18,24,.6);stroke-width:5px;stroke-linejoin:round
+  }
+  .gTick{stroke:#F5F8F9;stroke-width:3.4;stroke-linecap:round;opacity:.92}
+  .gTrack{fill:rgba(12,20,26,.44);stroke:rgba(255,255,255,.52);stroke-width:2}
+  #gBest{stroke:#F5F8F9;stroke-width:3;stroke-dasharray:8 7;stroke-linecap:round;opacity:0}
+  @media (max-height:640px){ #gauge{width:clamp(62px, 5vw, 78px);left:18px} }
+
+  /* magnified caliper readout, tucked under the reset button */
+  #mag{
+    position:fixed;z-index:10;right:24px;top:88px;
+    width:clamp(266px, 25vw, 330px);
+    padding:14px 16px 13px;border-radius:16px;
+    border:1px solid var(--glass-line);background:var(--glass);
+    -webkit-backdrop-filter:blur(16px) saturate(1.3);backdrop-filter:blur(16px) saturate(1.3);
+    box-shadow:0 12px 34px rgba(10,18,26,.3), inset 0 1px 0 rgba(255,255,255,.72);
+    color:var(--ink);opacity:0;pointer-events:none;transform:translateX(14px);
+    transition:opacity .17s ease, transform .17s cubic-bezier(.2,.9,.3,1)
+  }
+  #mag.on{opacity:1;transform:translateX(0)}
+  #magTitle{font-size:11px;font-weight:750;letter-spacing:.14em;text-transform:uppercase;color:#5D6872}
+  #magView{width:100%;height:auto;display:block;margin-top:8px}
+  #magRead{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+    font-size:29px;font-weight:650;margin-top:9px;letter-spacing:.005em}
+  #magNote{font-size:12.5px;color:#5D6872;margin-top:2px}
+  @media (max-height:640px){ #mag{top:74px;width:clamp(230px,22vw,280px);padding:11px 13px 10px}
+    #magRead{font-size:23px} }
+
+  #actionBtn{
+    position:fixed;z-index:10;left:50%;bottom:26px;transform:translateX(-50%);
+    background:var(--glass);color:var(--ink);border:1px solid var(--glass-line);
+    -webkit-backdrop-filter:blur(14px) saturate(1.3);backdrop-filter:blur(14px) saturate(1.3);
+    box-shadow:0 6px 22px rgba(10,18,26,.3), inset 0 1px 0 rgba(255,255,255,.75);
+    font-size:19px;font-weight:650;letter-spacing:.02em;
+    padding:15px 48px;border-radius:999px;cursor:pointer;
+    transition:transform .1s cubic-bezier(.2,.9,.3,1), box-shadow .12s ease, background .12s ease;
+    touch-action:manipulation
+  }
+  #actionBtn:hover{transform:translateX(-50%) translateY(-2px)}
+  #actionBtn.press{transform:translateX(-50%) translateY(3px) scale(.97);background:rgba(255,255,255,.96)}
+  #actionBtn:focus-visible{outline:3px solid #DCA62A;outline-offset:3px}
+  #actionBtn[disabled]{opacity:.5;cursor:default;transform:translateX(-50%)}
+
+  #restartBtn{
+    position:fixed;z-index:11;top:24px;right:24px;width:50px;height:50px;padding:0;
+    display:inline-flex;align-items:center;justify-content:center;
+    border:1px solid var(--glass-line);border-radius:50%;background:var(--glass);color:var(--ink);
+    -webkit-backdrop-filter:blur(14px) saturate(1.3);backdrop-filter:blur(14px) saturate(1.3);
+    box-shadow:0 6px 22px rgba(10,18,26,.3), inset 0 1px 0 rgba(255,255,255,.75);
+    cursor:pointer;transition:transform .16s cubic-bezier(.2,.9,.3,1)
+  }
+  #restartBtn:hover{transform:translateY(-2px) rotate(-26deg)}
+  #restartBtn:focus-visible{outline:3px solid #DCA62A;outline-offset:3px}
+
+  #hint{
+    position:fixed;z-index:9;left:50%;bottom:96px;transform:translateX(-50%);
+    color:#fff;font-size:16px;font-weight:550;letter-spacing:.015em;opacity:0;
+    text-shadow:0 1px 12px rgba(0,0,0,.8),0 0 4px rgba(0,0,0,.65);
+    pointer-events:none;white-space:nowrap;transition:opacity .3s ease
+  }
+  #hint.on{opacity:.9}
+
+  @media (max-width:640px){
+    #actionBtn{font-size:17px;padding:13px 36px;bottom:18px}
+    #restartBtn{top:16px;right:16px;width:44px;height:44px}
+    #mag{top:74px;right:14px}
+    #hint{bottom:80px;font-size:14px}
+  }
+  @media (prefers-reduced-motion:reduce){ #restartBtn,#actionBtn{transition:none} }
+</style>
+</head>
+<body>
+
+<div id="scene">
+<svg id="stage" viewBox="0 0 1100 720" preserveAspectRatio="xMidYMid slice"
+     aria-label="A person at a counter trying to open a jammed glass jar">
+<defs>
+  <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9FAFB6"/><stop offset="1" stop-color="#83959D"/></linearGradient>
+  <radialGradient id="wallGlow" cx=".28" cy=".3" r=".7"><stop offset="0" stop-color="#D6E0E2" stop-opacity=".55"/><stop offset="1" stop-color="#D6E0E2" stop-opacity="0"/></radialGradient>
+  <linearGradient id="oak" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#CDA470"/><stop offset="1" stop-color="#B98F5C"/></linearGradient>
+  <linearGradient id="oakEdge" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#A17A4C"/><stop offset="1" stop-color="#8A6640"/></linearGradient>
+  <linearGradient id="glassG" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#B6CFC6" stop-opacity=".85"/><stop offset=".28" stop-color="#E4F0EB" stop-opacity=".7"/>
+    <stop offset=".72" stop-color="#A9C4BA" stop-opacity=".8"/><stop offset="1" stop-color="#CCDFD7" stop-opacity=".85"/></linearGradient>
+  <linearGradient id="jam" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#B0700F"/><stop offset=".3" stop-color="#DFA23A"/>
+    <stop offset=".72" stop-color="#C07E1A"/><stop offset="1" stop-color="#A96C0D"/></linearGradient>
+  <linearGradient id="steel" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#EDF2F5"/><stop offset=".42" stop-color="#CBD4DA"/>
+    <stop offset=".58" stop-color="#A9B4BC"/><stop offset="1" stop-color="#D3DBE0"/></linearGradient>
+  <linearGradient id="steelC" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#E9EEF1"/><stop offset=".5" stop-color="#BCC6CD"/><stop offset="1" stop-color="#98A3AB"/></linearGradient>
+  <linearGradient id="skin" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D89A6C"/><stop offset="1" stop-color="#C2825A"/></linearGradient>
+  <linearGradient id="shirt" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5A8A79"/><stop offset="1" stop-color="#436B5E"/></linearGradient>
+  <linearGradient id="jugG" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#C6D9DE" stop-opacity=".9"/><stop offset=".3" stop-color="#EEF6F8" stop-opacity=".72"/>
+    <stop offset=".75" stop-color="#B9CFD6" stop-opacity=".82"/><stop offset="1" stop-color="#D6E5E9" stop-opacity=".9"/></linearGradient>
+  <linearGradient id="water" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#CFE6EC"/><stop offset="1" stop-color="#A7CBD6"/></linearGradient>
+  <radialGradient id="soft"><stop offset="0" stop-color="#3D4E55" stop-opacity=".5"/><stop offset="1" stop-color="#3D4E55" stop-opacity="0"/></radialGradient>
+  <filter id="blur6" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="6"/></filter>
+  <filter id="blur3" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="3"/></filter>
+</defs>
+
+<rect x="0" y="0" width="1100" height="486" fill="url(#wall)"/>
+<rect x="0" y="0" width="1100" height="486" fill="url(#wallGlow)"/>
+<ellipse cx="550" cy="470" rx="200" ry="120" fill="#5E6E75" opacity=".2" filter="url(#blur6)"/>
+
+<g id="person">
+  <g id="upper">
+    <path id="torso" fill="url(#shirt)"
+      d="M369 240 Q364 306 371 384 L380 520 L560 520 L569 384 Q576 306 571 240
+         Q522 216 470 216 Q418 216 369 240 Z"/>
+    <path d="M436 218 Q470 236 504 218 L504 232 Q470 250 436 232 Z" fill="#39594E" opacity=".55"/>
+    <rect x="453" y="176" width="34" height="46" rx="14" fill="#BE7E56"/>
+    <g id="head">
+      <ellipse cx="470" cy="138" rx="39" ry="47" fill="url(#skin)"/>
+      <path d="M431 132 Q434 86 470 86 Q506 86 509 132 Q498 108 470 106 Q442 108 431 132 Z" fill="#3B2F2A"/>
+      <ellipse cx="431" cy="146" rx="6" ry="9" fill="#C2825A"/>
+      <ellipse cx="509" cy="146" rx="6" ry="9" fill="#C2825A"/>
+      <g id="face">
+        <ellipse id="eyeL" cx="454" cy="140" rx="5.4" ry="5.4" fill="#33282A"/>
+        <ellipse id="eyeR" cx="486" cy="140" rx="5.4" ry="5.4" fill="#33282A"/>
+        <path id="joyL" d="M447 143 Q454 133 461 143" stroke="#33282A" stroke-width="3.6" fill="none" stroke-linecap="round" opacity="0"/>
+        <path id="joyR" d="M479 143 Q486 133 493 143" stroke="#33282A" stroke-width="3.6" fill="none" stroke-linecap="round" opacity="0"/>
+        <path id="browL" d="M446 127 L463 127" stroke="#3B2F2A" stroke-width="3.4" stroke-linecap="round" fill="none"/>
+        <path id="browR" d="M477 127 L494 127" stroke="#3B2F2A" stroke-width="3.4" stroke-linecap="round" fill="none"/>
+        <path id="mouth" d="M459 163 Q470 166 481 163" stroke="#8C4F3E" stroke-width="3.2" stroke-linecap="round" fill="none"/>
+        <path id="smile" d="M451 159 Q470 182 489 159 Z" fill="#7E3A2E" opacity="0"/>
+        <ellipse id="blushL" cx="443" cy="156" rx="9" ry="6" fill="#C4553C" opacity="0"/>
+        <ellipse id="blushR" cx="497" cy="156" rx="9" ry="6" fill="#C4553C" opacity="0"/>
+      </g>
+      <g id="sweat" opacity="0">
+        <path d="M516 112 q6 9 0 13 q-6 -4 0 -13 Z" fill="#BFE2EE"/>
+        <path d="M424 118 q5 8 0 11 q-5 -3 0 -11 Z" fill="#BFE2EE"/>
+      </g>
+    </g>
+  </g>
+  <g id="armL">
+    <line id="lUp" stroke="url(#shirt)" stroke-width="26" stroke-linecap="round"/>
+    <line id="lFo" stroke="#C2825A" stroke-width="21" stroke-linecap="round"/>
+    <line id="lCuff" stroke="#A8483A" stroke-width="24" stroke-linecap="round" opacity="0"/>
+  </g>
+  <g id="armR">
+    <line id="rUp" stroke="url(#shirt)" stroke-width="26" stroke-linecap="round"/>
+    <line id="rFo" stroke="#C2825A" stroke-width="21" stroke-linecap="round"/>
+    <line id="rCuff" stroke="#A8483A" stroke-width="24" stroke-linecap="round" opacity="0"/>
+  </g>
+</g>
+
+<rect x="0" y="470" width="1100" height="12" fill="#DDBE92"/>
+<rect x="0" y="482" width="1100" height="42" fill="url(#oak)"/>
+<rect x="0" y="524" width="1100" height="18" fill="url(#oakEdge)"/>
+<rect x="0" y="542" width="1100" height="178" fill="#5F7078"/>
+<g stroke="#A8804F" stroke-opacity=".35" stroke-width="1.3">
+  <line x1="0" y1="494" x2="1100" y2="494"/><line x1="0" y1="508" x2="1100" y2="508"/>
+</g>
+
+<ellipse id="jarShadow" cx="590" cy="474" rx="34" ry="8" fill="url(#soft)"/>
+<g id="jar">
+  <path d="M-25 0 L-25 -50 Q-25 -56 -19 -56 L19 -56 Q25 -56 25 -50 L25 0 Z" fill="url(#glassG)"/>
+  <path d="M-22 -3 L-22 -47 L22 -47 L22 -3 Z" fill="url(#jam)"/>
+  <path d="M-25 0 L-25 -50 Q-25 -56 -19 -56 L19 -56 Q25 -56 25 -50 L25 0 Z" fill="none" stroke="#8FAAA0" stroke-width="1.4" stroke-opacity=".8"/>
+  <rect x="-17" y="-52" width="5" height="44" rx="2.5" fill="#FFFFFF" opacity=".38"/>
+</g>
+
+<g id="lid">
+  <ellipse id="lidRing" cx="0" cy="-63" rx="42" ry="16" fill="none" stroke="#FFE9A0" stroke-width="4" opacity="0"/>
+  <rect x="-25" y="-71" width="50" height="16" rx="3" fill="url(#steel)"/>
+  <g id="knurl"></g>
+  <rect id="lidHot" x="-25" y="-71" width="50" height="16" rx="3" fill="#E0703A" opacity="0"/>
+  <rect x="-25" y="-71" width="50" height="16" rx="3" fill="none" stroke="#8A959D" stroke-width="1"/>
+  <rect x="-25" y="-71" width="50" height="3.4" rx="1.7" fill="#FFFFFF" opacity=".5"/>
+</g>
+
+<g id="pourFx" opacity="0">
+  <path id="stream" fill="none" stroke="#CFE9F1" stroke-width="7" stroke-linecap="round" opacity=".85"/>
+  <path id="runL" fill="none" stroke="#CFE9F1" stroke-width="3.4" stroke-linecap="round" opacity=".8"/>
+  <path id="runR" fill="none" stroke="#CFE9F1" stroke-width="3.4" stroke-linecap="round" opacity=".8"/>
+  <g id="splash" fill="#DCEFF5"></g>
+</g>
+<g id="steamLid" opacity="0" fill="none" stroke="#EAF4F7" stroke-width="4" stroke-linecap="round" filter="url(#blur3)">
+  <path id="sl1"/><path id="sl2"/><path id="sl3"/>
+</g>
+
+<g id="handL">
+  <ellipse id="handLF" rx="14.5" ry="12" fill="#D2915F"/>
+  <ellipse id="handLS" rx="14.5" ry="12" fill="none" stroke="#A96F4A" stroke-width="1.3"/>
+</g>
+<g id="handR">
+  <ellipse id="handRF" rx="14.5" ry="12" fill="#D2915F"/>
+  <ellipse id="handRS" rx="14.5" ry="12" fill="none" stroke="#A96F4A" stroke-width="1.3"/>
+</g>
+
+<g id="marks" opacity="0" stroke="#F4F7F8" stroke-width="2.6" stroke-linecap="round" fill="none">
+  <path id="mk1"/><path id="mk2"/>
+</g>
+<g id="sparkle" opacity="0" fill="#FFE9A0"></g>
+
+<ellipse id="jugShadow" cx="810" cy="474" rx="38" ry="9" fill="url(#soft)"/>
+<g id="jug">
+  <path d="M-30 -76 L-50 -68 L-46 -60 L-29 -64 Z" fill="#C9DDE2" stroke="#93AEB6" stroke-width="1.2"/>
+  <path d="M29 -68 Q52 -64 52 -44 Q52 -26 29 -24 L29 -32 Q44 -33 44 -44 Q44 -55 29 -58 Z" fill="#C9DDE2" stroke="#93AEB6" stroke-width="1.2"/>
+  <path d="M-26.5 -58 L26.5 -58 L24.5 -5 Q24 -2 20 -2 L-20 -2 Q-24 -2 -24.5 -5 Z" fill="url(#water)"/>
+  <path d="M-26 0 L-29 -58 Q-30 -74 -17 -76 L17 -76 Q30 -74 29 -58 L26 0 Z" fill="url(#jugG)"/>
+  <path d="M-26 0 L-29 -58 Q-30 -74 -17 -76 L17 -76 Q30 -74 29 -58 L26 0 Z" fill="none" stroke="#8FAAB2" stroke-width="1.5"/>
+  <rect x="-19" y="-68" width="5" height="56" rx="2.5" fill="#FFFFFF" opacity=".45"/>
+  <g id="steamJug" fill="none" stroke="#EAF4F7" stroke-width="3.4" stroke-linecap="round" opacity=".75" filter="url(#blur3)">
+    <path id="sj1"/><path id="sj2"/>
+  </g>
+</g>
+
+
+<text id="tempLid" x="0" y="0" text-anchor="end" font-size="28" font-weight="800"
+      letter-spacing=".5" font-family="ui-sans-serif,system-ui,Arial,sans-serif"
+      fill="#F2F7F8" paint-order="stroke" stroke="rgba(10,18,24,.72)" stroke-width="6"
+      stroke-linejoin="round">22 °C</text>
+<text id="tempJar" x="0" y="0" text-anchor="middle" font-size="28" font-weight="800"
+      letter-spacing=".5" font-family="ui-sans-serif,system-ui,Arial,sans-serif"
+      fill="#F2F7F8" paint-order="stroke" stroke="rgba(10,18,24,.72)" stroke-width="6"
+      stroke-linejoin="round">22 °C</text>
+
+<!-- ── the caliper: jaw inner faces sit at ±25, exactly the lid's edges ── -->
+<ellipse id="calShadow" cx="300" cy="474" rx="72" ry="8" fill="url(#soft)"/>
+<g id="caliper">
+  <rect x="-74" y="-34" width="148" height="16" rx="4" fill="url(#steelC)"/>
+  <rect x="-74" y="-34" width="148" height="4" rx="2" fill="#FFFFFF" opacity=".45"/>
+  <rect x="-40" y="-31.5" width="80" height="11" rx="2" fill="#111A1E"/>
+  <text id="calText" x="0" y="-22.7" text-anchor="middle" font-size="9" font-weight="650"
+        font-family="ui-monospace,Menlo,Consolas,monospace" fill="#6FDCC0">------</text>
+  <rect x="-31" y="-18" width="6" height="9" fill="#AEB9C0"/>
+  <rect x="25" y="-18" width="6" height="9" fill="#AEB9C0"/>
+  <path d="M-31 -9 L-25 -9 L-25 10 L-28 14 L-31 10 Z" fill="url(#steelC)" stroke="#828D95" stroke-width=".9"/>
+  <path d="M31 -9 L25 -9 L25 10 L28 14 L31 10 Z" fill="url(#steelC)" stroke="#828D95" stroke-width=".9"/>
+</g>
+</svg>
+</div>
+
+<div id="gauge" aria-hidden="true">
+  <svg viewBox="0 0 120 520">
+    <text class="gLabel" x="60" y="22" text-anchor="middle">Lid Off</text>
+    <line class="gTick" x1="20" y1="42" x2="100" y2="42"/>
+    <rect class="gTrack" x="44" y="42" width="32" height="428" rx="16"/>
+    <rect id="gFill" x="44" y="470" width="32" height="0" rx="16" fill="#DCA62A"/>
+    <line id="gBest" x1="24" y1="470" x2="96" y2="470"/>
+    <line class="gTick" x1="20" y1="470" x2="100" y2="470"/>
+    <text class="gLabel" x="60" y="504" text-anchor="middle">Lid On</text>
+  </svg>
+</div>
+
+<button id="restartBtn" type="button" aria-label="Restart">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+       stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M3 12a9 9 0 1 0 2.6-6.4"/><path d="M3 3v5h5"/>
+  </svg>
+</button>
+
+<div id="mag" aria-hidden="true">
+  <div id="magTitle">Lid diameter</div>
+  <svg id="magView" viewBox="0 0 320 92">
+    <defs>
+      <linearGradient id="mSteel" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#F5F8FA"/><stop offset="1" stop-color="#D5DDE3"/></linearGradient>
+    </defs>
+    <rect x="0" y="6" width="320" height="36" rx="3" fill="url(#mSteel)" stroke="#A9B4BC" stroke-width=".8"/>
+    <rect id="magGrow" x="160" y="6" width="0" height="36" fill="#E0703A" opacity=".3"/>
+    <g id="magTicks"></g>
+    <g id="magLabels"></g>
+    <line id="magNeedle" x1="160" y1="2" x2="160" y2="74" stroke="#B8452C" stroke-width="2.2"/>
+    <path id="magPin" d="M160 74 l-5.5 -8 h11 Z" fill="#B8452C"/>
+  </svg>
+  <div id="magRead">7.00000 cm</div>
+  <div id="magNote">Cold — this is the starting size</div>
+</div>
+
+<p id="hint">Click Twist as fast as you can</p>
+<button id="actionBtn" type="button">Open</button>
+
+<script>
+(function(){
+"use strict";
+
+/* ═══════════════════════════════════════════════════════════════════
+   0 · WHICH BUILD IS THIS
+   ═══════════════════════════════════════════════════════════════════ */
+const HAS_JUG = true;   /*__JUG__*/
+const HAS_CAL = true;   /*__CAL__*/
+
+/* ═══════════════════════════════════════════════════════════════════
+   1 · PHYSICS   — identical in all three builds
+   ═══════════════════════════════════════════════════════════════════ */
+
+const D_LID=0.070, R_LID=D_LID/2;
+const A_ST=12e-6, A_GL=9e-6;
+
+const E_ST=200e9, T_WALL=0.22e-3, DELTA=10e-6, H_BAND=4e-3, MU_LG=0.40;
+const P_CONTACT=E_ST*DELTA*T_WALL/(R_LID*R_LID);            // 0.359 MPa
+const N_CONTACT=P_CONTACT*(2*Math.PI*R_LID*H_BAND);         // 316 N
+const T_COLD   =MU_LG*N_CONTACT*R_LID;                      // 4.42 N·m
+
+// The hand is limited by skin friction, not muscle. Oven mitts protect his
+// hands from a 50 °C lid; they do NOT help him grip, so this never changes.
+const T_GRIP=0.45*180*R_LID;                                // 2.84 N·m
+
+// Hot rinse, lid only:  Δc = D(α_st·ΔT_st − α_gl·ΔT_gl)
+const DT_LID=30, DT_GLASS=4;
+const GAIN_RADIAL=D_LID*(A_ST*DT_LID-A_GL*DT_GLASS)/2;      // 11.34 µm
+const JAM_CLEARED=GAIN_RADIAL>DELTA;                        // 11.34 > 10 → yes
+const T_HOT=1.70;          // an unjammed lid: the factory's own sealing torque
+
+const KICK=1.10, TAU=0.40;
+const reqTorque=()=>(S.hot&&JAM_CLEARED)?T_HOT:T_COLD;
+
+// the lid's temperature, before and after the rinse
+const T_COOL=22, T_WARM=T_COOL+DT_LID, T_GWARM=T_COOL+DT_GLASS;                      // 22 °C → 52 °C
+
+// what the caliper reads, in centimetres
+const lidDia_cm=()=>D_LID*(1+(S.hot?A_ST*DT_LID:0))*100;    // 7.0000 → 7.0025
+// the glass warms too — only 4 °C, and its α is smaller. Measured at the same
+// 7.000 cm mating diameter, so lid − jar is exactly the clearance that opens it.
+const jarDia_cm=()=>D_LID*(1+(S.hot?A_GL*DT_GLASS:0))*100;  // 7.0000 → 7.0003
+
+/* ═══════════════════════════════════════════════════════════════════
+   2 · SCENE
+   ═══════════════════════════════════════════════════════════════════ */
+
+const SH_L={x:369,y:230}, SH_R={x:571,y:230};
+const L1=118, L2=122;
+const REST_L={x:352,y:466}, REST_R={x:588,y:466};
+const JAR_TABLE={x:590,y:470}, JAR_HELD={x:470,y:382};
+const GRIP_BODY={x:30,y:-26}, GRIP_LID={x:-30,y:-63};
+const RAISED={x:275,y:170};
+const LIFT_T=1.25;
+const JUG_HOME={x:810,y:470};
+const CAL_HOME={x:300,y:452,rot:-5};
+const SPOUT={x:-50,y:-68};
+const POUR_ROT=-34, POUR_T=7.0, GLOVE_T=1.5;
+const SKIN="#D2915F", SKIN_S="#A96F4A", MITT="#A8483A", MITT_S="#7E3227";
+const MAG_CX=160, MAG_PXCM=40000;     // 320 px spans 0.008 cm
+
+const $=id=>document.getElementById(id);
+const clamp=(v,a,b)=>v<a?a:v>b?b:v, lerp=(a,b,u)=>a+(b-a)*u;
+const ease=u=>u<.5?2*u*u:1-Math.pow(-2*u+2,2)/2;
+const NS="http://www.w3.org/2000/svg";
+const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+let seed=7211; const rnd=()=>(seed=(seed*1664525+1013904223)>>>0)/4294967296;
+
+const _c=Math.cos(POUR_ROT*Math.PI/180), _s=Math.sin(POUR_ROT*Math.PI/180);
+const SPOUT_DX=SPOUT.x*_c-SPOUT.y*_s, SPOUT_DY=SPOUT.x*_s+SPOUT.y*_c;
+
+const n={};
+["stage","person","upper","head","torso","lUp","lFo","lCuff","rUp","rFo","rCuff",
+ "tempLid","tempJar","jar","lid","knurl","lidHot","lidRing","jarShadow","handL","handR","handLF","handLS",
+ "handRF","handRS","eyeL","eyeR","joyL","joyR","browL","browR","mouth","smile",
+ "blushL","blushR","sweat","marks","mk1","mk2","sparkle","jug","jugShadow","pourFx",
+ "stream","runL","runR","splash","steamLid","sl1","sl2","sl3","sj1","sj2",
+ "caliper","calShadow","calText","mag","magTitle","magGrow","magNeedle","magPin","magRead","magNote",
+ "actionBtn","gauge","gFill","gBest","hint"].forEach(k=>n[k]=$(k));
+
+if(!HAS_JUG){ n.jug.setAttribute("display","none"); n.jugShadow.setAttribute("display","none");
+              n.pourFx.setAttribute("display","none"); n.steamLid.setAttribute("display","none"); }
+if(!HAS_CAL){ n.caliper.setAttribute("display","none"); n.calShadow.setAttribute("display","none");
+              n.mag.setAttribute("style","display:none"); }
+
+const RIDGES=26, R_KNURL=23, ridges=[];
+for(let i=0;i<RIDGES;i++){
+  const r=document.createElementNS(NS,"line");
+  r.setAttribute("y1","-69.5"); r.setAttribute("y2","-56.5");
+  r.setAttribute("stroke","#7E8A92"); r.setAttribute("stroke-width","1.5"); r.setAttribute("stroke-linecap","round");
+  n.knurl.appendChild(r); ridges.push(r);
+}
+const drops=[], sparks=[];
+for(let i=0;i<9;i++){ const c=document.createElementNS(NS,"circle");
+  c.setAttribute("r",(1.6+rnd()*2).toFixed(1)); $("splash").appendChild(c); drops.push({el:c,ph:rnd()}); }
+for(let i=0;i<7;i++){ const p=document.createElementNS(NS,"path");
+  p.setAttribute("d","M0 -8 L2.4 -2.4 L8 0 L2.4 2.4 L0 8 L-2.4 2.4 L-8 0 L-2.4 -2.4 Z");
+  n.sparkle.appendChild(p); sparks.push({el:p,ph:rnd()}); }
+
+/* magnifier graduations: minor 0.0002 cm, medium 0.0010, major 0.0020 */
+(function(){
+  const g=$("magTicks"), lab=$("magLabels");
+  for(let i=-20;i<=20;i++){
+    const x=MAG_CX+i*0.0002*MAG_PXCM, maj=(i%10===0), med=(i%5===0);
+    const l=document.createElementNS(NS,"line");
+    l.setAttribute("x1",x); l.setAttribute("x2",x);
+    l.setAttribute("y1",6); l.setAttribute("y2",maj?34:med?24:16);
+    l.setAttribute("stroke",i===0?"#B8452C":maj?"#39434B":"#7C878F");
+    l.setAttribute("stroke-width",i===0?1.7:maj?1.3:.75);
+    g.appendChild(l);
+  }
+  for(let i=-2;i<=2;i++){
+    const t=document.createElementNS(NS,"text");
+    t.setAttribute("x",MAG_CX+i*0.002*MAG_PXCM); t.setAttribute("y",56);
+    t.setAttribute("text-anchor","middle"); t.setAttribute("font-size",10);
+    t.setAttribute("font-family","ui-monospace,Menlo,Consolas,monospace");
+    t.setAttribute("font-weight",i===0?700:500);
+    t.setAttribute("fill",i===0?"#9A3524":"#4E5860");
+    t.textContent=(7+i*0.002).toFixed(5);
+    lab.appendChild(t);
+  }
+})();
+
+/* ═══════════════════════════════════════════════════════════════════
+   3 · STATE
+   ═══════════════════════════════════════════════════════════════════ */
+
+const S={ phase:"idle", lift:0, torque:0, best:0, hot:false, t:0,
+  slipT:0, slipKick:0, openT:0, gloveT:-1, glove:0, hover:null,
+  jug:{x:JUG_HOME.x,y:JUG_HOME.y,rot:0,mode:"rest",t:0,dx:0,dy:0,fx:0,fy:0,frot:0},
+  cal:{x:CAL_HOME.x,y:CAL_HOME.y,rot:CAL_HOME.rot,mode:"rest",t:0,dx:0,dy:0,fx:0,fy:0,frot:0,snap:null} };
+
+function jarBase(){
+  if(S.phase==="idle") return {x:JAR_TABLE.x,y:JAR_TABLE.y};
+  const u=ease(clamp((S.lift-0.42)/(LIFT_T-0.42),0,1));
+  return {x:lerp(JAR_TABLE.x,JAR_HELD.x,u), y:lerp(JAR_TABLE.y,JAR_HELD.y,u)};
+}
+function lidAnchor(){
+  const b=jarBase();
+  if(S.phase!=="opened") return b;
+  const u=ease(clamp(S.openT/0.85,0,1));
+  return {x:lerp(b.x,RAISED.x+18,u), y:lerp(b.y,RAISED.y+52,u)};
+}
+const lidCentre=()=>{ const a=lidAnchor(); return {x:a.x, y:a.y-63}; };
+function lidPoint(){ const b=jarBase(); return {x:b.x, topY:b.y-71, botY:b.y-55}; }
+function inPourZone(){
+  const lp=lidPoint(), sx=S.jug.x+SPOUT.x, sy=S.jug.y+SPOUT.y;
+  return Math.abs(sx-lp.x)<86 && sy>lp.topY-240 && sy<lp.topY+34;
+}
+const JAR_MID=-24;                       // where the caliper reads the glass body
+function calTarget(){
+  const lc=lidCentre(), b=jarBase(), jc={x:b.x,y:b.y+JAR_MID};
+  const dl=Math.hypot(S.cal.x-lc.x,S.cal.y-lc.y);
+  const dj=Math.hypot(S.cal.x-jc.x,S.cal.y-jc.y);
+  if(dl<=dj && dl<62) return {k:"lid",x:lc.x,y:lc.y};
+  if(dj<dl  && dj<62) return {k:"jar",x:jc.x,y:jc.y};
+  return null;
+}
+const busy=()=>S.jug.mode==="pour"||S.gloveT>=0;
+
+/* ═══════════════════════════════════════════════════════════════════
+   4 · DRAW
+   ═══════════════════════════════════════════════════════════════════ */
+
+function ik(sx,sy,hx,hy,outward){
+  let dx=hx-sx, dy=hy-sy, d=Math.hypot(dx,dy)||0.001;
+  const ux=dx/d, uy=dy/d;
+  d=clamp(d,Math.abs(L1-L2)+2,L1+L2-2);
+  const a=(L1*L1-L2*L2+d*d)/(2*d);
+  const h=Math.sqrt(Math.max(0,L1*L1-a*a));      // exact: bones never stretch
+  const px=sx+ux*a, py=sy+uy*a, nx=-uy, ny=ux;
+  const e1={x:px+nx*h,y:py+ny*h}, e2={x:px-nx*h,y:py-ny*h};
+  let e;
+  if(Math.abs(e1.x-e2.x)<1) e = e1.y>e2.y?e1:e2;
+  else e = outward<0 ? (e1.x<e2.x?e1:e2) : (e1.x>e2.x?e1:e2);
+  return {ex:e.x, ey:e.y, wx:sx+ux*d, wy:sy+uy*d};
+}
+function setArm(up,fo,cuff,s,hand,outward,g){
+  const j=ik(s.x,s.y,hand.x,hand.y,outward);
+  up.setAttribute("x1",s.x); up.setAttribute("y1",s.y);
+  up.setAttribute("x2",j.ex.toFixed(1)); up.setAttribute("y2",j.ey.toFixed(1));
+  fo.setAttribute("x1",j.ex.toFixed(1)); fo.setAttribute("y1",j.ey.toFixed(1));
+  fo.setAttribute("x2",j.wx.toFixed(1)); fo.setAttribute("y2",j.wy.toFixed(1));
+  const k=0.5*g;
+  cuff.setAttribute("x1",lerp(j.wx,j.ex,k).toFixed(1)); cuff.setAttribute("y1",lerp(j.wy,j.ey,k).toFixed(1));
+  cuff.setAttribute("x2",j.wx.toFixed(1)); cuff.setAttribute("y2",j.wy.toFixed(1));
+  cuff.setAttribute("opacity",clamp(g*3,0,1).toFixed(2));
+}
+const hx2=h=>[parseInt(h.slice(1,3),16),parseInt(h.slice(3,5),16),parseInt(h.slice(5,7),16)];
+function mix(a,b,u){ const A=hx2(a),B=hx2(b);
+  return "#"+A.map((v,i)=>Math.round(lerp(v,B[i],u)).toString(16).padStart(2,"0")).join(""); }
+
+let badgeHot=null;
+const tCol=T=>mix("#F2F7F8","#FFB37A",clamp((T-T_COOL)/DT_LID,0,1));
+let magKey="";
+function draw(dt){
+  S.t+=dt;
+  const t=S.t, v=clamp(S.torque/reqTorque(),0,1);
+  const opened=S.phase==="opened";
+  const strain=(S.phase==="holding")?clamp(S.torque/T_GRIP,0,1):0;
+  const joy=opened?ease(clamp(S.openT/0.5,0,1)):0;
+  const trem=(reduce||strain<0.25)?0:(strain-0.25)*2.1;
+  const jx=Math.sin(t*47)*trem, jy=Math.sin(t*61+1.7)*trem*0.7;
+
+  const b=jarBase(), bx=b.x+jx, by=b.y+jy;
+  n.jar.setAttribute("transform",`translate(${bx.toFixed(1)},${by.toFixed(1)}) rotate(${(2.6*strain).toFixed(2)})`);
+  n.jarShadow.setAttribute("opacity",S.phase==="idle"?"0.5":Math.max(0,.5-S.lift*0.9).toFixed(3));
+
+  const la=lidAnchor();
+  const lidX=la.x+(opened?0:jx), lidY=la.y+(opened?0:jy);
+  const lidRot=opened?lerp(0,-16,ease(clamp(S.openT/0.85,0,1))):2.6*strain;
+  const twist=opened?0:14*strain+S.slipKick;
+  n.lid.setAttribute("transform",`translate(${lidX.toFixed(1)},${lidY.toFixed(1)}) rotate(${lidRot.toFixed(2)})`);
+  /* lid temperature beside the lid, glass temperature under the jar */
+  n.tempLid.setAttribute("x",(lidX-34).toFixed(1));
+  n.tempLid.setAttribute("y",(lidY-52).toFixed(1));
+  n.tempJar.setAttribute("x",bx.toFixed(1));
+  n.tempJar.setAttribute("y",(by+32).toFixed(1));
+  if(badgeHot!==S.hot){
+    badgeHot=S.hot;
+    const TL=S.hot?T_WARM:T_COOL, TG=S.hot?T_GWARM:T_COOL;
+    n.tempLid.textContent=TL+" °C"; n.tempLid.setAttribute("fill",tCol(TL));
+    n.tempJar.textContent=TG+" °C"; n.tempJar.setAttribute("fill",tCol(TG));
+  }
+
+
+  const th=twist*Math.PI/180;
+  for(let i=0;i<RIDGES;i++){
+    const phi=i*2*Math.PI/RIDGES+th, c=Math.cos(phi), r=ridges[i];
+    if(c<=0.03){ r.setAttribute("opacity","0"); continue; }
+    const x=(R_KNURL*Math.sin(phi)).toFixed(2);
+    r.setAttribute("x1",x); r.setAttribute("x2",x); r.setAttribute("opacity",(c*0.55).toFixed(3));
+  }
+  n.lidHot.setAttribute("opacity",(S.hot?0.3:0).toFixed(3));
+
+  let hL,hR;
+  if(S.phase==="idle"){ hL=REST_L; hR=REST_R; }
+  else{
+    const reach=ease(clamp(S.lift/0.42,0,1)), join=ease(clamp((S.lift-0.55)/(LIFT_T-0.55),0,1));
+    hR={x:lerp(REST_R.x,bx+GRIP_BODY.x,reach), y:lerp(REST_R.y,by+GRIP_BODY.y,reach)};
+    hL={x:lerp(REST_L.x,bx+GRIP_LID.x,join),  y:lerp(REST_L.y,by+GRIP_LID.y,join)};
+  }
+  if(opened){ const u=ease(clamp(S.openT/0.85,0,1));
+    hL={x:lerp(bx+GRIP_LID.x,RAISED.x,u), y:lerp(by+GRIP_LID.y,RAISED.y,u)}; }
+  const hLs={x:hL.x-S.slipKick*0.9, y:hL.y};
+  const lift=9*strain;
+  const gL=clamp(S.glove*1.5,0,1), gR=clamp((S.glove-0.32)*1.6,0,1);
+  setArm(n.lUp,n.lFo,n.lCuff,{x:SH_L.x,y:SH_L.y-lift},hLs,-1,gL);
+  setArm(n.rUp,n.rFo,n.rCuff,{x:SH_R.x,y:SH_R.y-lift},hR,+1,gR);
+
+  n.handLF.setAttribute("fill",mix(SKIN,MITT,gL)); n.handLS.setAttribute("stroke",mix(SKIN_S,MITT_S,gL));
+  n.handRF.setAttribute("fill",mix(SKIN,MITT,gR)); n.handRS.setAttribute("stroke",mix(SKIN_S,MITT_S,gR));
+  const sw=k=>(1+0.22*k).toFixed(2);
+  n.handL.setAttribute("transform",`translate(${hLs.x.toFixed(1)},${hLs.y.toFixed(1)}) rotate(${(-16*strain).toFixed(1)}) scale(${sw(gL)})`);
+  n.handR.setAttribute("transform",`translate(${hR.x.toFixed(1)},${hR.y.toFixed(1)}) rotate(${(10*strain).toFixed(1)}) scale(${sw(gR)})`);
+  n.handL.setAttribute("opacity",clamp((462-hLs.y)/18,0,1).toFixed(3));
+  n.handR.setAttribute("opacity",clamp((462-hR.y)/18,0,1).toFixed(3));
+
+  n.upper.setAttribute("transform",
+    `translate(${(jx*.5).toFixed(2)},${(-lift+jy*.5-6*joy).toFixed(2)}) rotate(${(1.8*strain).toFixed(2)} 470 300)`);
+  n.head.setAttribute("transform",`translate(0,${(4*strain).toFixed(1)}) rotate(${(-3.5*strain+3*joy).toFixed(2)} 470 176)`);
+  const sq=1-0.55*strain;
+  n.eyeL.setAttribute("ry",(5.4*sq).toFixed(2)); n.eyeR.setAttribute("ry",(5.4*sq).toFixed(2));
+  n.eyeL.setAttribute("opacity",(1-joy).toFixed(2)); n.eyeR.setAttribute("opacity",(1-joy).toFixed(2));
+  n.joyL.setAttribute("opacity",joy.toFixed(2)); n.joyR.setAttribute("opacity",joy.toFixed(2));
+  n.browL.setAttribute("d",`M446 ${(127-4*strain-3*joy).toFixed(1)} L463 ${(127+5*strain-joy).toFixed(1)}`);
+  n.browR.setAttribute("d",`M477 ${(127+5*strain-joy).toFixed(1)} L494 ${(127-4*strain-3*joy).toFixed(1)}`);
+  n.mouth.setAttribute("d",`M${(459-3*strain).toFixed(1)} 163 Q470 ${(166-9*strain).toFixed(1)} ${(481+3*strain).toFixed(1)} 163`);
+  n.mouth.setAttribute("stroke-width",(3.2+2.2*strain).toFixed(1));
+  n.mouth.setAttribute("opacity",(1-joy).toFixed(2));
+  n.smile.setAttribute("opacity",joy.toFixed(2));
+  n.blushL.setAttribute("opacity",(0.42*Math.max(strain,joy)).toFixed(3));
+  n.blushR.setAttribute("opacity",(0.42*Math.max(strain,joy)).toFixed(3));
+  n.sweat.setAttribute("opacity",(clamp((strain-0.55)/0.45,0,1)*0.9*(1-joy)).toFixed(3));
+
+  if(strain>0.45&&!opened){
+    n.marks.setAttribute("opacity",((strain-0.45)*1.6).toFixed(3));
+    n.mk1.setAttribute("d",`M${(bx+GRIP_LID.x-30).toFixed(0)} ${(by+GRIP_LID.y-14).toFixed(0)} q -9 6 0 12`);
+    n.mk2.setAttribute("d",`M${(bx+GRIP_LID.x-38).toFixed(0)} ${(by+GRIP_LID.y-20).toFixed(0)} q -13 9 0 18`);
+  } else n.marks.setAttribute("opacity","0");
+
+  if(opened){
+    n.sparkle.setAttribute("opacity",clamp(1.6-S.openT/1.6,0,1).toFixed(3));
+    sparks.forEach((s,i)=>{
+      const a=i/sparks.length*Math.PI*2+S.openT*1.2, rr=34+S.openT*62;
+      s.el.setAttribute("transform",
+        `translate(${(lidX+Math.cos(a)*rr).toFixed(1)},${(lidY-58+Math.sin(a)*rr*0.7).toFixed(1)}) scale(${(0.45+0.45*Math.sin(S.openT*7+s.ph*6)).toFixed(2)})`);
+    });
+  } else n.sparkle.setAttribute("opacity","0");
+
+  /* ── the jug ── */
+  if(HAS_JUG){
+    const J=S.jug;
+    n.jug.setAttribute("transform",`translate(${J.x.toFixed(1)},${J.y.toFixed(1)}) rotate(${J.rot.toFixed(2)})`);
+    n.jugShadow.setAttribute("opacity",J.mode==="rest"?"0.55":clamp(.55-(JUG_HOME.y-J.y)/160,0,.55).toFixed(3));
+    const w1=Math.sin(t*1.9), w2=Math.sin(t*2.4+1.1);
+    n.sj1.setAttribute("d",`M-14 -84 q ${(7*w1).toFixed(1)} -12 0 -24`);
+    n.sj2.setAttribute("d",`M-2 -88 q ${(6*w2).toFixed(1)} -10 0 -20`);
+
+    const lp=lidPoint();
+    if(J.mode==="pour"&&J.t>0.45&&J.t<POUR_T-0.9){
+      const sx=J.x+SPOUT_DX, sy=J.y+SPOUT_DY;
+      n.pourFx.setAttribute("opacity","1");
+      n.stream.setAttribute("d",`M${sx.toFixed(1)} ${sy.toFixed(1)} Q${(sx+(lp.x-sx)*.5).toFixed(1)} ${((sy+lp.topY)/2).toFixed(1)} ${lp.x.toFixed(1)} ${(lp.topY+2).toFixed(1)}`);
+      n.stream.setAttribute("stroke-dasharray","16 9");
+      n.stream.setAttribute("stroke-dashoffset",(-t*230).toFixed(0));
+      n.runL.setAttribute("d",`M${(lp.x-19).toFixed(1)} ${(lp.topY+3).toFixed(1)} q -5 7 -3 ${(lp.botY-lp.topY-4).toFixed(1)}`);
+      n.runR.setAttribute("d",`M${(lp.x+19).toFixed(1)} ${(lp.topY+3).toFixed(1)} q 5 7 3 ${(lp.botY-lp.topY-4).toFixed(1)}`);
+      drops.forEach((d,i)=>{
+        const u=((t*1.5+d.ph)%1), side=i%2?1:-1;
+        d.el.setAttribute("cx",(lp.x+side*(10+u*34)).toFixed(1));
+        d.el.setAttribute("cy",(lp.topY+2-Math.sin(u*Math.PI)*17+u*10).toFixed(1));
+        d.el.setAttribute("opacity",(1-u).toFixed(2));
+      });
+    } else n.pourFx.setAttribute("opacity","0");
+
+    const steam=(J.mode==="pour"&&J.t>0.8)?1:(S.hot?0.55:0);
+    n.steamLid.setAttribute("opacity",steam.toFixed(2));
+    if(steam>0){
+      n.sl1.setAttribute("d",`M${(lp.x-13).toFixed(0)} ${(lp.topY-4).toFixed(0)} q ${(9*w1).toFixed(1)} -16 0 -32`);
+      n.sl2.setAttribute("d",`M${lp.x.toFixed(0)} ${(lp.topY-8).toFixed(0)} q ${(8*w2).toFixed(1)} -18 0 -38`);
+      n.sl3.setAttribute("d",`M${(lp.x+13).toFixed(0)} ${(lp.topY-4).toFixed(0)} q ${(9*Math.sin(t*2.1+2)).toFixed(1)} -15 0 -30`);
+    }
+    n.lidRing.setAttribute("opacity",(J.mode==="drag"&&inPourZone())?(0.55+0.35*Math.sin(t*7)).toFixed(2):"0");
+  }
+
+
+  /* ── the caliper ── */
+  if(HAS_CAL){
+    const C=S.cal;
+    C.rot += ((C.snap?0:CAL_HOME.rot)-C.rot)*Math.min(1,dt*14);
+    n.caliper.setAttribute("transform",`translate(${C.x.toFixed(1)},${C.y.toFixed(1)}) rotate(${C.rot.toFixed(2)})`);
+    n.calShadow.setAttribute("cx",C.x.toFixed(1));
+    n.calShadow.setAttribute("opacity",C.mode==="rest"?"0.5":clamp(.5-(CAL_HOME.y-C.y)/180,0,.5).toFixed(3));
+
+    const isLid=C.snap==="lid";
+    const dia=isLid?lidDia_cm():jarDia_cm(), txt=dia.toFixed(5);
+    n.calText.textContent = C.snap ? txt : "------";
+    n.mag.classList.toggle("on",!!C.snap);
+    if(C.snap && magKey!==C.snap+txt){
+      magKey=C.snap+txt;
+      n.magTitle.textContent = isLid ? "Steel lid" : "Glass jar";
+      const x=clamp(MAG_CX+(dia-7)*MAG_PXCM,-20,340);
+      n.magNeedle.setAttribute("x1",x.toFixed(1)); n.magNeedle.setAttribute("x2",x.toFixed(1));
+      n.magPin.setAttribute("d",`M${x.toFixed(1)} 74 l-5.5 -8 h11 Z`);
+      n.magGrow.setAttribute("x",Math.min(MAG_CX,x).toFixed(1));
+      n.magGrow.setAttribute("width",Math.abs(x-MAG_CX).toFixed(1));
+      n.magRead.textContent=txt+" cm";
+      const d=dia-7;
+      n.magNote.textContent = d<1e-5 ? "Cold — this is the starting size"
+        : "+"+d.toFixed(5)+" cm — "+(isLid?"the steel has expanded":"the glass barely moves");
+    }
+    if(!C.snap) magKey="";
+  }
+
+  n.gFill.setAttribute("y",(470-v*428).toFixed(2));
+  n.gFill.setAttribute("height",(v*428).toFixed(2));
+  n.gFill.setAttribute("fill",v>=0.999?"#4E9E63":mix("#DCA62A","#B8452C",clamp(S.torque/T_GRIP,0,1)));
+  if(S.best>0.02&&!opened){
+    n.gBest.setAttribute("opacity","0.8");
+    n.gBest.setAttribute("y1",(470-S.best*428).toFixed(2));
+    n.gBest.setAttribute("y2",(470-S.best*428).toFixed(2));
+  } else n.gBest.setAttribute("opacity","0");
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   5 · STEP
+   ═══════════════════════════════════════════════════════════════════ */
+
+function setHint(){
+  const txt = S.phase==="opened" ? "" :
+    S.gloveT>=0 ? "Oven mitts on — that lid is hot" :
+    S.jug.mode==="pour" ? "Hot water on the lid only" :
+    S.hot ? "Now try Twist" : "Click Twist as fast as you can";
+  if(txt) n.hint.textContent=txt;
+  n.hint.classList.toggle("on", !!txt && S.phase!=="idle");
+}
+
+function step(dt){
+  if(S.phase==="lifting"){
+    S.lift+=dt;
+    if(S.lift>=LIFT_T){ S.lift=LIFT_T; S.phase="holding";
+      n.actionBtn.textContent="Twist"; n.gauge.classList.add("on"); setHint(); }
+  }
+
+  if(S.phase==="holding" && !busy()){
+    S.torque*=Math.exp(-dt/TAU);
+    const v=S.torque/reqTorque();
+    if(v>S.best) S.best=Math.min(v,1);
+    if(v>=1){ S.phase="opened"; S.openT=0; S.torque=reqTorque();
+      n.actionBtn.textContent="Opened"; n.actionBtn.disabled=true; setHint(); }
+    else if(S.torque>=T_GRIP-0.02){
+      S.slipT-=dt;
+      if(S.slipT<=0){ S.slipT=0.28+rnd()*0.22; S.torque-=0.40; S.slipKick=-7; }
+    } else S.slipT=0.2;
+    S.slipKick+=(0-S.slipKick)*Math.min(1,dt*9);
+    if(S.torque<0.002) S.torque=0;
+  }
+  if(S.phase==="opened") S.openT+=dt;
+
+  if(S.gloveT>=0){
+    S.gloveT+=dt;
+    S.glove=ease(clamp(S.gloveT/(GLOVE_T-0.2),0,1));
+    if(S.gloveT>=GLOVE_T){ S.gloveT=-1; S.glove=1;
+      if(S.phase!=="opened") n.actionBtn.disabled=false; setHint(); }
+  }
+
+  if(HAS_JUG){
+    const J=S.jug;
+    if(J.mode==="pour"){
+      J.t+=dt;
+      const lp=lidPoint(), px=lp.x-SPOUT_DX, py=lp.topY-55-SPOUT_DY;
+      if(J.t<0.45){ const u=ease(J.t/0.45);
+        J.x=lerp(J.fx,px,u); J.y=lerp(J.fy,py,u); J.rot=lerp(J.frot,POUR_ROT,u); }
+      else if(J.t<POUR_T-0.9){ J.x=px; J.y=py; J.rot=POUR_ROT; }
+      else if(J.t<POUR_T-0.45){ const u=ease((J.t-(POUR_T-0.9))/0.45);
+        J.x=px; J.y=py; J.rot=lerp(POUR_ROT,0,u); S.hot=true; }
+      else{ const u=ease((J.t-(POUR_T-0.45))/0.45);
+        J.x=lerp(px,JUG_HOME.x,u); J.y=lerp(py,JUG_HOME.y,u); J.rot=0;
+        if(J.t>=POUR_T){ J.mode="rest"; J.x=JUG_HOME.x; J.y=JUG_HOME.y; J.rot=0;
+          S.gloveT=0; setHint(); } }
+    }
+    else if(J.mode==="return"){
+      J.t+=dt; const u=ease(clamp(J.t/0.4,0,1));
+      J.x=lerp(J.fx,JUG_HOME.x,u); J.y=lerp(J.fy,JUG_HOME.y,u); J.rot=lerp(J.frot,0,u);
+      if(u>=1) J.mode="rest";
+    }
+  }
+
+  if(HAS_CAL){
+    const C=S.cal;
+    if(C.mode==="return"){
+      C.t+=dt; const u=ease(clamp(C.t/0.4,0,1));
+      C.x=lerp(C.fx,CAL_HOME.x,u); C.y=lerp(C.fy,CAL_HOME.y,u);
+      if(u>=1){ C.mode="rest"; C.x=CAL_HOME.x; C.y=CAL_HOME.y; }
+    }
+  }
+}
+
+let last=performance.now();
+(function frame(now){
+  const dt=Math.min(.05,(now-last)/1000); last=now;
+  step(dt); draw(dt); requestAnimationFrame(frame);
+})(last);
+
+/* ═══════════════════════════════════════════════════════════════════
+   6 · INTERACTION
+   ═══════════════════════════════════════════════════════════════════ */
+
+const scene=$("scene"), stage=n.stage;
+function svgPt(e){
+  const m=stage.getScreenCTM();
+  if(m&&stage.createSVGPoint){ const p=stage.createSVGPoint(); p.x=e.clientX; p.y=e.clientY;
+    return p.matrixTransform(m.inverse()); }
+  const r=stage.getBoundingClientRect();
+  return {x:(e.clientX-r.left)/r.width*1100, y:(e.clientY-r.top)/r.height*720};
+}
+const onJug=p=>HAS_JUG && !busy() && S.jug.mode!=="pour" &&
+  p.x>S.jug.x-56 && p.x<S.jug.x+58 && p.y>S.jug.y-92 && p.y<S.jug.y+12;
+const onCal=p=>HAS_CAL && !busy() &&
+  p.x>S.cal.x-82 && p.x<S.cal.x+82 && p.y>S.cal.y-42 && p.y<S.cal.y+24;
+
+function setCursor(){
+  const dragging=S.jug.mode==="drag"||S.cal.mode==="drag";
+  scene.classList.toggle("grabbing",dragging);
+  scene.classList.toggle("grab",!dragging&&!!S.hover);
+}
+
+stage.addEventListener("pointerdown",e=>{
+  const p=svgPt(e);
+  if(onCal(p)){ e.preventDefault();
+    S.cal.mode="drag"; S.cal.dx=S.cal.x-p.x; S.cal.dy=S.cal.y-p.y;
+    try{ stage.setPointerCapture(e.pointerId); }catch(_){}
+    setCursor(); return; }
+  if(onJug(p)){ e.preventDefault();
+    S.jug.mode="drag"; S.jug.dx=S.jug.x-p.x; S.jug.dy=S.jug.y-p.y; S.jug.rot=0;
+    try{ stage.setPointerCapture(e.pointerId); }catch(_){}
+    setCursor(); }
+});
+stage.addEventListener("pointermove",e=>{
+  const p=svgPt(e);
+  if(S.cal.mode==="drag"){
+    S.cal.x=p.x+S.cal.dx; S.cal.y=p.y+S.cal.dy;
+    const tg=calTarget();                         // clamp onto whichever it is over
+    if(tg){ S.cal.x=tg.x; S.cal.y=tg.y; S.cal.snap=tg.k; }
+    else S.cal.snap=null;
+    return;
+  }
+  if(S.jug.mode==="drag"){ S.jug.x=p.x+S.jug.dx; S.jug.y=p.y+S.jug.dy; return; }
+  const h = onCal(p)?"cal" : onJug(p)?"jug" : null;
+  if(h!==S.hover){ S.hover=h; setCursor(); }
+});
+function release(e){
+  try{ stage.releasePointerCapture(e.pointerId); }catch(_){}
+  if(S.cal.mode==="drag"){                        // always goes back to its place
+    S.cal.fx=S.cal.x; S.cal.fy=S.cal.y; S.cal.t=0; S.cal.snap=null; S.cal.mode="return";
+    setCursor(); return;
+  }
+  if(S.jug.mode!=="drag") return;
+  S.jug.fx=S.jug.x; S.jug.fy=S.jug.y; S.jug.frot=S.jug.rot; S.jug.t=0;
+  if(inPourZone()){ S.jug.mode="pour"; n.actionBtn.disabled=true;
+    S.torque=0; S.best=0; S.slipKick=0; }         // he lets go of the lid to pour
+  else S.jug.mode="return";
+  setCursor(); setHint();
+}
+stage.addEventListener("pointerup",release);
+stage.addEventListener("pointercancel",release);
+stage.addEventListener("pointerleave",()=>{ S.hover=null; setCursor(); });
+
+function act(){
+  if(busy()) return;
+  if(S.phase==="idle"){ S.phase="lifting"; S.lift=0; n.actionBtn.disabled=true;
+    setTimeout(()=>{ if(!busy()&&S.phase!=="opened") n.actionBtn.disabled=false; },LIFT_T*1000);
+    return; }
+  if(S.phase==="holding"){
+    S.torque=Math.min(T_GRIP,S.torque+KICK);
+    n.actionBtn.classList.add("press");
+    setTimeout(()=>n.actionBtn.classList.remove("press"),90);
+  }
+}
+n.actionBtn.addEventListener("pointerdown",e=>{ e.preventDefault(); act(); });
+n.actionBtn.addEventListener("keydown",e=>{ if(e.key===" "||e.key==="Enter"){ e.preventDefault(); act(); } });
+
+$("restartBtn").addEventListener("click",()=>{
+  S.phase="idle"; S.lift=0; S.torque=0; S.best=0; S.hot=false; S.openT=0;
+  S.slipT=0; S.slipKick=0; S.gloveT=-1; S.glove=0; S.hover=null;
+  S.jug={x:JUG_HOME.x,y:JUG_HOME.y,rot:0,mode:"rest",t:0,dx:0,dy:0,fx:0,fy:0,frot:0};
+  S.cal={x:CAL_HOME.x,y:CAL_HOME.y,rot:CAL_HOME.rot,mode:"rest",t:0,dx:0,dy:0,fx:0,fy:0,frot:0,snap:null};
+  n.actionBtn.textContent="Open"; n.actionBtn.disabled=false;
+  n.gauge.classList.remove("on"); n.hint.classList.remove("on");
+  n.mag.classList.remove("on"); n.gBest.setAttribute("opacity","0"); badgeHot=null;
+  setCursor();
+});
+
+window.__jar={
+  build:{jug:HAS_JUG,caliper:HAS_CAL},
+  torqueCold:T_COLD, torqueHot:T_HOT, torqueGrip:T_GRIP,
+  clearanceGain_um:GAIN_RADIAL*1e6, interference_um:DELTA*1e6, jamCleared:JAM_CLEARED,
+  ceilingCold:T_GRIP/T_COLD, ceilingHot:T_GRIP/T_HOT,
+  lidDia_cm:()=>lidDia_cm(), jarDia_cm:()=>jarDia_cm(),
+  diameter_cm:()=>lidDia_cm(),
+  temps:{cold:T_COOL,warm:T_WARM,dT:DT_LID},
+  badges:()=>[n.tempLid.textContent,n.tempJar.textContent],
+  gauge:()=>clamp(S.torque/reqTorque(),0,1), phase:()=>S.phase, hot:()=>S.hot,
+  glove:()=>S.glove, jugMode:()=>S.jug.mode, calMode:()=>S.cal.mode, calSnap:()=>S.cal.snap,
+  inZone:()=>inPourZone()
+};
+})();
+</script>
+</body>
+</html>

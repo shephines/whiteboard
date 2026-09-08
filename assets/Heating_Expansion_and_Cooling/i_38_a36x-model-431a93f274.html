@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>The Jammed Jar — find the rule</title>
+<style>
+  :root{
+    --glass:rgba(255,255,255,.87);
+    --glass-line:rgba(255,255,255,.6);
+    --ink:#1F282C;
+    --palm:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 24 24'%3E%3Cg fill='none' stroke='%23fff' stroke-width='4.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 11V6a2 2 0 0 0-4 0v5'/%3E%3Cpath d='M14 10V4a2 2 0 0 0-4 0v6'/%3E%3Cpath d='M10 10.5V6a2 2 0 0 0-4 0v8'/%3E%3Cpath d='M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-6-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15'/%3E%3C/g%3E%3Cg fill='none' stroke='%231b1f24' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 11V6a2 2 0 0 0-4 0v5'/%3E%3Cpath d='M14 10V4a2 2 0 0 0-4 0v6'/%3E%3Cpath d='M10 10.5V6a2 2 0 0 0-4 0v8'/%3E%3Cpath d='M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-6-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15'/%3E%3C/g%3E%3C/svg%3E") 14 12, grab;
+    --fist:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 24 24'%3E%3Cg fill='none' stroke='%23fff' stroke-width='4.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 11.5V9a2 2 0 0 0-4 0v1.4'/%3E%3Cpath d='M14 10V8a2 2 0 0 0-4 0v2'/%3E%3Cpath d='M10 9.9V9a2 2 0 0 0-4 0v5'/%3E%3Cpath d='M6 14a2 2 0 0 0-4 0'/%3E%3Cpath d='M18 11a2 2 0 1 1 4 0v3a8 8 0 0 1-8 8h-4a8 8 0 0 1-8-8 2 2 0 1 1 4 0'/%3E%3C/g%3E%3Cg fill='none' stroke='%231b1f24' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 11.5V9a2 2 0 0 0-4 0v1.4'/%3E%3Cpath d='M14 10V8a2 2 0 0 0-4 0v2'/%3E%3Cpath d='M10 9.9V9a2 2 0 0 0-4 0v5'/%3E%3Cpath d='M6 14a2 2 0 0 0-4 0'/%3E%3Cpath d='M18 11a2 2 0 1 1 4 0v3a8 8 0 0 1-8 8h-4a8 8 0 0 1-8-8 2 2 0 1 1 4 0'/%3E%3C/g%3E%3C/svg%3E") 14 13, grabbing;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;border:0}
+  html,body{height:100%;width:100%;overflow:hidden}
+  body{
+    background:#83959D;
+    font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    -webkit-user-select:none;-moz-user-select:none;user-select:none;-webkit-touch-callout:none
+  }
+  #scene{position:fixed;inset:0;cursor:default}
+  #scene.grab{cursor:var(--palm)}
+  #scene.grabbing{cursor:var(--fist)}
+  #stage{width:100%;height:100%;display:block;touch-action:none}
+
+  #mag{
+    position:fixed;z-index:10;left:24px;top:24px;
+    width:clamp(266px, 25vw, 330px);
+    padding:14px 16px 13px;border-radius:16px;
+    border:1px solid var(--glass-line);background:var(--glass);
+    -webkit-backdrop-filter:blur(16px) saturate(1.3);backdrop-filter:blur(16px) saturate(1.3);
+    box-shadow:0 12px 34px rgba(10,18,26,.3), inset 0 1px 0 rgba(255,255,255,.72);
+    color:var(--ink);opacity:0;pointer-events:none;transform:translateX(-14px);
+    transition:opacity .17s ease, transform .17s cubic-bezier(.2,.9,.3,1)
+  }
+  #mag.on{opacity:1;transform:translateX(0)}
+  #magTitle{font-size:13px;font-weight:750;letter-spacing:.14em;text-transform:uppercase;color:#5D6872}
+  #magView{width:100%;height:auto;display:block;margin-top:8px}
+  #magRead{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+    font-size:33px;font-weight:650;margin-top:9px;letter-spacing:.005em}
+  #magNote{font-size:14.5px;color:#5D6872;margin-top:2px}
+  @media (max-height:640px){ #mag{top:18px;width:clamp(230px,22vw,280px);padding:11px 13px 10px}
+    #magRead{font-size:26px} }
+
+  #restartBtn{right:24px}
+  #restartBtn:hover{transform:translateY(-2px) rotate(-26deg)}
+
+
+  /* ── the two round buttons, top right ── */
+  .iconBtn{
+    position:fixed;z-index:12;top:24px;width:50px;height:50px;padding:0;
+    display:inline-flex;align-items:center;justify-content:center;
+    border:1px solid var(--glass-line);border-radius:50%;background:var(--glass);color:var(--ink);
+    -webkit-backdrop-filter:blur(14px) saturate(1.3);backdrop-filter:blur(14px) saturate(1.3);
+    box-shadow:0 6px 22px rgba(10,18,26,.3), inset 0 1px 0 rgba(255,255,255,.75);
+    cursor:pointer;transition:transform .16s cubic-bezier(.2,.9,.3,1)
+  }
+  .iconBtn:focus-visible{outline:3px solid #DCA62A;outline-offset:3px}
+  #calcBtn{right:86px}
+  #calcBtn:hover{transform:translateY(-2px)}
+  #calcBtn.on{background:#C4881A;color:#fff;border-color:rgba(255,255,255,.4)}
+
+  /* ── the table: students fill it in from their own measurements ── */
+  #tbl{
+    position:fixed;z-index:11;right:24px;top:90px;
+    width:clamp(440px, 32vw, 470px);
+    padding:13px 13px 10px;border-radius:16px;
+    border:1px solid var(--glass-line);background:var(--glass);
+    -webkit-backdrop-filter:blur(16px) saturate(1.3);backdrop-filter:blur(16px) saturate(1.3);
+    box-shadow:0 12px 34px rgba(10,18,26,.3), inset 0 1px 0 rgba(255,255,255,.72);
+    color:var(--ink)
+  }
+  #tbl table{border-collapse:collapse;width:100%;table-layout:fixed}
+  #tbl th{font-size:15px;font-weight:750;letter-spacing:.01em;color:#3E4A54;
+    padding:0 4px 10px;vertical-align:bottom;text-align:center;line-height:1.25}
+  #tbl td{padding:3px}
+  #tbl .jn{width:36px}
+  #tbl thead .jn{font-size:13px;color:#5D6872;padding:0 2px 10px;text-align:center}
+  #tbl tbody .jn{padding:3px 2px;text-align:center}
+  #tbl tbody .jn span{display:inline-flex;align-items:center;justify-content:center;
+    width:30px;height:30px;border-radius:8px;background:rgba(40,55,65,.11);
+    font-size:17px;font-weight:800;color:#3E4A54}
+
+  #tbl input{
+    width:100%;height:46px;border-radius:9px;
+    border:1.5px solid rgba(40,55,65,.22);background:rgba(255,255,255,.7);
+    font-family:ui-monospace,Menlo,Consolas,monospace;font-size:18px;font-weight:600;
+    text-align:center;color:#1F282C;
+    -webkit-user-select:text;user-select:text
+  }
+  #tbl input:focus{outline:none;border-color:#C4881A;background:#fff;
+    box-shadow:0 0 0 3px rgba(196,136,26,.22)}
+  #tbl input.given{background:rgba(40,55,65,.085);border-color:rgba(40,55,65,.13);
+    color:#46535C;cursor:default}
+  #tbl input.given:focus{border-color:rgba(40,55,65,.13);box-shadow:none;
+    background:rgba(40,55,65,.085)}
+  .frac{display:inline-flex;flex-direction:column;align-items:center;line-height:1.24;font-size:13px}
+  .frac b{border-bottom:1.5px solid #4A5661;padding:0 3px 1px;font-weight:750}
+  .frac i{padding-top:1px;font-style:normal;font-weight:750}
+
+  /* ── the calculator: JS parks it under the table, so they never overlap ── */
+  #calc{
+    position:fixed;z-index:11;right:24px;width:286px;
+    padding:12px;border-radius:16px;
+    border:1px solid var(--glass-line);background:var(--glass);
+    -webkit-backdrop-filter:blur(16px) saturate(1.3);backdrop-filter:blur(16px) saturate(1.3);
+    box-shadow:0 12px 34px rgba(10,18,26,.3), inset 0 1px 0 rgba(255,255,255,.72);
+    opacity:0;pointer-events:none;transform:translateY(-8px);
+    transition:opacity .16s ease, transform .16s cubic-bezier(.2,.9,.3,1)
+  }
+  #calc.on{opacity:1;pointer-events:auto;transform:translateY(0)}
+  #calcDisp{
+    height:52px;border-radius:10px;background:#12181C;color:#7FE0C4;
+    font-family:ui-monospace,Menlo,Consolas,monospace;font-weight:650;font-size:25px;
+    display:flex;align-items:center;justify-content:flex-end;padding:0 11px;
+    margin-bottom:9px;overflow:hidden;-webkit-user-select:text;user-select:text
+  }
+  #calcKeys{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+  #calcKeys button{
+    height:46px;border-radius:10px;border:1px solid rgba(40,55,65,.18);
+    background:rgba(255,255,255,.8);font-size:19px;font-weight:650;color:#1F282C;cursor:pointer
+  }
+  #calcKeys button:active{background:#fff;transform:translateY(1px)}
+  #calcKeys .op{background:rgba(196,136,26,.18)}
+  #calcKeys .fn{background:rgba(40,55,65,.1)}
+  #calcKeys .eq{grid-row:span 2;background:#C4881A;color:#fff;border-color:rgba(0,0,0,.1)}
+  #calcKeys .zero{grid-column:span 2}
+  @media (max-height:820px){
+    #tbl input{height:40px;font-size:16.5px}
+    #calcKeys button{height:38px;font-size:17px}
+    #calcDisp{height:44px;font-size:21px}
+  }
+  @media (max-height:700px){
+    #tbl input{height:34px;font-size:15px}
+    #tbl th{font-size:13px;padding:0 3px 7px}
+    #calcKeys button{height:32px;font-size:15px}
+    #calcDisp{height:38px;font-size:18px}
+  }
+
+  #hint{
+    position:fixed;z-index:9;left:50%;bottom:34px;transform:translateX(-50%);
+    color:#fff;font-size:17px;font-weight:550;letter-spacing:.015em;opacity:.9;
+    text-shadow:0 1px 12px rgba(0,0,0,.8),0 0 4px rgba(0,0,0,.65);
+    pointer-events:none;white-space:nowrap;transition:opacity .3s ease
+  }
+
+  @media (max-width:640px){
+    #restartBtn{top:16px;right:16px;width:44px;height:44px}
+    #mag{top:16px;left:14px}
+    #hint{bottom:24px;font-size:14px}
+  }
+  @media (prefers-reduced-motion:reduce){ #restartBtn{transition:none} }
+</style>
+</head>
+<body>
+
+<div id="scene">
+<svg id="stage" viewBox="0 0 1100 720" preserveAspectRatio="xMidYMid slice"
+     aria-label="Three glass jars of different widths on a counter, with a jug of hot water and a measuring instrument">
+<defs>
+  <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9FAFB6"/><stop offset="1" stop-color="#83959D"/></linearGradient>
+  <radialGradient id="wallGlow" cx=".28" cy=".3" r=".7"><stop offset="0" stop-color="#D6E0E2" stop-opacity=".55"/><stop offset="1" stop-color="#D6E0E2" stop-opacity="0"/></radialGradient>
+  <linearGradient id="oak" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#CDA470"/><stop offset="1" stop-color="#B98F5C"/></linearGradient>
+  <linearGradient id="oakEdge" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#A17A4C"/><stop offset="1" stop-color="#8A6640"/></linearGradient>
+  <linearGradient id="glassG" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#B6CFC6" stop-opacity=".85"/><stop offset=".28" stop-color="#E4F0EB" stop-opacity=".7"/>
+    <stop offset=".72" stop-color="#A9C4BA" stop-opacity=".8"/><stop offset="1" stop-color="#CCDFD7" stop-opacity=".85"/></linearGradient>
+  <linearGradient id="jam" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#B0700F"/><stop offset=".3" stop-color="#DFA23A"/>
+    <stop offset=".72" stop-color="#C07E1A"/><stop offset="1" stop-color="#A96C0D"/></linearGradient>
+  <linearGradient id="steel" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#EDF2F5"/><stop offset=".42" stop-color="#CBD4DA"/>
+    <stop offset=".58" stop-color="#A9B4BC"/><stop offset="1" stop-color="#D3DBE0"/></linearGradient>
+  <linearGradient id="steelC" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#E9EEF1"/><stop offset=".5" stop-color="#BCC6CD"/><stop offset="1" stop-color="#98A3AB"/></linearGradient>
+  <linearGradient id="skin" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D89A6C"/><stop offset="1" stop-color="#C2825A"/></linearGradient>
+  <linearGradient id="shirt" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5A8A79"/><stop offset="1" stop-color="#436B5E"/></linearGradient>
+  <linearGradient id="jugG" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#C6D9DE" stop-opacity=".9"/><stop offset=".3" stop-color="#EEF6F8" stop-opacity=".72"/>
+    <stop offset=".75" stop-color="#B9CFD6" stop-opacity=".82"/><stop offset="1" stop-color="#D6E5E9" stop-opacity=".9"/></linearGradient>
+  <linearGradient id="water" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#CFE6EC"/><stop offset="1" stop-color="#A7CBD6"/></linearGradient>
+  <radialGradient id="soft"><stop offset="0" stop-color="#3D4E55" stop-opacity=".5"/><stop offset="1" stop-color="#3D4E55" stop-opacity="0"/></radialGradient>
+  <filter id="blur6" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="6"/></filter>
+  <filter id="blur3" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="3"/></filter>
+</defs>
+
+<rect x="0" y="0" width="1100" height="486" fill="url(#wall)"/>
+<rect x="0" y="0" width="1100" height="486" fill="url(#wallGlow)"/>
+<ellipse cx="400" cy="470" rx="200" ry="120" fill="#5E6E75" opacity=".2" filter="url(#blur6)"/>
+
+<g id="person" transform="translate(-110,0)">
+  <g id="upper">
+    <path fill="url(#shirt)"
+      d="M369 240 Q364 306 371 384 L380 520 L560 520 L569 384 Q576 306 571 240
+         Q522 216 470 216 Q418 216 369 240 Z"/>
+    <path d="M436 218 Q470 236 504 218 L504 232 Q470 250 436 232 Z" fill="#39594E" opacity=".55"/>
+    <rect x="453" y="176" width="34" height="46" rx="14" fill="#BE7E56"/>
+    <g id="head">
+      <ellipse cx="470" cy="138" rx="39" ry="47" fill="url(#skin)"/>
+      <path d="M431 132 Q434 86 470 86 Q506 86 509 132 Q498 108 470 106 Q442 108 431 132 Z" fill="#3B2F2A"/>
+      <ellipse cx="431" cy="146" rx="6" ry="9" fill="#C2825A"/>
+      <ellipse cx="509" cy="146" rx="6" ry="9" fill="#C2825A"/>
+      <ellipse cx="454" cy="140" rx="5.4" ry="5.4" fill="#33282A"/>
+      <ellipse cx="486" cy="140" rx="5.4" ry="5.4" fill="#33282A"/>
+      <path d="M446 127 L463 127" stroke="#3B2F2A" stroke-width="3.4" stroke-linecap="round" fill="none"/>
+      <path d="M477 127 L494 127" stroke="#3B2F2A" stroke-width="3.4" stroke-linecap="round" fill="none"/>
+      <path d="M459 163 Q470 167 481 163" stroke="#8C4F3E" stroke-width="3.2" stroke-linecap="round" fill="none"/>
+    </g>
+  </g>
+  <g id="armL"><line id="lUp" stroke="url(#shirt)" stroke-width="26" stroke-linecap="round"/><line id="lFo" stroke="#C2825A" stroke-width="21" stroke-linecap="round"/></g>
+  <g id="armR"><line id="rUp" stroke="url(#shirt)" stroke-width="26" stroke-linecap="round"/><line id="rFo" stroke="#C2825A" stroke-width="21" stroke-linecap="round"/></g>
+</g>
+
+<rect x="0" y="470" width="1100" height="12" fill="#DDBE92"/>
+<rect x="0" y="482" width="1100" height="42" fill="url(#oak)"/>
+<rect x="0" y="524" width="1100" height="18" fill="url(#oakEdge)"/>
+<rect x="0" y="542" width="1100" height="178" fill="#5F7078"/>
+<g stroke="#A8804F" stroke-opacity=".35" stroke-width="1.3">
+  <line x1="0" y1="494" x2="1100" y2="494"/><line x1="0" y1="508" x2="1100" y2="508"/>
+</g>
+
+<!-- the three jars are built in script, so they can differ in one number only -->
+<g id="jars"></g>
+
+<g id="pourFx" opacity="0">
+  <path id="stream" fill="none" stroke="#CFE9F1" stroke-width="7" stroke-linecap="round" opacity=".85"/>
+  <path id="runL" fill="none" stroke="#CFE9F1" stroke-width="3.4" stroke-linecap="round" opacity=".8"/>
+  <path id="runR" fill="none" stroke="#CFE9F1" stroke-width="3.4" stroke-linecap="round" opacity=".8"/>
+  <g id="splash" fill="#DCEFF5"></g>
+</g>
+
+<ellipse id="jugShadow" cx="645" cy="474" rx="38" ry="9" fill="url(#soft)"/>
+<g id="jug">
+  <path d="M-30 -76 L-50 -68 L-46 -60 L-29 -64 Z" fill="#C9DDE2" stroke="#93AEB6" stroke-width="1.2"/>
+  <path d="M29 -68 Q52 -64 52 -44 Q52 -26 29 -24 L29 -32 Q44 -33 44 -44 Q44 -55 29 -58 Z" fill="#C9DDE2" stroke="#93AEB6" stroke-width="1.2"/>
+  <path d="M-26.5 -58 L26.5 -58 L24.5 -5 Q24 -2 20 -2 L-20 -2 Q-24 -2 -24.5 -5 Z" fill="url(#water)"/>
+  <path d="M-26 0 L-29 -58 Q-30 -74 -17 -76 L17 -76 Q30 -74 29 -58 L26 0 Z" fill="url(#jugG)"/>
+  <path d="M-26 0 L-29 -58 Q-30 -74 -17 -76 L17 -76 Q30 -74 29 -58 L26 0 Z" fill="none" stroke="#8FAAB2" stroke-width="1.5"/>
+  <rect x="-19" y="-68" width="5" height="56" rx="2.5" fill="#FFFFFF" opacity=".45"/>
+  <g fill="none" stroke="#EAF4F7" stroke-width="3.4" stroke-linecap="round" opacity=".75" filter="url(#blur3)">
+    <path id="sj1"/><path id="sj2"/>
+  </g>
+</g>
+
+<g id="badges"></g>
+<g id="bounceFx" opacity="0" stroke="#FFC07A" stroke-width="3.4" stroke-linecap="round" fill="none"></g>
+
+<ellipse id="calShadow" cx="105" cy="474" rx="76" ry="8" fill="url(#soft)"/>
+<g id="caliper">
+  <rect x="-84" y="-34" width="168" height="16" rx="4" fill="url(#steelC)"/>
+  <rect x="-84" y="-34" width="168" height="4" rx="2" fill="#FFFFFF" opacity=".45"/>
+  <rect x="-42" y="-31.5" width="84" height="11" rx="2" fill="#111A1E"/>
+  <text id="calText" x="0" y="-22.7" text-anchor="middle" font-size="11" font-weight="650"
+        font-family="ui-monospace,Menlo,Consolas,monospace" fill="#6FDCC0">------</text>
+  <g id="calJawL">
+    <rect x="-31" y="-18" width="6" height="9" fill="#AEB9C0"/>
+    <path d="M-31 -9 L-25 -9 L-25 10 L-28 14 L-31 10 Z" fill="url(#steelC)" stroke="#828D95" stroke-width=".9"/>
+  </g>
+  <g id="calJawR">
+    <rect x="25" y="-18" width="6" height="9" fill="#AEB9C0"/>
+    <path d="M31 -9 L25 -9 L25 10 L28 14 L31 10 Z" fill="url(#steelC)" stroke="#828D95" stroke-width=".9"/>
+  </g>
+</g>
+</svg>
+</div>
+
+<button id="restartBtn" class="iconBtn" type="button" aria-label="Restart">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+       stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M3 12a9 9 0 1 0 2.6-6.4"/><path d="M3 3v5h5"/>
+  </svg>
+</button>
+
+<div id="mag" aria-hidden="true">
+  <div id="magTitle">Lid diameter</div>
+  <svg id="magView" viewBox="0 0 320 92">
+    <defs><linearGradient id="mSteel" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F5F8FA"/><stop offset="1" stop-color="#D5DDE3"/></linearGradient></defs>
+    <rect x="0" y="6" width="320" height="36" rx="3" fill="url(#mSteel)" stroke="#A9B4BC" stroke-width=".8"/>
+    <rect id="magGrow" x="160" y="6" width="0" height="36" fill="#E0703A" opacity=".3"/>
+    <g id="magTicks"></g>
+    <g id="magLabels"></g>
+    <line id="magNeedle" x1="160" y1="2" x2="160" y2="74" stroke="#B8452C" stroke-width="2.2"/>
+    <path id="magPin" d="M160 74 l-5.5 -8 h11 Z" fill="#B8452C"/>
+  </svg>
+  <div id="magRead">7.00000 cm</div>
+  <div id="magNote">Cold — this is the starting size</div>
+</div>
+
+
+<button id="calcBtn" class="iconBtn" type="button" aria-label="Calculator" aria-pressed="false">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+       stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/>
+    <circle cx="8.5" cy="11" r="1.1" fill="currentColor" stroke="none"/>
+    <circle cx="12" cy="11" r="1.1" fill="currentColor" stroke="none"/>
+    <circle cx="15.5" cy="11" r="1.1" fill="currentColor" stroke="none"/>
+    <circle cx="8.5" cy="15.5" r="1.1" fill="currentColor" stroke="none"/>
+    <circle cx="12" cy="15.5" r="1.1" fill="currentColor" stroke="none"/>
+    <circle cx="15.5" cy="15.5" r="1.1" fill="currentColor" stroke="none"/>
+  </svg>
+</button>
+
+<div id="tbl">
+  <table>
+    <thead>
+      <tr>
+        <th class="jn">Jar</th>
+        <th>Cold<br>Diameter</th>
+        <th>Hot<br>Diameter</th>
+        <th>Net<br>Expansion</th>
+        <th><span class="frac"><b>Net Expansion</b><i>Cold Diameter</i></span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><th class="jn"><span>1</span></th><td><input id="c00" type="text" inputmode="decimal" autocomplete="off" spellcheck="false"></td><td><input id="c01" type="text" inputmode="decimal" autocomplete="off" spellcheck="false"></td><td><input id="c02" type="text" inputmode="decimal" autocomplete="off" spellcheck="false"></td><td><input id="c03" type="text" inputmode="decimal" autocomplete="off" spellcheck="false"></td></tr>
+      <tr><th class="jn"><span>2</span></th><td><input id="c10" type="text" inputmode="decimal" autocomplete="off" spellcheck="false"></td><td><input id="c11" type="text" inputmode="decimal" autocomplete="off" spellcheck="false"></td><td><input id="c12" type="text" inputmode="decimal" autocomplete="off" spellcheck="false"></td><td><input id="c13" type="text" inputmode="decimal" autocomplete="off" spellcheck="false"></td></tr>
+      <tr><th class="jn"><span>3</span></th><td><input id="c20" type="text" inputmode="decimal" autocomplete="off" spellcheck="false"></td><td><input id="c21" type="text" inputmode="decimal" autocomplete="off" spellcheck="false"></td><td><input id="c22" type="text" inputmode="decimal" autocomplete="off" spellcheck="false"></td><td><input id="c23" type="text" inputmode="decimal" autocomplete="off" spellcheck="false"></td></tr>
+      <tr><th class="jn"><span>4</span></th><td><input id="c30" type="text" inputmode="decimal" autocomplete="off" spellcheck="false"></td><td><input id="c31" type="text" inputmode="decimal" autocomplete="off" spellcheck="false"></td><td><input id="c32" type="text" inputmode="decimal" autocomplete="off" spellcheck="false"></td><td><input id="c33" type="text" inputmode="decimal" autocomplete="off" spellcheck="false"></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div id="calc" aria-label="Calculator">
+  <div id="calcDisp">0</div>
+  <div id="calcKeys">
+    <button class="fn" data-k="C">C</button>
+    <button class="fn" data-k="back">&#9003;</button>
+    <button class="op" data-k="/">&#247;</button>
+    <button class="op" data-k="*">&#215;</button>
+    <button data-k="7">7</button><button data-k="8">8</button><button data-k="9">9</button>
+    <button class="op" data-k="-">&#8722;</button>
+    <button data-k="4">4</button><button data-k="5">5</button><button data-k="6">6</button>
+    <button class="op" data-k="+">+</button>
+    <button data-k="1">1</button><button data-k="2">2</button><button data-k="3">3</button>
+    <button class="eq" data-k="=">=</button>
+    <button class="zero" data-k="0">0</button><button data-k=".">.</button>
+  </div>
+</div>
+
+<p id="hint">Pour hot water on a lid, then measure it</p>
+
+<script>
+(function(){
+"use strict";
+
+/* ═══════════════════════════════════════════════════════════════════
+   1 · PHYSICS — this block is byte-identical to Jars 1, 2 and 3
+   ═══════════════════════════════════════════════════════════════════ */
+
+const D_LID=0.070, R_LID=D_LID/2;
+const A_ST=12e-6, A_GL=9e-6;
+
+const E_ST=200e9, T_WALL=0.22e-3, DELTA=10e-6, H_BAND=4e-3, MU_LG=0.40;
+const P_CONTACT=E_ST*DELTA*T_WALL/(R_LID*R_LID);            // 0.359 MPa
+const N_CONTACT=P_CONTACT*(2*Math.PI*R_LID*H_BAND);         // 316 N
+const T_COLD   =MU_LG*N_CONTACT*R_LID;                      // 4.42 N·m
+
+// The hand is limited by skin friction, not muscle. Oven mitts protect his
+// hands from a 50 °C lid; they do NOT help him grip, so this never changes.
+const T_GRIP=0.45*180*R_LID;                                // 2.84 N·m
+
+// Hot rinse, lid only:  Δc = D(α_st·ΔT_st − α_gl·ΔT_gl)
+const DT_LID=30, DT_GLASS=4;
+const GAIN_RADIAL=D_LID*(A_ST*DT_LID-A_GL*DT_GLASS)/2;      // 11.34 µm
+const JAM_CLEARED=GAIN_RADIAL>DELTA;                        // 11.34 > 10 → yes
+const T_HOT=1.70;          // an unjammed lid: the factory's own sealing torque
+
+const KICK=1.10, TAU=0.40;
+
+/* ── three jars. Steel lids, glass bodies, same height, same rinse.
+      The ONLY thing that differs is the diameter, and each is a whole
+      number of centimetres.  ΔD = D·α·ΔT, and α·ΔT = 360 ppm for all
+      three, so the growth is exactly proportional to D.              ── */
+const JAR_D = [D_LID, 0.080, 0.090, 0.120];                 // 7, 8, 9, 12 cm
+const ALPHA_DT = A_ST*DT_LID;                               // 3.6e-4, every jar
+const T_COOL = 22, T_WARM = T_COOL + DT_LID, T_GWARM = T_COOL + DT_GLASS;  // 22 / 52 / 26
+const NO_MEASURE = 3;   // the instrument refuses this one once it is hot,
+                        // so its 12.0043 cm has to be predicted, not read
+const dia_cm = i => JAR_D[i]*(1 + (S.hot[i] ? ALPHA_DT : 0))*100;
+const grow_um = i => JAR_D[i]*ALPHA_DT*1e6;                 // 25.2, 28.8, 32.4
+
+/* ═══════════════════════════════════════════════════════════════════
+   2 · SCENE
+   ═══════════════════════════════════════════════════════════════════ */
+
+const U_PER_M = 50/D_LID;              // scene units per metre of diameter
+const JAR_X   = [232, 322, 419, 532];
+const BASE_Y  = 470, BODY_H = 56, LID_H = 16;
+const LID_TOP = BASE_Y-71, LID_MID = BASE_Y-63;
+const SH_L={x:369,y:230}, SH_R={x:571,y:230};
+const L1=118, L2=122;
+const REST_L={x:352,y:466}, REST_R={x:588,y:466};
+const JUG_HOME={x:645,y:470};
+const CAL_HOME={x:105,y:452,rot:-5};
+const SPOUT={x:-50,y:-68};
+const POUR_ROT=-34, POUR_T=5.0;        // five seconds on each lid
+const MAG_CX=160, MAG_PXCM=40000;
+
+const halfLid = i => JAR_D[i]*U_PER_M/2;          // 25, 28.57, 32.14
+const halfBody= i => 22*(JAR_D[i]/D_LID);
+
+const $=id=>document.getElementById(id);
+const clamp=(v,a,b)=>v<a?a:v>b?b:v, lerp=(a,b,u)=>a+(b-a)*u;
+const ease=u=>u<.5?2*u*u:1-Math.pow(-2*u+2,2)/2;
+const NS="http://www.w3.org/2000/svg";
+let seed=7211; const rnd=()=>(seed=(seed*1664525+1013904223)>>>0)/4294967296;
+const el=(t,a)=>{const q=document.createElementNS(NS,t); for(const k in a) q.setAttribute(k,a[k]); return q;};
+
+const _c=Math.cos(POUR_ROT*Math.PI/180), _s=Math.sin(POUR_ROT*Math.PI/180);
+const SPOUT_DX=SPOUT.x*_c-SPOUT.y*_s, SPOUT_DY=SPOUT.x*_s+SPOUT.y*_c;
+
+const n={};
+["stage","jars","lUp","lFo","rUp","rFo","upper","jug","jugShadow","sj1","sj2",
+ "caliper","calShadow","calText","calJawL","calJawR","badges","bounceFx","pourFx","stream","runL","runR","splash",
+ "mag","magTicks","magLabels","magGrow","magNeedle","magPin","magRead","magNote","hint"]
+ .forEach(k=>n[k]=$(k));
+
+/* ── build the three jars ── */
+const JARS=[];
+JAR_X.forEach((x,i)=>{
+  const hb=halfBody(i), hl=halfLid(i), g=el("g",{});
+  g.appendChild(el("ellipse",{cx:x,cy:BASE_Y+4,rx:hb*1.5,ry:8,fill:"url(#soft)"}));
+  const body=`M${x-hb} ${BASE_Y} L${x-hb} ${BASE_Y-BODY_H+10} Q${x-hb} ${BASE_Y-BODY_H} ${x-hb+6} ${BASE_Y-BODY_H} L${x+hb-6} ${BASE_Y-BODY_H} Q${x+hb} ${BASE_Y-BODY_H} ${x+hb} ${BASE_Y-BODY_H+10} L${x+hb} ${BASE_Y} Z`;
+  g.appendChild(el("path",{d:body,fill:"url(#glassG)"}));
+  g.appendChild(el("path",{d:`M${x-hb+3} ${BASE_Y-3} L${x-hb+3} ${BASE_Y-BODY_H+12} L${x+hb-3} ${BASE_Y-BODY_H+12} L${x+hb-3} ${BASE_Y-3} Z`,fill:"url(#jam)"}));
+  g.appendChild(el("path",{d:body,fill:"none",stroke:"#8FAAA0","stroke-width":1.4,"stroke-opacity":.8}));
+  g.appendChild(el("rect",{x:x-hb+8,y:BASE_Y-BODY_H+6,width:5,height:BODY_H-14,rx:2.5,fill:"#FFFFFF",opacity:.38}));
+  g.appendChild(el("rect",{x:x-hl,y:LID_TOP,width:hl*2,height:LID_H,rx:3,fill:"url(#steel)"}));
+  const kn=el("g",{}); const ridges=[];
+  for(let r=0;r<26;r++){
+    const ln=el("line",{y1:LID_TOP+1.5,y2:LID_TOP+LID_H-1.5,stroke:"#7E8A92","stroke-width":1.5,"stroke-linecap":"round"});
+    kn.appendChild(ln); ridges.push(ln);
+  }
+  g.appendChild(kn);
+  const hot=el("rect",{x:x-hl,y:LID_TOP,width:hl*2,height:LID_H,rx:3,fill:"#E0703A",opacity:0});
+  g.appendChild(hot);
+  g.appendChild(el("rect",{x:x-hl,y:LID_TOP,width:hl*2,height:LID_H,rx:3,fill:"none",stroke:"#8A959D","stroke-width":1}));
+  g.appendChild(el("rect",{x:x-hl,y:LID_TOP,width:hl*2,height:3.4,rx:1.7,fill:"#FFFFFF",opacity:.5}));
+  const ring=el("ellipse",{cx:x,cy:LID_MID,rx:hl+17,ry:16,fill:"none",stroke:"#FFE9A0","stroke-width":4,opacity:0});
+  g.appendChild(ring);
+  const st=el("g",{opacity:0,fill:"none",stroke:"#EAF4F7","stroke-width":4,"stroke-linecap":"round",filter:"url(#blur3)"});
+  const wisps=[el("path",{}),el("path",{}),el("path",{})];
+  wisps.forEach(w=>st.appendChild(w)); g.appendChild(st);
+  const chip=el("g",{});
+  chip.appendChild(el("rect",{x:x-16,y:BASE_Y-44,width:32,height:32,rx:8,
+    fill:"#FFFFFF",opacity:.92,stroke:"rgba(30,42,50,.28)","stroke-width":1}));
+  const num=el("text",{x:x,y:BASE_Y-21,"text-anchor":"middle","font-size":21,
+    "font-weight":800,"font-family":"ui-sans-serif,system-ui,Arial,sans-serif",fill:"#28343C"});
+  num.textContent=String(i+1);
+  chip.appendChild(num); g.appendChild(chip);
+  n.jars.appendChild(g);
+  const badge=el("text",{x:x,y:LID_TOP-33,"text-anchor":"middle","font-size":25,
+    "font-weight":800,"font-family":"ui-sans-serif,system-ui,Arial,sans-serif",
+    fill:"#F2F7F8","paint-order":"stroke",stroke:"rgba(10,18,24,.72)",
+    "stroke-width":6,"stroke-linejoin":"round"});
+  badge.textContent=T_COOL+" °C";
+  const gbadge=el("text",{x:x,y:BASE_Y+34,"text-anchor":"middle","font-size":25,
+    "font-weight":800,"font-family":"ui-sans-serif,system-ui,Arial,sans-serif",
+    fill:"#F2F7F8","paint-order":"stroke",stroke:"rgba(10,18,24,.72)",
+    "stroke-width":6,"stroke-linejoin":"round"});
+  gbadge.textContent=T_COOL+" °C";
+  n.badges.appendChild(badge); n.badges.appendChild(gbadge);
+  JARS.push({x,hl,hb,ridges,hot,ring,st,wisps,badge,gbadge,badgeHot:null});
+});
+const marks=[];
+for(let i=0;i<5;i++){ const l=el("line",{}); n.bounceFx.appendChild(l); marks.push(l); }
+
+const drops=[];
+for(let i=0;i<9;i++){ const c=el("circle",{r:(1.6+rnd()*2).toFixed(1)}); n.splash.appendChild(c); drops.push({el:c,ph:rnd()}); }
+
+/* magnifier graduations: minor 2 µm, medium 10 µm, major 20 µm */
+const magLabels=[];
+(function(){
+  for(let i=-20;i<=20;i++){
+    const x=MAG_CX+i*0.0002*MAG_PXCM, maj=(i%10===0), med=(i%5===0);
+    n.magTicks.appendChild(el("line",{x1:x,x2:x,y1:6,y2:maj?34:med?24:16,
+      stroke:i===0?"#B8452C":maj?"#39434B":"#7C878F","stroke-width":i===0?1.7:maj?1.3:.75}));
+  }
+  for(let i=-2;i<=2;i++){
+    const t=el("text",{x:MAG_CX+i*0.002*MAG_PXCM,y:56,"text-anchor":"middle","font-size":9,
+      "font-family":"ui-monospace,Menlo,Consolas,monospace","font-weight":i===0?700:500,
+      fill:i===0?"#9A3524":"#4E5860"});
+    n.magLabels.appendChild(t); magLabels.push(t);
+  }
+})();
+
+/* ═══════════════════════════════════════════════════════════════════
+   3 · STATE
+   ═══════════════════════════════════════════════════════════════════ */
+
+const S={ t:0, hot:[false,false,false], hover:null,
+  jug:{x:JUG_HOME.x,y:JUG_HOME.y,rot:0,mode:"rest",t:0,dx:0,dy:0,fx:0,fy:0,frot:0,target:-1},
+  cal:{x:CAL_HOME.x,y:CAL_HOME.y,rot:CAL_HOME.rot,mode:"rest",t:0,dx:0,dy:0,fx:0,fy:0,target:-1,
+        bt:0,bx:0,by:0,hx:0,hy:0} };
+
+/* which jar is the jug's spout over?  nearest wins, so the zones never clash */
+function pourTarget(){
+  const sx=S.jug.x+SPOUT.x, sy=S.jug.y+SPOUT.y;
+  if(sy<LID_TOP-240 || sy>LID_TOP+34) return -1;
+  let best=-1, bd=1e9;
+  JAR_X.forEach((x,i)=>{ const d=Math.abs(sx-x); if(d<bd){bd=d;best=i;} });
+  return bd<70 ? best : -1;
+}
+function calTarget(){
+  if(Math.abs(S.cal.y-LID_MID)>60) return -1;
+  let best=-1, bd=1e9;
+  JAR_X.forEach((x,i)=>{ const d=Math.abs(S.cal.x-x); if(d<bd){bd=d;best=i;} });
+  return bd<64 ? best : -1;
+}
+/* Once the wide lid is hot the instrument will not sit on it: shove the
+   caliper back out and let the reading be worked out instead. */
+const BOUNCE_R=86;
+function repel(){
+  const cx=JAR_X[NO_MEASURE], cy=LID_MID;
+  let dx=S.cal.x-cx, dy=S.cal.y-cy, d=Math.hypot(dx,dy)||1;
+  S.cal.x=cx+dx/d*BOUNCE_R; S.cal.y=cy+dy/d*BOUNCE_R;
+  if(S.cal.bt<=0){ S.cal.bt=0.5; S.cal.bx=dx/d*18; S.cal.by=dy/d*18;
+    S.cal.hx=cx+dx/d*(JAR_D[NO_MEASURE]*U_PER_M/2); S.cal.hy=cy+dy/d*10; }
+}
+const busy=()=>S.jug.mode==="pour";
+
+/* ═══════════════════════════════════════════════════════════════════
+   4 · DRAW
+   ═══════════════════════════════════════════════════════════════════ */
+
+function ik(sx,sy,hx,hy,outward){
+  let dx=hx-sx, dy=hy-sy, d=Math.hypot(dx,dy)||0.001;
+  const ux=dx/d, uy=dy/d;
+  d=clamp(d,Math.abs(L1-L2)+2,L1+L2-2);
+  const a=(L1*L1-L2*L2+d*d)/(2*d);
+  const h=Math.sqrt(Math.max(0,L1*L1-a*a));
+  const px=sx+ux*a, py=sy+uy*a, nx=-uy, ny=ux;
+  const e1={x:px+nx*h,y:py+ny*h}, e2={x:px-nx*h,y:py-ny*h};
+  let e;
+  if(Math.abs(e1.x-e2.x)<1) e=e1.y>e2.y?e1:e2;
+  else e=outward<0?(e1.x<e2.x?e1:e2):(e1.x>e2.x?e1:e2);
+  return {ex:e.x,ey:e.y,wx:sx+ux*d,wy:sy+uy*d};
+}
+function setArm(up,fo,s,hand,outward){
+  const j=ik(s.x,s.y,hand.x,hand.y,outward);
+  up.setAttribute("x1",s.x); up.setAttribute("y1",s.y);
+  up.setAttribute("x2",j.ex.toFixed(1)); up.setAttribute("y2",j.ey.toFixed(1));
+  fo.setAttribute("x1",j.ex.toFixed(1)); fo.setAttribute("y1",j.ey.toFixed(1));
+  fo.setAttribute("x2",j.wx.toFixed(1)); fo.setAttribute("y2",j.wy.toFixed(1));
+}
+
+const hx2=h=>[parseInt(h.slice(1,3),16),parseInt(h.slice(3,5),16),parseInt(h.slice(5,7),16)];
+const mix=(a,b,u)=>{const A=hx2(a),B=hx2(b);
+  return "#"+A.map((v,i)=>Math.round(v+(B[i]-v)*u).toString(16).padStart(2,"0")).join("");};
+const tCol=T=>mix("#F2F7F8","#FFB37A",clamp((T-T_COOL)/DT_LID,0,1));
+let magKey="";
+function draw(dt){
+  S.t+=dt; const t=S.t;
+  const w1=Math.sin(t*1.9), w2=Math.sin(t*2.4+1.1), w3=Math.sin(t*2.1+2);
+
+  n.upper.setAttribute("transform",`translate(0,${(Math.sin(t*1.1)*1.6).toFixed(2)})`);
+  setArm(n.lUp,n.lFo,SH_L,REST_L,-1);
+  setArm(n.rUp,n.rFo,SH_R,REST_R,+1);
+
+  const pt = S.jug.mode==="drag" ? pourTarget() : (S.jug.mode==="pour" ? S.jug.target : -1);
+  JARS.forEach((J,i)=>{
+    for(let r=0;r<26;r++){
+      const phi=r*2*Math.PI/26, c=Math.cos(phi), ln=J.ridges[r];
+      if(c<=0.03){ ln.setAttribute("opacity","0"); continue; }
+      const x=(J.x+(J.hl-2)*Math.sin(phi)).toFixed(2);
+      ln.setAttribute("x1",x); ln.setAttribute("x2",x); ln.setAttribute("opacity",(c*0.55).toFixed(3));
+    }
+    J.hot.setAttribute("opacity",(S.hot[i]?0.3:0).toFixed(3));
+    if(J.badgeHot!==S.hot[i]){
+      J.badgeHot=S.hot[i];
+      const TL=S.hot[i]?T_WARM:T_COOL, TG=S.hot[i]?T_GWARM:T_COOL;
+      J.badge.textContent=TL+" °C";  J.badge.setAttribute("fill",tCol(TL));
+      J.gbadge.textContent=TG+" °C"; J.gbadge.setAttribute("fill",tCol(TG));
+    }
+    J.ring.setAttribute("opacity", (S.jug.mode==="drag"&&pt===i) ? (0.55+0.35*Math.sin(t*7)).toFixed(2) : "0");
+    const steam=(S.jug.mode==="pour"&&S.jug.target===i&&S.jug.t>0.8)?1:(S.hot[i]?0.55:0);
+    J.st.setAttribute("opacity",steam.toFixed(2));
+    if(steam>0){
+      J.wisps[0].setAttribute("d",`M${(J.x-13).toFixed(0)} ${LID_TOP-4} q ${(9*w1).toFixed(1)} -16 0 -32`);
+      J.wisps[1].setAttribute("d",`M${J.x} ${LID_TOP-8} q ${(8*w2).toFixed(1)} -18 0 -38`);
+      J.wisps[2].setAttribute("d",`M${(J.x+13).toFixed(0)} ${LID_TOP-4} q ${(9*w3).toFixed(1)} -15 0 -30`);
+    }
+  });
+
+  const J=S.jug;
+  n.jug.setAttribute("transform",`translate(${J.x.toFixed(1)},${J.y.toFixed(1)}) rotate(${J.rot.toFixed(2)})`);
+  n.jugShadow.setAttribute("cx",J.x.toFixed(1));
+  n.jugShadow.setAttribute("opacity",J.mode==="rest"?"0.55":clamp(.55-(JUG_HOME.y-J.y)/160,0,.55).toFixed(3));
+  n.sj1.setAttribute("d",`M-14 -84 q ${(7*w1).toFixed(1)} -12 0 -24`);
+  n.sj2.setAttribute("d",`M-2 -88 q ${(6*w2).toFixed(1)} -10 0 -20`);
+
+  if(J.mode==="pour"&&J.target>=0&&J.t>0.40&&J.t<POUR_T-0.80){
+    const g=JARS[J.target], sx=J.x+SPOUT_DX, sy=J.y+SPOUT_DY;
+    n.pourFx.setAttribute("opacity","1");
+    n.stream.setAttribute("d",`M${sx.toFixed(1)} ${sy.toFixed(1)} Q${(sx+(g.x-sx)*.5).toFixed(1)} ${((sy+LID_TOP)/2).toFixed(1)} ${g.x} ${LID_TOP+2}`);
+    n.stream.setAttribute("stroke-dasharray","16 9");
+    n.stream.setAttribute("stroke-dashoffset",(-t*230).toFixed(0));
+    n.runL.setAttribute("d",`M${(g.x-g.hl+6).toFixed(1)} ${LID_TOP+3} q -5 7 -3 ${LID_H-4}`);
+    n.runR.setAttribute("d",`M${(g.x+g.hl-6).toFixed(1)} ${LID_TOP+3} q 5 7 3 ${LID_H-4}`);
+    drops.forEach((d,i)=>{
+      const u=((t*1.5+d.ph)%1), side=i%2?1:-1;
+      d.el.setAttribute("cx",(g.x+side*(g.hl*0.4+u*34)).toFixed(1));
+      d.el.setAttribute("cy",(LID_TOP+2-Math.sin(u*Math.PI)*17+u*10).toFixed(1));
+      d.el.setAttribute("opacity",(1-u).toFixed(2));
+    });
+  } else n.pourFx.setAttribute("opacity","0");
+
+  /* ── the caliper ── */
+  const C=S.cal, tg=C.target;
+  C.rot += ((tg>=0?0:CAL_HOME.rot)-C.rot)*Math.min(1,dt*14);
+  const el_t=0.5-C.bt, k=C.bt>0?Math.exp(-7*el_t)*Math.cos(18*el_t):0;
+  n.bounceFx.setAttribute("opacity",Math.abs(k).toFixed(3));
+  if(C.bt>0){
+    const ang=Math.atan2(C.by,C.bx);
+    marks.forEach((m,i)=>{
+      const a=ang+(i-2)*0.36, r0=9+18*(1-Math.abs(k)), r1=r0+15;
+      m.setAttribute("x1",(C.hx+Math.cos(a)*r0).toFixed(1));
+      m.setAttribute("y1",(C.hy+Math.sin(a)*r0).toFixed(1));
+      m.setAttribute("x2",(C.hx+Math.cos(a)*r1).toFixed(1));
+      m.setAttribute("y2",(C.hy+Math.sin(a)*r1).toFixed(1));
+    });
+  }
+  n.calText.setAttribute("fill",C.bt>0?"#FFB37A":"#6FDCC0");
+  n.caliper.setAttribute("transform",`translate(${(C.x+C.bx*k).toFixed(1)},${(C.y+C.by*k).toFixed(1)}) rotate(${(C.rot+9*k).toFixed(2)})`);
+  n.calShadow.setAttribute("cx",C.x.toFixed(1));
+  n.calShadow.setAttribute("opacity",C.mode==="rest"?"0.5":clamp(.5-(CAL_HOME.y-C.y)/180,0,.5).toFixed(3));
+  const open = (tg>=0?halfLid(tg):25)-25;          // the jaws size themselves to the lid
+  n.calJawL.setAttribute("transform",`translate(${(-open).toFixed(2)},0)`);
+  n.calJawR.setAttribute("transform",`translate(${open.toFixed(2)},0)`);
+
+  n.mag.classList.toggle("on",tg>=0);
+  if(tg>=0){
+    const d=dia_cm(tg), txt=d.toFixed(5), nominal=JAR_D[tg]*100;
+    n.calText.textContent=txt;
+    if(magKey!==txt){
+      magKey=txt;
+      magLabels.forEach((L,k)=>L.textContent=(nominal+(k-2)*0.002).toFixed(5));
+      const x=clamp(MAG_CX+(d-nominal)*MAG_PXCM,-20,340);
+      n.magNeedle.setAttribute("x1",x.toFixed(1)); n.magNeedle.setAttribute("x2",x.toFixed(1));
+      n.magPin.setAttribute("d",`M${x.toFixed(1)} 74 l-5.5 -8 h11 Z`);
+      n.magGrow.setAttribute("x",Math.min(MAG_CX,x).toFixed(1));
+      n.magGrow.setAttribute("width",Math.abs(x-MAG_CX).toFixed(1));
+      n.magRead.textContent=txt+" cm";
+      const dd=d-nominal;
+      n.magNote.textContent = dd<1e-5
+        ? Math.round(nominal)+" cm jar, cold — this is the starting size"
+        : "+"+dd.toFixed(5)+" cm  ("+grow_um(tg).toFixed(1)+" µm) after the rinse";
+    }
+  } else { n.calText.textContent="------"; magKey=""; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   5 · STEP
+   ═══════════════════════════════════════════════════════════════════ */
+
+function step(dt){
+  const J=S.jug;
+  if(J.mode==="pour"){
+    J.t+=dt;
+    const g=JARS[J.target];
+    const px=g.x-SPOUT_DX, py=LID_TOP-55-SPOUT_DY;
+    if(J.t<0.40){ const u=ease(J.t/0.40);
+      J.x=lerp(J.fx,px,u); J.y=lerp(J.fy,py,u); J.rot=lerp(J.frot,POUR_ROT,u); }
+    else if(J.t<POUR_T-0.80){ J.x=px; J.y=py; J.rot=POUR_ROT; }
+    else if(J.t<POUR_T-0.40){ const u=ease((J.t-(POUR_T-0.80))/0.40);
+      J.x=px; J.y=py; J.rot=lerp(POUR_ROT,0,u); S.hot[J.target]=true; }
+    else{ const u=ease((J.t-(POUR_T-0.40))/0.40);
+      J.x=lerp(px,JUG_HOME.x,u); J.y=lerp(py,JUG_HOME.y,u); J.rot=0;
+      if(J.t>=POUR_T){ J.mode="rest"; J.x=JUG_HOME.x; J.y=JUG_HOME.y; J.rot=0; J.target=-1;
+        n.hint.textContent="Pour hot water on a lid, then measure it"; } }
+  }
+  else if(J.mode==="return"){
+    J.t+=dt; const u=ease(clamp(J.t/0.4,0,1));
+    J.x=lerp(J.fx,JUG_HOME.x,u); J.y=lerp(J.fy,JUG_HOME.y,u); J.rot=lerp(J.frot,0,u);
+    if(u>=1) J.mode="rest";
+  }
+  const C=S.cal;
+  if(C.bt>0) C.bt=Math.max(0,C.bt-dt);
+  if(C.mode==="return"){
+    C.t+=dt; const u=ease(clamp(C.t/0.4,0,1));
+    C.x=lerp(C.fx,CAL_HOME.x,u); C.y=lerp(C.fy,CAL_HOME.y,u);
+    if(u>=1){ C.mode="rest"; C.x=CAL_HOME.x; C.y=CAL_HOME.y; }
+  }
+}
+
+let last=performance.now();
+(function frame(now){
+  const dt=Math.min(.05,(now-last)/1000); last=now;
+  step(dt); draw(dt); requestAnimationFrame(frame);
+})(last);
+
+/* ═══════════════════════════════════════════════════════════════════
+   6 · INTERACTION
+   ═══════════════════════════════════════════════════════════════════ */
+
+const scene=$("scene"), stage=n.stage;
+function svgPt(e){
+  const m=stage.getScreenCTM();
+  if(m&&stage.createSVGPoint){ const p=stage.createSVGPoint(); p.x=e.clientX; p.y=e.clientY;
+    return p.matrixTransform(m.inverse()); }
+  const r=stage.getBoundingClientRect();
+  return {x:(e.clientX-r.left)/r.width*1100, y:(e.clientY-r.top)/r.height*720};
+}
+const onJug=p=>!busy() && p.x>S.jug.x-56 && p.x<S.jug.x+58 && p.y>S.jug.y-92 && p.y<S.jug.y+12;
+const onCal=p=>!busy() && p.x>S.cal.x-92 && p.x<S.cal.x+92 && p.y>S.cal.y-42 && p.y<S.cal.y+24;
+
+function setCursor(){
+  const dragging=S.jug.mode==="drag"||S.cal.mode==="drag";
+  scene.classList.toggle("grabbing",dragging);
+  scene.classList.toggle("grab",!dragging&&!!S.hover);
+}
+
+stage.addEventListener("pointerdown",e=>{
+  const p=svgPt(e);
+  if(onCal(p)){ e.preventDefault();
+    S.cal.mode="drag"; S.cal.dx=S.cal.x-p.x; S.cal.dy=S.cal.y-p.y;
+    try{ stage.setPointerCapture(e.pointerId); }catch(_){}
+    setCursor(); return; }
+  if(onJug(p)){ e.preventDefault();
+    S.jug.mode="drag"; S.jug.dx=S.jug.x-p.x; S.jug.dy=S.jug.y-p.y; S.jug.rot=0;
+    try{ stage.setPointerCapture(e.pointerId); }catch(_){}
+    setCursor(); }
+});
+stage.addEventListener("pointermove",e=>{
+  const p=svgPt(e);
+  if(S.cal.mode==="drag"){
+    S.cal.x=p.x+S.cal.dx; S.cal.y=p.y+S.cal.dy;
+    let t=calTarget();
+    if(t===NO_MEASURE && S.hot[NO_MEASURE]){ repel(); t=-1; }
+    else if(t>=0){ S.cal.x=JAR_X[t]; S.cal.y=LID_MID; } // clamps onto that lid's diameter
+    S.cal.target=t; return;
+  }
+  if(S.jug.mode==="drag"){ S.jug.x=p.x+S.jug.dx; S.jug.y=p.y+S.jug.dy; return; }
+  const h=onCal(p)?"cal":onJug(p)?"jug":null;
+  if(h!==S.hover){ S.hover=h; setCursor(); }
+});
+function release(e){
+  try{ stage.releasePointerCapture(e.pointerId); }catch(_){}
+  if(S.cal.mode==="drag"){
+    S.cal.fx=S.cal.x; S.cal.fy=S.cal.y; S.cal.t=0; S.cal.target=-1; S.cal.mode="return";
+    setCursor(); return;
+  }
+  if(S.jug.mode!=="drag") return;
+  S.jug.fx=S.jug.x; S.jug.fy=S.jug.y; S.jug.frot=S.jug.rot; S.jug.t=0;
+  const t=pourTarget();
+  if(t>=0){ S.jug.mode="pour"; S.jug.target=t;
+    n.hint.textContent="Hot water on the lid only"; }
+  else S.jug.mode="return";
+  setCursor();
+}
+stage.addEventListener("pointerup",release);
+stage.addEventListener("pointercancel",release);
+stage.addEventListener("pointerleave",()=>{ S.hover=null; setCursor(); });
+
+$("restartBtn").addEventListener("click",()=>{
+  S.hot=[false,false,false]; S.hover=null;
+  S.jug={x:JUG_HOME.x,y:JUG_HOME.y,rot:0,mode:"rest",t:0,dx:0,dy:0,fx:0,fy:0,frot:0,target:-1};
+  S.cal={x:CAL_HOME.x,y:CAL_HOME.y,rot:CAL_HOME.rot,mode:"rest",t:0,dx:0,dy:0,fx:0,fy:0,target:-1,bt:0,bx:0,by:0,hx:0,hy:0};
+  JARS.forEach(J=>J.badgeHot=null);
+  n.mag.classList.remove("on");
+  n.hint.textContent="Pour hot water on a lid, then measure it";
+  setCursor();
+});
+
+window.__jar={
+  torqueCold:T_COLD, torqueHot:T_HOT, torqueGrip:T_GRIP,
+  clearanceGain_um:GAIN_RADIAL*1e6, interference_um:DELTA*1e6, jamCleared:JAM_CLEARED,
+  ceilingCold:T_GRIP/T_COLD, ceilingHot:T_GRIP/T_HOT,
+  alphaDT:ALPHA_DT, diameters_cm:JAR_D.map(d=>d*100),
+  temps:{cold:T_COOL,warm:T_WARM,dT:DT_LID}, noMeasure:NO_MEASURE,
+  badges:()=>JARS.map(J=>[J.badge.textContent,J.gbadge.textContent]), bouncing:()=>S.cal.bt>0,
+  diameter_cm:i=>dia_cm(i), growth_um:i=>grow_um(i),
+  hot:()=>S.hot.slice(), jugMode:()=>S.jug.mode, jugTarget:()=>S.jug.target,
+  calTarget:()=>S.cal.target, calMode:()=>S.cal.mode, pourTarget:()=>pourTarget()
+};
+
+/* ═══════════════════════════════════════════════════════════════════
+   7 · THE TABLE AND THE CALCULATOR
+   ═══════════════════════════════════════════════════════════════════ */
+
+const cells=[];
+for(let r=0;r<4;r++) for(let c=0;c<4;c++) cells.push($("c"+r+c));
+
+/* What the class is handed, and what it has to work out.
+   Every reading for the 7, 8 and 9 cm lids is given. Left blank:
+   the whole ratio column, and the 12 cm lid's hot diameter and
+   net expansion — which only the ratio can get you to.            */
+const GIVEN={
+  "00":"7.00000",  "01":"7.00252",  "02":"0.00252",
+  "10":"8.00000",  "11":"8.00288",  "12":"0.00288",
+  "20":"9.00000",  "21":"9.00324",  "22":"0.00324",
+  "30":"12.00000"
+};
+function resetTable(){
+  cells.forEach((el,i)=>{
+    const g=GIVEN[Math.floor(i/4)+""+(i%4)];
+    el.value = g===undefined ? "" : g;
+    el.readOnly = g!==undefined;
+    el.classList.toggle("given", g!==undefined);
+  });
+}
+resetTable();
+
+const calc=$("calc"), calcBtn=$("calcBtn"), disp=$("calcDisp");
+let cur="0", acc=null, pend=null, fresh=true;
+
+/* trim the floating-point fuzz: 7.0025 - 7 must read 0.0025, not 0.0024999999 */
+const fmt=v=>!isFinite(v) ? "Error" : String(parseFloat(v.toPrecision(12)));
+const apply=(a,b,o)=> o==="+"?a+b : o==="-"?a-b : o==="*"?a*b : a/b;
+
+function show(){
+  disp.textContent=cur;
+  disp.style.fontSize = cur.length>13 ? "17px" : cur.length>10 ? "21px" : "25px";
+}
+function key(k){
+  if(k>="0"&&k<="9"){ cur=(fresh||cur==="0")?k:cur+k; fresh=false; }
+  else if(k==="."){ if(fresh){cur="0."; fresh=false;} else if(!cur.includes(".")) cur+="."; }
+  else if(k==="C"){ cur="0"; acc=null; pend=null; fresh=true; }
+  else if(k==="back"){ cur=(cur.length>1)?cur.slice(0,-1):"0"; if(cur==="-")cur="0"; }
+  else if(k==="="){ if(pend!==null){ cur=fmt(apply(acc,parseFloat(cur),pend)); acc=null; pend=null; fresh=true; } }
+  else { if(pend!==null&&!fresh){ acc=apply(acc,parseFloat(cur),pend); cur=fmt(acc); }
+         else acc=parseFloat(cur);
+         pend=k; fresh=true; }
+  show();
+}
+$("calcKeys").addEventListener("pointerdown",e=>{
+  const b=e.target.closest("button"); if(!b) return;
+  e.preventDefault(); key(b.dataset.k);
+});
+
+/* park it directly under the table, measured — so the two can never overlap */
+function placeCalc(){
+  const r=$("tbl").getBoundingClientRect();
+  calc.style.top=Math.round(r.bottom+16)+"px";
+}
+function toggleCalc(on){
+  calc.classList.toggle("on",on);
+  calcBtn.classList.toggle("on",on);
+  calcBtn.setAttribute("aria-pressed",on?"true":"false");
+  if(on) placeCalc();
+}
+calcBtn.addEventListener("click",()=>toggleCalc(!calc.classList.contains("on")));
+addEventListener("resize",()=>{ if(calc.classList.contains("on")) placeCalc(); });
+placeCalc();
+
+$("restartBtn").addEventListener("click",()=>{
+  resetTable();
+  cur="0"; acc=null; pend=null; fresh=true; show();
+  toggleCalc(false);
+});
+
+window.__table={
+  cells:()=>cells.map(c=>c.value),
+  blanks:()=>cells.map((c,i)=>c.readOnly?null:i).filter(i=>i!==null),
+  given:()=>cells.filter(c=>c.readOnly).length,
+  set:(i,v)=>{cells[i].value=v;},
+  calcOpen:()=>calc.classList.contains("on"),
+  press:ks=>{ String(ks).split(" ").forEach(k=>key(k)); return disp.textContent; },
+  display:()=>disp.textContent
+};
+})();
+</script>
+</body>
+</html>
