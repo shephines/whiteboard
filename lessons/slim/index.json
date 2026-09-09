@@ -2,11 +2,6 @@
   "slimBase": "https://shephines.github.io/whiteboard/lessons/slim",
   "lessons": [
     {
-      "code": "Heating_Expansion_and_Cooling",
-      "title": "Untitled lesson",
-      "slim": "Heating_Expansion_and_Cooling_slim.json"
-    },
-    {
       "code": "What_Do_We_Do_in_Science",
       "title": "What Do We Do in Science?",
       "slim": "What_Do_We_Do_in_Science_slim.json"
