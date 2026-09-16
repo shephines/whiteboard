@@ -2,9 +2,9 @@
   "slimBase": "https://shephines.github.io/whiteboard/lessons/slim",
   "lessons": [
     {
-      "code": "What_Do_We_Do_in_Science",
-      "title": "What Do We Do in Science?",
-      "slim": "What_Do_We_Do_in_Science_slim.json"
+      "code": "Test",
+      "title": "Test Lesson",
+      "slim": "Test_slim.json"
     }
   ]
 }
