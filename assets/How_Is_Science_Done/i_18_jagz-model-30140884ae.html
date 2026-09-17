@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Aluminum Block Thermal Equilibrium</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0; height: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: linear-gradient(180deg, #eaf4fb 0%, #dcecf7 55%, #cfe4f2 100%);
+    overflow: hidden;
+    position: relative;
+  }
+  #app {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: clamp(370px, 64vh, 545px);
+    overflow: hidden;
+    user-select: none;
+  }
+  #restart-btn {
+    position: fixed;
+    top: 13px; right: 17px;
+    z-index: 30;
+    background: #ffffff;
+    border: 4.5px solid #4fa3d1;
+    color: #1f6a94;
+    font-size: 28.5px;
+    font-weight: 700;
+    padding: 21px 39px;
+    border-radius: 999px;
+    cursor: pointer;
+    box-shadow: 0 4.5px 12px rgba(31,106,148,0.25);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  #restart-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 12px rgba(31,106,148,0.32);
+  }
+  #restart-btn:active { transform: translateY(0) scale(0.97); }
+
+  #floor {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 58px;
+    background:
+      repeating-linear-gradient(135deg,
+        #f4dca6 0px, #f4dca6 10px,
+        #eecf8a 10px, #eecf8a 20px);
+    border-top: 4px solid #d9b56e;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.08) inset;
+  }
+  .shadow {
+    position: absolute;
+    width: 135px;
+    height: 24px;
+    border-radius: 50%;
+    background: radial-gradient(ellipse at center, rgba(30,40,50,0.35) 0%, rgba(30,40,50,0) 72%);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .block {
+    position: absolute;
+    width: 135px;
+    height: 135px;
+    border-radius: 18px;
+    cursor: grab;
+    z-index: 5;
+    box-shadow: 0 9px 21px rgba(0,0,0,0.22), inset 0 3px 6px rgba(255,255,255,0.55), inset 0 -9px 15px rgba(0,0,0,0.12);
+    background-color: #aeb3ba;
+    background-image:
+      linear-gradient(135deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.1) 35%, rgba(0,0,0,0.1) 100%);
+    border: 1.5px solid rgba(0,0,0,0.12);
+    transition: box-shadow 0.15s ease;
+  }
+  .block:active { cursor: grabbing; }
+  .block.dragging {
+    z-index: 15;
+    box-shadow: 0 24px 39px rgba(0,0,0,0.3), inset 0 3px 6px rgba(255,255,255,0.6), inset 0 -9px 15px rgba(0,0,0,0.12);
+  }
+  .block::after {
+    content: "";
+    position: absolute;
+    top: 12px; left: 12px; right: 12px; bottom: 12px;
+    border: 1.5px dashed rgba(255,255,255,0.35);
+    border-radius: 10px;
+    pointer-events: none;
+  }
+
+  .temp-label {
+    position: absolute;
+    z-index: 10;
+    transform: translateX(-50%);
+    font-size: 30px;
+    font-weight: 700;
+    color: #234;
+    background: rgba(255,255,255,0.85);
+    padding: 7.5px 18px;
+    border-radius: 999px;
+    box-shadow: 0 3px 7.5px rgba(0,0,0,0.15);
+    pointer-events: none;
+    white-space: nowrap;
+  }
+
+  .heat-arrow {
+    position: absolute;
+    width: 0; height: 0;
+    border-top: 9px solid transparent;
+    border-bottom: 9px solid transparent;
+    border-left: 16px solid #e0392b;
+    pointer-events: none;
+    z-index: 8;
+    filter: drop-shadow(0 1px 2px rgba(0,0,0,0.35));
+  }
+
+</style>
+</head>
+<body>
+<div id="app">
+  <button id="restart-btn">&#8635; Restart</button>
+  <div id="floor"></div>
+</div>
+
+<script>
+(function(){
+  var app = document.getElementById('app');
+  var BLOCK = 135;
+  var GRAVITY = 0.85;
+  var BOUNCE = 0.28;
+
+  var audioCtx = null;
+  function getAudio(){
+    if (!audioCtx){
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    if (audioCtx.state === 'suspended') audioCtx.resume();
+    return audioCtx;
+  }
+
+  function playPickup(){
+    var ctx = getAudio();
+    var t = ctx.currentTime;
+    var osc = ctx.createOscillator();
+    var gain = ctx.createGain();
+    osc.type = 'triangle';
+    osc.frequency.setValueAtTime(420, t);
+    osc.frequency.exponentialRampToValueAtTime(650, t + 0.06);
+    gain.gain.setValueAtTime(0.0001, t);
+    gain.gain.exponentialRampToValueAtTime(0.12, t + 0.01);
+    gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.09);
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.start(t); osc.stop(t + 0.1);
+  }
+
+  function playThud(intensity){
+    var ctx = getAudio();
+    var t = ctx.currentTime;
+    var vol = Math.max(0.05, Math.min(0.5, intensity/18));
+    var osc = ctx.createOscillator();
+    var gain = ctx.createGain();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(150, t);
+    osc.frequency.exponentialRampToValueAtTime(55, t + 0.14);
+    gain.gain.setValueAtTime(vol, t);
+    gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.22);
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.start(t); osc.stop(t + 0.24);
+
+    var bufSize = Math.floor(ctx.sampleRate * 0.08);
+    var buffer = ctx.createBuffer(1, bufSize, ctx.sampleRate);
+    var data = buffer.getChannelData(0);
+    for (var i=0;i<bufSize;i++){
+      data[i] = (Math.random()*2-1) * (1 - i/bufSize);
+    }
+    var noise = ctx.createBufferSource();
+    noise.buffer = buffer;
+    var nGain = ctx.createGain();
+    nGain.gain.setValueAtTime(vol*0.5, t);
+    nGain.gain.exponentialRampToValueAtTime(0.0001, t + 0.08);
+    var filter = ctx.createBiquadFilter();
+    filter.type = 'lowpass';
+    filter.frequency.value = 900;
+    noise.connect(filter); filter.connect(nGain); nGain.connect(ctx.destination);
+    noise.start(t);
+  }
+
+  function playChime(){
+    var ctx = getAudio();
+    var t = ctx.currentTime;
+    var freqs = [660, 880, 1320];
+    freqs.forEach(function(f, idx){
+      var osc = ctx.createOscillator();
+      var gain = ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(f, t + idx*0.03);
+      gain.gain.setValueAtTime(0.0001, t + idx*0.03);
+      gain.gain.exponentialRampToValueAtTime(0.09, t + idx*0.03 + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.0001, t + idx*0.03 + 0.9);
+      osc.connect(gain); gain.connect(ctx.destination);
+      osc.start(t + idx*0.03); osc.stop(t + idx*0.03 + 0.95);
+    });
+  }
+
+  var initialTemps = [15, 1, 10, 6, 13];
+
+  var blocks = [];
+  var convergedPairs = {};
+  var arrowPool = {};
+  var HEAT_RATE = 0.015;   // per-frame convergence rate
+  var CONVERGE_EPS = 0.03; // close enough to call it equal
+
+  function containerSize(){
+    return { w: app.clientWidth, h: app.clientHeight };
+  }
+
+  function groundTopY(){
+    var floor = document.getElementById('floor');
+    var floorH = floor.offsetHeight;
+    return containerSize().h - floorH - BLOCK;
+  }
+
+  function makeBlockDom(){
+    var wrap = document.createElement('div');
+    var shadowEl = document.createElement('div');
+    shadowEl.className = 'shadow';
+    var blockEl = document.createElement('div');
+    blockEl.className = 'block';
+    var labelEl = document.createElement('div');
+    labelEl.className = 'temp-label';
+    app.appendChild(shadowEl);
+    app.appendChild(blockEl);
+    app.appendChild(labelEl);
+    return { shadowEl: shadowEl, blockEl: blockEl, labelEl: labelEl };
+  }
+
+  function initBlocks(){
+    var size = containerSize();
+    var gY = groundTopY();
+    var n = initialTemps.length;
+    var margin = 40;
+    var usableW = size.w - margin*2 - BLOCK;
+    blocks = [];
+    for (var i=0;i<n;i++){
+      var x = margin + (usableW * i/(n-1));
+      var dom = makeBlockDom();
+      blocks.push({
+        id: i,
+        x: x, y: gY,
+        vx: 0, vy: 0,
+        rotation: 0, angVel: (Math.random()*6-3),
+        temp: initialTemps[i],
+        dragging: false,
+        onGround: true,
+        wasAirborne: false,
+        dom: dom
+      });
+    }
+    convergedPairs = {};
+    clearArrows();
+  }
+
+  function clamp(v,a,b){ return Math.max(a, Math.min(b, v)); }
+
+  function overlapAmount(a1,a2,b1,b2){
+    var lo = Math.max(a1,b1), hi = Math.min(a2,b2);
+    return hi - lo;
+  }
+
+  function isTouching(a,b, margin){
+    var ax1=a.x, ax2=a.x+BLOCK, ay1=a.y, ay2=a.y+BLOCK;
+    var bx1=b.x, bx2=b.x+BLOCK, by1=b.y, by2=b.y+BLOCK;
+    var ox = overlapAmount(ax1-margin, ax2+margin, bx1, bx2);
+    var oy = overlapAmount(ay1-margin, ay2+margin, by1, by2);
+    return ox > 0 && oy > 0;
+  }
+
+  function pairKey(i,j){ return i<j ? i+'-'+j : j+'-'+i; }
+
+  function fmt(n){
+    var r = Math.round(n*10)/10;
+    return (r % 1 === 0) ? r.toFixed(0) : r.toFixed(1);
+  }
+
+  function clearArrows(){
+    for (var k in arrowPool){
+      arrowPool[k].els.forEach(function(el){ el.remove(); });
+    }
+    arrowPool = {};
+  }
+
+  function makeArrowEls(){
+    var els = [];
+    for (var i=0;i<3;i++){
+      var el = document.createElement('div');
+      el.className = 'heat-arrow';
+      app.appendChild(el);
+      els.push(el);
+    }
+    return els;
+  }
+
+  function updateHeatExchange(now){
+    // Find every currently-touching pair and exchange heat continuously,
+    // proportional to how different their temperatures are right now -
+    // this naturally lets chains of 3+ blocks diffuse toward a shared
+    // average over time, with no separate "group" bookkeeping needed.
+    var pairs = [];
+    for (var i=0;i<blocks.length;i++){
+      for (var j=i+1;j<blocks.length;j++){
+        if (isTouching(blocks[i], blocks[j], 2)) pairs.push([i,j]);
+      }
+    }
+
+    var snapshot = blocks.map(function(b){ return b.temp; });
+    var deltas = blocks.map(function(){ return 0; });
+    pairs.forEach(function(p){
+      var i = p[0], j = p[1];
+      var diff = snapshot[j] - snapshot[i];
+      var d = HEAT_RATE * diff;
+      deltas[i] += d;
+      deltas[j] -= d;
+    });
+    blocks.forEach(function(b, idx){ b.temp += deltas[idx]; });
+
+    // Snap pairs that are essentially equal, and play a soft chime once
+    // per pair the first time it settles.
+    var activeKeys = {};
+    pairs.forEach(function(p){
+      var i = p[0], j = p[1];
+      var key = pairKey(i,j);
+      activeKeys[key] = true;
+      var diff = Math.abs(blocks[i].temp - blocks[j].temp);
+      if (diff < CONVERGE_EPS){
+        var avg = (blocks[i].temp + blocks[j].temp) / 2;
+        blocks[i].temp = avg;
+        blocks[j].temp = avg;
+        if (!convergedPairs[key]){
+          convergedPairs[key] = true;
+          playChime();
+        }
+      } else {
+        convergedPairs[key] = false;
+      }
+    });
+    // Forget convergence state for pairs no longer touching, so they can
+    // chime again if they separate and later touch at different temps.
+    for (var k in convergedPairs){
+      if (!activeKeys[k]) delete convergedPairs[k];
+    }
+
+    return pairs;
+  }
+
+  function updateArrows(now, pairs){
+    var activeKeys = {};
+    pairs.forEach(function(p){
+      var i = p[0], j = p[1];
+      var key = pairKey(i,j);
+      if (Math.abs(blocks[i].temp - blocks[j].temp) < CONVERGE_EPS) return;
+      activeKeys[key] = true;
+
+      if (!arrowPool[key]) arrowPool[key] = { els: makeArrowEls() };
+      var hot = blocks[i].temp >= blocks[j].temp ? blocks[i] : blocks[j];
+      var cold = hot === blocks[i] ? blocks[j] : blocks[i];
+
+      var hx = hot.x + BLOCK/2, hy = hot.y + BLOCK/2;
+      var cx = cold.x + BLOCK/2, cy = cold.y + BLOCK/2;
+      var midX = (hx+cx)/2, midY = (hy+cy)/2;
+      var dx = cx-hx, dy = cy-hy;
+      var dist = Math.max(1, Math.sqrt(dx*dx+dy*dy));
+      var ux = dx/dist, uy = dy/dist;
+      var angle = Math.atan2(dy,dx) * 180/Math.PI;
+      var range = 34;
+
+      arrowPool[key].els.forEach(function(el, idx){
+        var phase = ((now/650) + idx/3) % 1;
+        var offset = (phase - 0.5) * range * 2;
+        var ax = midX + ux*offset, ay = midY + uy*offset;
+        var op = Math.sin(phase*Math.PI);
+        el.style.transform = 'translate(' + (ax-16) + 'px,' + (ay-9) + 'px) rotate(' + angle + 'deg)';
+        el.style.opacity = op;
+      });
+    });
+
+    for (var k in arrowPool){
+      if (!activeKeys[k]){
+        arrowPool[k].els.forEach(function(el){ el.remove(); });
+        delete arrowPool[k];
+      }
+    }
+  }
+
+  function resolveCollisions(){
+    for (var iter=0; iter<3; iter++){
+      for (var i=0;i<blocks.length;i++){
+        for (var j=i+1;j<blocks.length;j++){
+          var a = blocks[i], b = blocks[j];
+          if (a.dragging || b.dragging){
+            var dragged = a.dragging ? a : b;
+            var other = a.dragging ? b : a;
+            if (other.dragging) continue;
+            var ox = overlapAmount(dragged.x, dragged.x+BLOCK, other.x, other.x+BLOCK);
+            var oy = overlapAmount(dragged.y, dragged.y+BLOCK, other.y, other.y+BLOCK);
+            if (ox>0 && oy>0 && other.onGround){
+              var dir = (other.x + BLOCK/2) < (dragged.x + BLOCK/2) ? -1 : 1;
+              other.x += dir*ox;
+            }
+          } else if (a.onGround && b.onGround){
+            var ox2 = overlapAmount(a.x, a.x+BLOCK, b.x, b.x+BLOCK);
+            var oy2 = overlapAmount(a.y, a.y+BLOCK, b.y, b.y+BLOCK);
+            if (ox2>0 && oy2>0){
+              var dir2 = a.x < b.x ? -1 : 1;
+              a.x += dir2*ox2/2;
+              b.x -= dir2*ox2/2;
+            }
+          }
+        }
+      }
+    }
+    var size = containerSize();
+    blocks.forEach(function(blk){
+      blk.x = clamp(blk.x, 0, size.w - BLOCK);
+    });
+  }
+
+  function physicsStep(){
+    var gY = groundTopY();
+    blocks.forEach(function(blk){
+      if (blk.dragging) return;
+      blk.wasAirborne = blk.y < gY - 0.5;
+      blk.vy += GRAVITY;
+      blk.y += blk.vy;
+      blk.x += blk.vx;
+      blk.vx *= 0.97;
+      if (blk.y >= gY){
+        var impact = blk.vy;
+        if (blk.wasAirborne && impact > 2){
+          blk.vy = -impact * BOUNCE;
+          blk.angVel = clamp(blk.vx*1.3 + (Math.random()*10-5), -22, 22);
+          playThud(impact);
+        } else {
+          blk.vy = 0;
+        }
+        blk.y = gY;
+        blk.onGround = true;
+      } else {
+        blk.onGround = false;
+      }
+      blk.rotation += blk.angVel;
+      blk.angVel *= 0.94;
+      if (blk.onGround && Math.abs(blk.angVel) < 0.4){
+        var target = Math.round(blk.rotation/90)*90;
+        blk.rotation += (target - blk.rotation)*0.18;
+        if (Math.abs(target-blk.rotation) < 0.3) blk.rotation = target;
+      }
+    });
+    resolveCollisions();
+  }
+
+  function render(){
+    var gY = groundTopY();
+    blocks.forEach(function(blk){
+      var d = blk.dom;
+      d.blockEl.style.transform = 'translate(' + blk.x + 'px,' + blk.y + 'px) rotate(' + blk.rotation + 'deg)';
+      d.blockEl.classList.toggle('dragging', blk.dragging);
+      d.labelEl.style.left = (blk.x + BLOCK/2) + 'px';
+      d.labelEl.style.top = (blk.y - 57) + 'px';
+      d.labelEl.textContent = fmt(blk.temp) + '\u00B0C';
+      var height = Math.max(0, gY - blk.y);
+      var scale = clamp(1 - height/260, 0.35, 1);
+      var opacity = clamp(0.55 - height/500, 0.08, 0.55);
+      d.shadowEl.style.left = (blk.x + BLOCK/2 - 45) + 'px';
+      d.shadowEl.style.top = (gY + BLOCK - 8) + 'px';
+      d.shadowEl.style.transform = 'scale(' + scale + ',' + (scale*0.6) + ')';
+      d.shadowEl.style.opacity = opacity;
+    });
+  }
+
+  function loop(){
+    var now = performance.now();
+    physicsStep();
+    var pairs = updateHeatExchange(now);
+    updateArrows(now, pairs);
+    render();
+    requestAnimationFrame(loop);
+  }
+
+  var activeDrag = null;
+  function attachDrag(blk){
+    blk.dom.blockEl.addEventListener('pointerdown', function(e){
+      blk.dragging = true;
+      blk.vx = 0; blk.vy = 0; blk.angVel = 0;
+      var rect = app.getBoundingClientRect();
+      blk.offsetX = e.clientX - rect.left - blk.x;
+      blk.offsetY = e.clientY - rect.top - blk.y;
+      blk.lastX = e.clientX; blk.lastY = e.clientY; blk.lastT = performance.now();
+      activeDrag = blk;
+      blk.dom.blockEl.setPointerCapture(e.pointerId);
+      playPickup();
+    });
+  }
+
+  app.addEventListener('pointermove', function(e){
+    if (!activeDrag) return;
+    var blk = activeDrag;
+    var rect = app.getBoundingClientRect();
+    var size = containerSize();
+    var gY = groundTopY();
+    var newX = clamp(e.clientX - rect.left - blk.offsetX, 0, size.w - BLOCK);
+    var newY = clamp(e.clientY - rect.top - blk.offsetY, 0, gY);
+    var now = performance.now();
+    var dt = Math.max(1, now - blk.lastT);
+    blk.vx = (newX - blk.x) / dt * 16;
+    blk.vy = (newY - blk.y) / dt * 16;
+    blk.x = newX; blk.y = newY;
+    blk.onGround = (newY >= gY - 1);
+    blk.lastT = now;
+  });
+
+  function releaseDrag(){
+    if (!activeDrag) return;
+    var blk = activeDrag;
+    blk.dragging = false;
+    blk.angVel = clamp(blk.vx*1.4 + (Math.random()*6-3), -22, 22);
+    activeDrag = null;
+  }
+  app.addEventListener('pointerup', releaseDrag);
+  app.addEventListener('pointercancel', releaseDrag);
+
+  function boot(){
+    initBlocks();
+    blocks.forEach(attachDrag);
+    requestAnimationFrame(loop);
+  }
+
+  document.getElementById('restart-btn').addEventListener('click', function(){
+    blocks.forEach(function(blk){
+      blk.dom.shadowEl.remove();
+      blk.dom.blockEl.remove();
+      blk.dom.labelEl.remove();
+    });
+    initBlocks();
+    blocks.forEach(attachDrag);
+  });
+
+  window.addEventListener('resize', function(){
+    var gY = groundTopY();
+    blocks.forEach(function(blk){
+      if (!blk.dragging) blk.y = Math.min(blk.y, gY);
+    });
+  });
+
+  boot();
+
+  /* === Bhanzu Studio Sync Contract === */
+  function getState(){
+    return { blocks: blocks.map(function(b){ return [b.x, b.y, b.rotation, b.temp]; }) };
+  }
+  function setState(d){
+    if (!d || !d.blocks) return;
+    d.blocks.forEach(function(bs, i){
+      if (!blocks[i]) return;
+      blocks[i].x = bs[0]; blocks[i].y = bs[1]; blocks[i].rotation = bs[2]; blocks[i].temp = bs[3];
+      blocks[i].vx = 0; blocks[i].vy = 0; blocks[i].angVel = 0; blocks[i].onGround = true; blocks[i].dragging = false;
+    });
+    render();
+  }
+  window.addEventListener("message", function(e){
+    var d = e.data || {};
+    if (d.type === "getState") parent.postMessage({type:"state", data:getState()}, "*");
+    if (d.type === "setState") setState(d.data);
+  });
+})();
+</script>
+</body>
+</html>
