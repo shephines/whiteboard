@@ -5,6 +5,11 @@
       "code": "How_Is_Science_Done",
       "title": "How Is Science Done?",
       "slim": "How_Is_Science_Done_slim.json"
+    },
+    {
+      "code": "Test",
+      "title": "Test Lesson",
+      "slim": "Test_slim.json"
     }
   ]
 }
