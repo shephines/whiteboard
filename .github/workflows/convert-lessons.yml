@@ -1,0 +1,94 @@
+# .github/workflows/convert-lessons.yml
+# Auto-converts heavy Bhanzu lessons into a slim JSON + per-lesson asset folder.
+#
+# TRIGGER: runs when a lesson under lessons/ changes, when the converter itself
+# changes, or manually from the Actions tab. It does NOT run on its own output
+# (lessons/slim/, assets/), so it cannot loop.
+name: Convert lessons
+
+on:
+  push:
+    paths:
+      - 'lessons/*.json'                        # heavy lessons you drop in
+      - '.github/scripts/bhanzu_convert.py'     # re-run everything when the converter changes
+      - '.github/workflows/convert-lessons.yml'
+  workflow_dispatch:                            # "Run workflow" button — reconverts everything
+    inputs:
+      strict:
+        description: 'Fail the run if any lesson still has embedded media'
+        type: boolean
+        default: false
+
+permissions:
+  contents: write                 # needed to commit the slim JSON + assets back
+
+concurrency:                      # if you push twice fast, cancel the older run
+  group: convert-lessons
+  cancel-in-progress: true
+
+jobs:
+  convert:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+        with:
+          # A commit made with the default GITHUB_TOKEN deliberately does NOT trigger a
+          # Pages rebuild, which is why published lessons used to need a manual nudge.
+          # Add a repo secret named PAGES_PAT (a fine-grained PAT with Contents: write)
+          # and the push below will publish on its own. Without the secret this falls
+          # back to the default token and behaves exactly as before.
+          token: ${{ secrets.PAGES_PAT || github.token }}
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Convert every heavy lesson in lessons/
+        id: convert
+        run: |
+          set -o pipefail
+          python3 .github/scripts/bhanzu_convert.py \
+            --lessons-dir lessons \
+            --repo . \
+            --base-url "https://shephines.github.io/whiteboard/assets" \
+            --slim-dir lessons/slim 2>&1 | tee convert.log
+
+      - name: Summarise the conversion
+        if: always()
+        run: |
+          {
+            echo '## Lesson conversion'
+            echo '```'
+            cat convert.log 2>/dev/null || echo '(no output)'
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Commit slim JSON + assets (only if something changed)
+        run: |
+          git config user.name  "bhanzu-bot"
+          git config user.email "bhanzu-bot@users.noreply.github.com"
+          git add assets lessons/slim
+          if git diff --cached --quiet; then
+            echo "No asset changes to commit."
+          else
+            git commit -m "Auto-convert lessons: slim JSON + assets"
+            # another push may have landed while we were converting
+            git pull --rebase --autostash origin "${GITHUB_REF_NAME}"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
+
+      - name: Fail if any lesson still has embedded media
+        if: always()
+        run: |
+          # The converter warns with "!!" when a lesson still carries inline media or
+          # failed outright. The commit above has already published the good lessons;
+          # this step just makes sure a broken one can't pass quietly.
+          if grep -q '!!' convert.log 2>/dev/null; then
+            echo "::error::A lesson did not convert cleanly — see the summary above."
+            grep '!!' convert.log | sed 's/^/::warning::/'
+            exit 1
+          fi
+          echo "All lessons converted cleanly."
