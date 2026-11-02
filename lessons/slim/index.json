@@ -12,6 +12,11 @@
       "slim": "LP-09_01_01_slim.json"
     },
     {
+      "code": "LP-09_01_02",
+      "title": "Acceleration and Motion Graphs",
+      "slim": "LP-09_01_02_slim.json"
+    },
+    {
       "code": "Test",
       "title": "Test Lesson",
       "slim": "Test_slim.json"
