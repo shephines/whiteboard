@@ -17,11 +17,6 @@
       "slim": "LP-09_01_02_slim.json"
     },
     {
-      "code": "LP-09_01_03",
-      "title": "Equations of Motion",
-      "slim": "LP-09_01_03_slim.json"
-    },
-    {
       "code": "Test",
       "title": "Test Lesson",
       "slim": "Test_slim.json"
