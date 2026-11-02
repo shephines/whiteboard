@@ -22,6 +22,11 @@
       "slim": "LP-09_01_03_slim.json"
     },
     {
+      "code": "LP-09_01_04",
+      "title": "Uniform Circular Motion",
+      "slim": "LP-09_01_04_slim.json"
+    },
+    {
       "code": "Test",
       "title": "Test Lesson",
       "slim": "Test_slim.json"
