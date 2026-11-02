@@ -7,6 +7,11 @@
       "slim": "How_Is_Science_Done_slim.json"
     },
     {
+      "code": "LP-09_01_01",
+      "title": "Distance, Displacement, Speed and Velocity",
+      "slim": "LP-09_01_01_slim.json"
+    },
+    {
       "code": "Test",
       "title": "Test Lesson",
       "slim": "Test_slim.json"
