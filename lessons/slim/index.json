@@ -27,6 +27,11 @@
       "slim": "LP-09_01_04_slim.json"
     },
     {
+      "code": "LP-09_02_01",
+      "title": "Forces, Friction and Newton's First Law",
+      "slim": "LP-09_02_01_slim.json"
+    },
+    {
       "code": "Test",
       "title": "Test Lesson",
       "slim": "Test_slim.json"
