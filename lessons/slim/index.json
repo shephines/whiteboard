@@ -42,6 +42,11 @@
       "slim": "LP-10_02_02_slim.json"
     },
     {
+      "code": "LP-10_02_03",
+      "title": "Salts and Their Uses",
+      "slim": "LP-10_02_03_slim.json"
+    },
+    {
       "code": "Test",
       "title": "Test Lesson",
       "slim": "Test_slim.json"
