@@ -47,6 +47,11 @@
       "slim": "LP-10_02_03_slim.json"
     },
     {
+      "code": "LP-10_03_01",
+      "title": "Properties and the Reactivity Series",
+      "slim": "LP-10_03_01_slim.json"
+    },
+    {
       "code": "Test",
       "title": "Test Lesson",
       "slim": "Test_slim.json"
