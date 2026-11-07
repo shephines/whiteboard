@@ -37,6 +37,11 @@
       "slim": "LP-10_01_01_slim.json"
     },
     {
+      "code": "LP-10_02_02",
+      "title": "pH and Its Importance",
+      "slim": "LP-10_02_02_slim.json"
+    },
+    {
       "code": "Test",
       "title": "Test Lesson",
       "slim": "Test_slim.json"
