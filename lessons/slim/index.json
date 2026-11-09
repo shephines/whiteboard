@@ -37,6 +37,11 @@
       "slim": "LP-09_02_02_slim.json"
     },
     {
+      "code": "LP-09_02_03",
+      "title": "Newton's Third Law",
+      "slim": "LP-09_02_03_slim.json"
+    },
+    {
       "code": "LP-10_01_01",
       "title": "Writing and Balancing Equations; Combination and Decomposition",
       "slim": "LP-10_01_01_slim.json"
