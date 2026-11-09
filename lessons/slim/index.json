@@ -47,6 +47,11 @@
       "slim": "LP-10_01_01_slim.json"
     },
     {
+      "code": "LP-10_01_02",
+      "title": "Displacement, Double Displacement and Redox Reactions",
+      "slim": "LP-10_01_02_slim.json"
+    },
+    {
       "code": "LP-10_02_02",
       "title": "pH and Its Importance",
       "slim": "LP-10_02_02_slim.json"
