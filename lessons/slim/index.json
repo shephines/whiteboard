@@ -92,6 +92,11 @@
       "slim": "LP-10_03_02_slim.json"
     },
     {
+      "code": "LP-10_04_01",
+      "title": "Covalent Bonding and the Versatile Carbon",
+      "slim": "LP-10_04_01_slim.json"
+    },
+    {
       "code": "Test",
       "title": "Test Lesson",
       "slim": "Test_slim.json"
