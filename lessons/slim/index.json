@@ -52,6 +52,11 @@
       "slim": "LP-09_03_02_slim.json"
     },
     {
+      "code": "LP-09_03_03",
+      "title": "Simple Machines",
+      "slim": "LP-09_03_03_slim.json"
+    },
+    {
       "code": "LP-10_01_01",
       "title": "Writing and Balancing Equations; Combination and Decomposition",
       "slim": "LP-10_01_01_slim.json"
