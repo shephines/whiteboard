@@ -102,6 +102,11 @@
       "slim": "LP-10_04_01_slim.json"
     },
     {
+      "code": "LP-10_04_02",
+      "title": "Hydrocarbons, Functional Groups and Naming",
+      "slim": "LP-10_04_02_slim.json"
+    },
+    {
       "code": "Test",
       "title": "Test Lesson",
       "slim": "Test_slim.json"
