@@ -107,6 +107,11 @@
       "slim": "LP-10_04_02_slim.json"
     },
     {
+      "code": "LP-10_04_03",
+      "title": "Reactions, Ethanol, Ethanoic Acid and Soaps",
+      "slim": "LP-10_04_03_slim.json"
+    },
+    {
       "code": "Test",
       "title": "Test Lesson",
       "slim": "Test_slim.json"
