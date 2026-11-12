@@ -42,6 +42,11 @@
       "slim": "LP-09_02_03_slim.json"
     },
     {
+      "code": "LP-09_03_01",
+      "title": "Work and Kinetic Energy",
+      "slim": "LP-09_03_01_slim.json"
+    },
+    {
       "code": "LP-09_03_02",
       "title": "Potential Energy, Conservation of Energy and Power",
       "slim": "LP-09_03_02_slim.json"
