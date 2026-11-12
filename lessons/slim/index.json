@@ -57,6 +57,11 @@
       "slim": "LP-09_03_03_slim.json"
     },
     {
+      "code": "LP-09_04_01",
+      "title": "Sound as a Longitudinal Wave",
+      "slim": "LP-09_04_01_slim.json"
+    },
+    {
       "code": "LP-10_01_01",
       "title": "Writing and Balancing Equations; Combination and Decomposition",
       "slim": "LP-10_01_01_slim.json"
@@ -90,11 +95,6 @@
       "code": "LP-10_03_02",
       "title": "Ionic Compounds, Extraction and Corrosion",
       "slim": "LP-10_03_02_slim.json"
-    },
-    {
-      "code": "LP-10_04_01",
-      "title": "Covalent Bonding and the Versatile Carbon",
-      "slim": "LP-10_04_01_slim.json"
     },
     {
       "code": "LP-10_04_02",
