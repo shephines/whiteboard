@@ -67,6 +67,11 @@
       "slim": "LP-09_04_02_slim.json"
     },
     {
+      "code": "LP-09_05_01",
+      "title": "Types of Mixtures",
+      "slim": "LP-09_05_01_slim.json"
+    },
+    {
       "code": "LP-09_05_02",
       "title": "Concentration and Solubility",
       "slim": "LP-09_05_02_slim.json"
